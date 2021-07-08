@@ -1,5 +1,7 @@
 # com.unity.cv.datasetvisualizer
 
+This tool allows you to visualizer datasets created by Unity.
+
 ## Installation
 
 * If you do not have Conda installed on your computer, install Conda. We recommend [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
@@ -19,7 +21,7 @@ conda activate dv_env
 
 ```bash
 git clone https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.git
-cd datasetvisualizer
+cd com.unity.cv.datasetvisualizer/datasetvisualizer
 pip install -e .
 ```
 

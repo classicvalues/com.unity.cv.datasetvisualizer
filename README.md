@@ -7,7 +7,7 @@ Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
 
 ## Installation
 
-We recommend using a virtual enviornment to install and run the app. One such environment is Conda.
+We recommend using a virtual enviornment to install and run the app. One way to achieve this is using Conda.
 
 **Step 1:** Create a virtual environment (skip to step 2 if you are setting up a virtual environment using other methods)
 

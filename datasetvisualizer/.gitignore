@@ -2,7 +2,6 @@
 scratch.py
 
 # pytest-html
-*.html
 
 # test results folder
 test-results/

@@ -33,7 +33,7 @@ def preview(args):
     else:
         args = [args.data]
         # _config.set_option("server.headless", True)
-        streamlit.bootstrap.run(filename, "", args)
+        streamlit.bootstrap.run(filename, "", args, None)
 
 
 def main():
@@ -41,7 +41,7 @@ def main():
     if args.subcommand is None:
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "preview.py")
-        streamlit.bootstrap.run(filename, "", ['.'])
+        streamlit.bootstrap.run(filename, "", ['.'], None)
     else:
         args.func(args)
 

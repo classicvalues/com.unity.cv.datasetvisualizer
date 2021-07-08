@@ -1,10 +1,17 @@
 # com.unity.cv.datasetvisualizer
 
-This tool allows you to visualizer datasets created by Unity.
+This Python based tool allows you to visualize datasets created using Unity Computer Vision tools.
+
+## Requirements
+Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
 
 ## Installation
 
-* If you do not have Conda installed on your computer, install Conda. We recommend [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+We recommend using a virtual enviornment to install and run the app. One such environment is Conda.
+
+**Step 1:** Create a virtual environment (skip to step 2 if you are setting up a virtual environment using other methods)
+
+* Install Conda if you do not already have it installed on your computer. We recommend [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 
 * Once Conda is installed: 
   * On Mac OS, open a new terminal window.
@@ -16,8 +23,9 @@ This tool allows you to visualizer datasets created by Unity.
 conda create -n dv_env python=3.7
 conda activate dv_env
 ```
+**Step 2:** Install application
 
-* Clone this github repo and install
+Use the following commands to clone this Github repository and install the visualizer.
 
 ```bash
 git clone https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.git
@@ -27,11 +35,12 @@ pip install -e .
 
 ## Running the visualizer
 
+From the same folder where you ran the installation command, run:
+
 ```bash
 datasetvisualizer
 ```
 
+This command may take a few seconds to execute. Once it is done, your browser will automatically open to `http://localhost:8501/` and display the application. If that does not happen, open a new browser tab and manually navigate to that address.
 
-# Converting to public repository
-Any and all Unity software of any description (including components) (1) whose source is to be made available other than under a Unity source code license or (2) in respect of which a public announcement is to be made concerning its inner workings, may be licensed and released only upon the prior approval of Legal.
-The process for that is to access, complete, and submit this [FORM](https://docs.google.com/forms/d/e/1FAIpQLSe3H6PARLPIkWVjdB_zMvuIuIVtrqNiGlEt1yshkMCmCMirvA/viewform).
+Once in the application, you will be prompted to select a dataset folder. Click ***Change Dataset*** at the left side of the screen and then select the root folder of your Unity Computer Vision dataset.

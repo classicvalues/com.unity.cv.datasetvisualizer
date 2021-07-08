@@ -102,8 +102,9 @@ def preview_dataset(base_dataset_dir: str):
             #data_root = os.path.join(base_dataset_dir, dataset_name)
             ann_def, metric_def, cap = load_perception_dataset(data_root)
             if ann_def is None:
-                st.error(
-                    "The folder you selected is not a valid dataset folder, make sure you select the parent folder of the dataset")
+                st.markdown("# Please select a valid dataset folder:")
+                if st.button("Select dataset folder"):
+                    folder_select(session_state)
                 return
 
             st.sidebar.markdown("# Visualize Labelers")
@@ -252,13 +253,13 @@ def grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labe
     cols = st.beta_columns(num_cols)
     containers = [None]*(num_cols*num_rows)
     for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
-        containers[i] = cols[(i - (start_at % num_cols)) % num_cols].beta_container()
+        containers[i - start_at] = cols[(i - (start_at % num_cols)) % num_cols].beta_container()
         # container.write("Frame #" + str(i))
-        with containers[i]:
+        with containers[i - start_at]:
             components.html(
                 """<p style="margin-top:35px;margin-bottom:0px;font-family:IBM Plex Sans, sans-serif"></p>""",
                 height=35)
-        expand_image = containers[i].button(label="Expand Frame", key="exp" + str(i))
+        expand_image = containers[i - start_at].button(label="Expand Frame", key="exp" + str(i))
         if expand_image:
             session_state.image = i
             st.experimental_rerun()
@@ -266,7 +267,7 @@ def grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labe
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
         image = get_image_with_labelers(i, ann_def, metric_def, cap, data_root, labelers)
-        containers[i].image(image, caption=str(i), use_column_width=True)
+        containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
 def zoom(index, ann_def, metric_def, cap, data_root, session_state, labelers, dataset_path):

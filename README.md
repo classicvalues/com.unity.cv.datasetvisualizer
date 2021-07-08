@@ -15,9 +15,10 @@ conda create -n dv_env python=3.7
 conda activate dv_env
 ```
 
-* Clone this github repo
+* Clone this github repo and install
 
 ```bash
+git clone https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.git
 cd datasetvisualizer
 pip install -e .
 ```

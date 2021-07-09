@@ -14,7 +14,7 @@ from PIL.ImageDraw import ImageDraw
 
 def cleanup(catalog, data_root):
     catalog = remove_captures_with_missing_files(data_root, catalog)
-    catalog = remove_captures_without_bboxes(catalog)
+    # catalog = remove_captures_without_bboxes(catalog)
     return catalog
 
 

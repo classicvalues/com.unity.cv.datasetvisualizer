@@ -271,7 +271,7 @@ def grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labe
 
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
-        image = get_image_with_labelers(i, ann_def, metric_def, cap, data_root, labelers)
+        image = get_image_with_labelers(i, ann_def, metric_def, cap, data_root, labelers, max_size=(6-num_cols)*150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
@@ -328,7 +328,7 @@ def preview_app(args):
 
 if __name__ == "__main__":
     #removes the default zoom button on images
-    st.markdown('<style>button.css-9eqr5v{display: none}</style>', unsafe_allow_html=True)
+    st.markdown('<style>button.css-enefr8{display: none}</style>', unsafe_allow_html=True)
     try: 
         parser = argparse.ArgumentParser()
         parser.add_argument("data", type=str)

@@ -7,7 +7,7 @@ setup(
     description="Visualizer for unity perception package for synthetic datasets",
     author="Unity Technologies",
     packages=find_packages(),
-    python_requires=">=3.7",
+    python_requires=">=3.7,!=3.9.*",
     install_requires=[
         "Pillow>=8.1.0",
         "streamlit==0.83.0",

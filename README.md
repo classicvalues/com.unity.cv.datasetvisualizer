@@ -32,7 +32,7 @@ Use the following commands to clone this Github repository and install the visua
 
 ```bash
 git clone https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.git
-cd com.unity.cv.datasetvisualizer/datasetvisualizer
+cd com.unity.cv.datasetvisualizer/Unity_CV_DatasetVisualizer
 pip install -e .
 ```
 

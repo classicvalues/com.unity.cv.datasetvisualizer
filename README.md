@@ -1,4 +1,4 @@
-# com.unity.cv.datasetvisualizer
+# Unity Computer Vision Dataset Visualizer
 
 This Python based tool allows you to visualize datasets created using Unity Computer Vision tools.
 

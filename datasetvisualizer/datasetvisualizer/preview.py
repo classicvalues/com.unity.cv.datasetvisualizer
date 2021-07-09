@@ -100,6 +100,7 @@ def preview_dataset(base_dataset_dir: str):
         if dataset_name is not None:
             data_root = os.path.abspath(dataset_name)
             #data_root = os.path.join(base_dataset_dir, dataset_name)
+            
             ann_def, metric_def, cap = load_perception_dataset(data_root)
             if ann_def is None:
                 st.markdown("# Please select a valid dataset folder:")
@@ -144,6 +145,10 @@ def preview_dataset(base_dataset_dir: str):
             else:
                 num_rows = 5
                 grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labelers)
+        else:
+            st.markdown("# Please select a valid dataset folder:")
+            if st.button("Select dataset folder"):
+                folder_select(session_state)
 
 
 def get_annotation_def(ann_def, name):
@@ -318,17 +323,16 @@ def preview_app(args):
     :param args: Arguments for the app, such as dataset
     :type args: Namespace
     """
-    if args.data is not None:
-        preview_dataset(args.data)
-    else:
-        ValueError("Please use a valid path")
+    preview_dataset(args.data)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("data", type=str)
-    args = parser.parse_args()
-
-    # remove the default zoom in button for images
+    #removes the default zoom button on images
     st.markdown('<style>button.css-9eqr5v{display: none}</style>', unsafe_allow_html=True)
-    preview_app(args)
+    try: 
+        parser = argparse.ArgumentParser()
+        parser.add_argument("data", type=str)
+        args = parser.parse_args()
+        preview_app(args)
+    except Exception:
+        preview_app(None)

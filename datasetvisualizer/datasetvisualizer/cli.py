@@ -41,7 +41,7 @@ def main():
     if args.subcommand is None:
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "preview.py")
-        streamlit.bootstrap.run(filename, "", ['.'], None)
+        streamlit.bootstrap.run(filename, "", {"data": ""}, None)
     else:
         args.func(args)
 

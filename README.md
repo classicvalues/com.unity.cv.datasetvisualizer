@@ -38,7 +38,7 @@ pip install -e .
 
 ## Running the visualizer
 
-From the same folder where you ran the installation command, run:
+Run the command:
 
 ```bash
 datasetvisualizer

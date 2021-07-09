@@ -29,7 +29,7 @@ We will now create a virtual environment named "dv_env" using Conda, and activat
 
 == Step 2 ==
 
-Navigate to the folder named "datasetvisualizer" in this bundle and run:
+Navigate to the folder named "Unity CV Dataset Visualizer" and run:
 
 "pip install -e ."
 

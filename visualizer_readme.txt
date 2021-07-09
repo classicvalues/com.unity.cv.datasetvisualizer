@@ -8,6 +8,8 @@ For the latest version of the application and its documentation, visit our Githu
 
 - Windows 10 or OSX
 
+- Chrome, Firefox, or Safari 14 and newer (Older versions of Safari are not supported)
+
 - Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
 
 - We recommend using a virtual enviornment to install and run the app. One way to achieve this is using Conda.
@@ -29,7 +31,7 @@ We will now create a virtual environment named "dv_env" using Conda, and activat
 
 == Step 2 ==
 
-Navigate to the folder named "Unity CV Dataset Visualizer" and run:
+Navigate to the folder named "Unity_CV_DatasetVisualizer" and run:
 
 "pip install -e ."
 

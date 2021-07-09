@@ -5,7 +5,7 @@ This Python based tool allows you to visualize datasets created using Unity Comp
 ## Requirements
 
 * Windows 10 or OSX
-
+* Chrome, Firefox, or Safari 14 and newer (Older versions of Safari are not supported)
 * Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
 
 ## Installation

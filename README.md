@@ -3,7 +3,10 @@
 This Python based tool allows you to visualize datasets created using Unity Computer Vision tools.
 
 ## Requirements
-Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
+
+* Windows 10 or OSX
+
+* Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
 
 ## Installation
 

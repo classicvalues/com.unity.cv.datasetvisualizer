@@ -50,5 +50,5 @@ Once in the application, you will be prompted to select a dataset folder. Click 
 
 ## Known issues
 
-* The tool cannot open a dataset that has no labelers
+* The tool cannot open a dataset that has no labeler data (bounding boxes, semantic segmentation, etc.)
 * On Windows: a warning appears when launching the app (This can be ignored)

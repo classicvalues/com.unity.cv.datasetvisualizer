@@ -35,7 +35,7 @@ Navigate to the folder named "datasetvisualizer" in this bundle and run:
 
 === Running the visualizer ===
 
-From the same folder where you ran the installation command, run:
+Run the command:
 
 "datasetvisualizer"
 

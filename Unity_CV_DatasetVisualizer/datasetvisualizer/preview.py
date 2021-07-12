@@ -9,7 +9,7 @@ from typing import List, Tuple
 import streamlit as st
 from pandas import Series
 
-import SessionState
+# import SessionState
 import PIL.Image as Image
 import streamlit.components.v1 as components
 
@@ -58,6 +58,11 @@ def load_perception_dataset(data_root: str) -> Tuple:
         return None, None, None
 
 
+def create_session_state_data(attribute_values):
+    for key in attribute_values:
+        if key not in st.session_state:
+            st.session_state[key] = attribute_values[key]
+
 def preview_dataset(base_dataset_dir: str):
     """
     Adds streamlit components to the app to construct the dataset preview.
@@ -66,15 +71,25 @@ def preview_dataset(base_dataset_dir: str):
     :type str:
     """
 
-    session_state = SessionState.get(image='-1', start_at='0', num_cols='3', current_page='main',
-                                     curr_dir=base_dataset_dir)
-    base_dataset_dir = session_state.curr_dir
+    # session_state = SessionState.get(image='-1', start_at='0', num_cols='3', current_page='main',
+    #                                 curr_dir=base_dataset_dir, labelers={})
+    
+    create_session_state_data({
+        'image': '-1',
+        'start_at': '0',
+        'num_cols': '3',
+        'current_page': 'main',
+        'curr_dir': base_dataset_dir,
+        'segmentation_checked': 'False'
+    })
+    
+    base_dataset_dir = st.session_state.curr_dir
 
     # st.sidebar.markdown("# Select Project")
     # if st.sidebar.button("Change project folder"):
     #     folder_select(session_state)
 
-    if session_state.current_page == 'main':
+    if st.session_state.current_page == 'main':
         # st.sidebar.markdown("# Select Dataset")
         # datasets = list_datasets(base_dataset_dir)
         # if len(datasets) == 0:
@@ -86,7 +101,7 @@ def preview_dataset(base_dataset_dir: str):
         # )
         st.sidebar.markdown("# Select Dataset")
         if st.sidebar.button("Change Dataset"):
-            folder_select(session_state)
+            folder_select()
 
         dataset_name = base_dataset_dir
         st.sidebar.markdown("## Current dataset:")
@@ -105,7 +120,7 @@ def preview_dataset(base_dataset_dir: str):
             if ann_def is None:
                 st.markdown("# Please select a valid dataset folder:")
                 if st.button("Select dataset folder"):
-                    folder_select(session_state)
+                    folder_select()
                 return
 
             st.sidebar.markdown("# Visualize Labelers")
@@ -114,24 +129,29 @@ def preview_dataset(base_dataset_dir: str):
 
             labelers = {}
             if 'bounding box' in available_labelers:
-                labelers['bounding box'] = st.sidebar.checkbox("Bounding Boxes 2D", key="bb2d")
+                labelers['bounding box'] = st.sidebar.checkbox("Bounding Boxes 2D", False, key="bb2d")
             if 'bounding box 3D' in available_labelers:
-                labelers['bounding box 3D'] = st.sidebar.checkbox("Bounding Boxes 3D", key="bb2d")
+                labelers['bounding box 3D'] = st.sidebar.checkbox("Bounding Boxes 3D", False, key="bb3d")
             if 'keypoints' in available_labelers:
-                labelers['keypoints'] = st.sidebar.checkbox("Key Points", key="kp")
+                labelers['keypoints'] = st.sidebar.checkbox("Key Points", False, key="kp")
             if 'instance segmentation' in available_labelers and 'semantic segmentation' in available_labelers:
-                if st.sidebar.checkbox('Segmentation'):
+                if st.sidebar.checkbox('Segmentation', st.session_state.segmentation_checked == 'True', key="seg"):
                     selected_segmentation = st.sidebar.radio("Select the segmentation type:",
                                                              ['Semantic Segmentation', 'Instance Segmentation'],
-                                                             index=0)
+                                                             index=0, key="rb_seg")
                     if selected_segmentation == 'Semantic Segmentation':
                         labelers['semantic segmentation'] = True
                     elif selected_segmentation == 'Instance Segmentation':
                         labelers['instance segmentation'] = True
+                    st.session_state.segmentation_checked = 'True'
             elif 'semantic segmentation' in available_labelers:
-                labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation", key="ss")
+                labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation", False, key="ss")
+                st.session_state.segmentation_checked = 'False'
             elif 'instance segmentation' in available_labelers:
-                labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation", key="is")
+                labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation", False, key="is")
+                st.session_state.segmentation_checked = 'False'
+            else:
+                st.session_state.segmentation_checked = 'False'            
 
             # st.sidebar.markdown("# Filter Captures")
             # st.sidebar.write("Coming soon")
@@ -139,16 +159,16 @@ def preview_dataset(base_dataset_dir: str):
             # st.sidebar.markdown("# Highlight Classes")
             # st.sidebar.write("Coming soon")
 
-            index = int(session_state.image)
+            index = int(st.session_state.image)
             if index >= 0:
-                zoom(index, ann_def, metric_def, cap, data_root, session_state, labelers, data_root)
+                zoom(index, ann_def, metric_def, cap, data_root, labelers, data_root)
             else:
                 num_rows = 5
-                grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labelers)
+                grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers)
         else:
             st.markdown("# Please select a valid dataset folder:")
             if st.button("Select dataset folder"):
-                folder_select(session_state)
+                folder_select()
 
 
 def get_annotation_def(ann_def, name):
@@ -223,7 +243,7 @@ def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers
     return image
 
 
-def folder_select(session_state):
+def folder_select():
     output = subprocess.run(
         [sys.executable, os.path.join(os.path.dirname(os.path.realpath(__file__)), "helpers/folder_explorer.py")],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
@@ -235,23 +255,23 @@ def folder_select(session_state):
         stdout = stdout[:-2]
     proj_root = stdout.replace("\\", "/") + "/"
 
-    session_state.curr_dir = proj_root
+    st.session_state.curr_dir = proj_root
     st.experimental_rerun()
 
 
-def grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labelers):
+def grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers):
     header = st.beta_columns([2 / 3, 1 / 3])
 
     num_cols = header[1].slider(label="Frames per row: ", min_value=1, max_value=5, step=1,
-                                value=int(session_state.num_cols))
-    if not num_cols == session_state.num_cols:
-        session_state.num_cols = num_cols
+                                value=int(st.session_state.num_cols))
+    if not num_cols == st.session_state.num_cols:
+        st.session_state.num_cols = num_cols
         st.experimental_rerun()
 
     with header[0]:
-        start_at = cc.item_selector(int(session_state.start_at), num_cols * num_rows,
-                                    len(cap.captures.to_dict('records')))
-        session_state.start_at = start_at
+        start_at = int(cc.item_selector(int(st.session_state.start_at), num_cols * num_rows,
+                                    len(cap.captures.to_dict('records'))))
+        st.session_state.start_at = start_at
 
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=10)
 
@@ -266,7 +286,7 @@ def grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labe
                 height=35)
         expand_image = containers[i - start_at].button(label="Expand Frame", key="exp" + str(i))
         if expand_image:
-            session_state.image = i
+            st.session_state.image = i
             st.experimental_rerun()
 
 
@@ -275,17 +295,17 @@ def grid_view(num_rows, ann_def, metric_def, cap, data_root, session_state, labe
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
-def zoom(index, ann_def, metric_def, cap, data_root, session_state, labelers, dataset_path):
+def zoom(index, ann_def, metric_def, cap, data_root, labelers, dataset_path):
     header = st.beta_columns([0.2, 0.6, 0.2])
 
     if header[0].button('< Back to Grid view'):
-        session_state.image = -1
+        st.session_state.image = -1
         st.experimental_rerun()
 
     with header[1]:
         new_index = cc.item_selector_zoom(index, len(cap.captures.to_dict('records')))
         if not new_index == index:
-            session_state.image = new_index
+            st.session_state.image = new_index
             st.experimental_rerun()
 
     image = get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers, max_size=1000)
@@ -323,7 +343,10 @@ def preview_app(args):
     :param args: Arguments for the app, such as dataset
     :type args: Namespace
     """
-    preview_dataset(args.data)
+    # if args is None:
+    #    preview_dataset(None)
+    # else: 
+    preview_dataset(args["data"])
 
 
 if __name__ == "__main__":
@@ -335,4 +358,4 @@ if __name__ == "__main__":
         args = parser.parse_args()
         preview_app(args)
     except Exception:
-        preview_app(None)
+        preview_app({"data": ""})

@@ -12,7 +12,7 @@ For the latest version of the application and its documentation, visit our Githu
 
 - Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
 
-- We recommend using a virtual enviornment to install and run the app. One way to achieve this is using Conda.
+- We recommend using a virtual environment to install and run the app. One way to achieve this is using Conda.
 
 === Installation ===
 

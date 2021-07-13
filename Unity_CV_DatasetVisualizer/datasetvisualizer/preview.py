@@ -13,8 +13,8 @@ from pandas import Series
 import PIL.Image as Image
 import streamlit.components.v1 as components
 
-from datasetinsights_master.datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
-from datasetinsights_master.datasetinsights.datasets.unity_perception.captures import Captures
+from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
+from datasetinsights.datasets.unity_perception.captures import Captures
 import visualization.visualizers as v
 
 st.set_page_config(layout="wide")  # This needs to be the first streamlit command
@@ -191,27 +191,7 @@ def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers
 
     filename = os.path.join(data_root, capture)
     image = Image.open(filename)
-    if 'semantic segmentation' in labelers_to_use and labelers_to_use['semantic segmentation']:
-        semantic_segmentation_definition_id = get_annotation_def(ann_def, 'semantic segmentation')
 
-        seg_captures = cap.filter(def_id=semantic_segmentation_definition_id)
-        seg_filename = os.path.join(data_root, seg_captures.loc[index, "annotation.filename"])
-        seg = Image.open(seg_filename)
-
-        image = v.draw_image_with_segmentation(
-            image, seg
-        )
-
-    if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
-        instance_segmentation_definition_id = get_annotation_def(ann_def, 'instance segmentation')
-
-        inst_captures = cap.filter(def_id=instance_segmentation_definition_id)
-        inst_filename = os.path.join(data_root, inst_captures.loc[index, "annotation.filename"])
-        inst = Image.open(inst_filename)
-
-        image = v.draw_image_with_segmentation(
-            image, inst
-        )
 
     if 'bounding box' in labelers_to_use and labelers_to_use['bounding box']:
         bounding_box_definition_id = get_annotation_def(ann_def, 'bounding box')
@@ -239,6 +219,32 @@ def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers
         image = v.draw_image_with_box_3d(image, sensor, annotations, None)
     
     image.thumbnail((max_size,max_size))
+    if 'semantic segmentation' in labelers_to_use and labelers_to_use['semantic segmentation']:
+        semantic_segmentation_definition_id = get_annotation_def(ann_def, 'semantic segmentation')
+
+        seg_captures = cap.filter(def_id=semantic_segmentation_definition_id)
+        seg_filename = os.path.join(data_root, seg_captures.loc[index, "annotation.filename"])
+        seg = Image.open(seg_filename)
+        seg.thumbnail((max_size,max_size))
+
+        image = v.draw_image_with_segmentation(
+            image, seg
+        )
+
+    if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
+        instance_segmentation_definition_id = get_annotation_def(ann_def, 'instance segmentation')
+
+        inst_captures = cap.filter(def_id=instance_segmentation_definition_id)
+        inst_filename = os.path.join(data_root, inst_captures.loc[index, "annotation.filename"])
+        inst = Image.open(inst_filename)
+        inst.thumbnail((max_size,max_size))
+        
+        image = v.draw_image_with_segmentation(
+            image, inst
+        )
+
+    
+    
 
     return image
 

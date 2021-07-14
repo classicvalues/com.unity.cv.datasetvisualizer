@@ -35,6 +35,7 @@ git clone https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.g
 cd com.unity.cv.datasetvisualizer/Unity_CV_DatasetVisualizer
 pip install -e .
 ```
+> :information_source: On Windows, if you get an error about the system not being able to create a process when running the install command, make sure you have the latest version of Conda installed. Then create a new environment with a new name, and try the install command again.
 
 ## Running the visualizer
 

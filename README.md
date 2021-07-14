@@ -20,10 +20,10 @@ We recommend using a virtual enviornment to install and run the app. One way to 
   * On Mac OS, open a new terminal window.
   * On Windows, you will need to open either Anaconda Prompt or Anaconda Powershell Prompt. These can be found in the Start menu.
 
-* Create a virtual environment named `dv_env` using Conda, and activate it:
+* Create a virtual environment named `dv_env` using Conda, and activate it (use `3.7` or `3.8` for `<python_version>`):
 
 ```bash
-conda create -n dv_env python=3.7
+conda create -n dv_env python=<python_version>
 conda activate dv_env
 ```
 **Step 2:** Install application
@@ -35,6 +35,7 @@ git clone https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.g
 cd com.unity.cv.datasetvisualizer/Unity_CV_DatasetVisualizer
 pip install -e .
 ```
+> :information_source: On Windows, if you get an error about the system not being able to create a process when running the install command, make sure you have the latest version of Conda installed. Then create a new environment with a new name, and try the install command again.
 
 ## Running the visualizer
 

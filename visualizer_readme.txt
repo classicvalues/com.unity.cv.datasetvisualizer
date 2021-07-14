@@ -2,8 +2,6 @@
 
 This Python based tool allows you to visualize datasets created using Unity Computer Vision tools.
 
-For the latest version of the application and its documentation, visit our Github page at https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer
-
 === Requirements === 
 
 - Windows 10 or OSX
@@ -24,9 +22,9 @@ Once Conda is installed:
 - On Mac OS, open a new terminal window.
 - On Windows, you will need to open either Anaconda Prompt or Anaconda Powershell Prompt. These can be found in the Start menu.
 
-We will now create a virtual environment named "dv_env" using Conda, and activate it using the commands:
+We will now create a virtual environment named "dv_env" using Conda, and activate it using the commands (use 3.7 or 3.8 for <python_version>):
 
-"conda create -n dv_env python=3.7"
+"conda create -n dv_env python=<python_version>"
 "conda activate dv_env"
 
 == Step 2 ==
@@ -34,6 +32,8 @@ We will now create a virtual environment named "dv_env" using Conda, and activat
 Navigate to the folder named "Unity_CV_DatasetVisualizer" and run:
 
 "pip install -e ."
+
+Note: On Windows, if you get an error about the system not being able to create a process when running the install command, make sure you have the latest version of Conda installed. Then create a new environment with a new name, and try the install command again.
 
 === Running the visualizer ===
 

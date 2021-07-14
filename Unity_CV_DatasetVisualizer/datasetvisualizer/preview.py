@@ -174,7 +174,7 @@ def preview_dataset(base_dataset_dir: str):
                         folder_select()
                     return
                 
-                st.sidebar.markdown("### Dataset Size: " + str(len(cap.captures.to_dict('records'))))
+                st.sidebar.markdown("### Number of frames: "  + str(len(cap.captures.to_dict('records'))))
     
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
@@ -187,7 +187,7 @@ def preview_dataset(base_dataset_dir: str):
                     num_rows = 5
                     grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers)
             else:
-                st.sidebar.markdown("### Dataset Size: " + str(get_dataset_length_with_instances(instances)))
+                st.sidebar.markdown("### Number of frames: " + str(get_dataset_length_with_instances(instances)))
                 
                 index = int(st.session_state.image)
                 if index >= 0:
@@ -244,7 +244,6 @@ def get_annotation_index(ann_def, name):
 def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers_to_use, max_size=500):
     captures = cap.filter(def_id=ann_def.table.to_dict('records')[0]["id"])
     capture = captures.loc[index, "filename"]
-
     filename = os.path.join(data_root, capture)
     image = Image.open(filename)
 
@@ -382,7 +381,8 @@ def zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, dataset_p
         new_index = cc.item_selector_zoom(index,dataset_size + offset)
         if not new_index == index:
             st.session_state.image = new_index
-            st.experimental_rerun()
+            index = new_index
+            #st.experimental_rerun()
             
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 

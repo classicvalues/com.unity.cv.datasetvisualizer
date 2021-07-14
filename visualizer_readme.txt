@@ -22,9 +22,9 @@ Once Conda is installed:
 - On Mac OS, open a new terminal window.
 - On Windows, you will need to open either Anaconda Prompt or Anaconda Powershell Prompt. These can be found in the Start menu.
 
-We will now create a virtual environment named "dv_env" using Conda, and activate it using the commands:
+We will now create a virtual environment named "dv_env" using Conda, and activate it using the commands (use 3.7 or 3.8 for <python_version>):
 
-"conda create -n dv_env python=3.7"
+"conda create -n dv_env python=<python_version>"
 "conda activate dv_env"
 
 == Step 2 ==

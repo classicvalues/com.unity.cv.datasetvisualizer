@@ -5,6 +5,8 @@ import sys
 import time
 import subprocess
 from typing import List, Tuple
+import re
+import pandas as pd
 
 import streamlit as st
 from pandas import Series
@@ -47,6 +49,24 @@ def list_datasets(path) -> List:
     return datasets
 
 
+def datamaker_dataset(path):
+    instances = {}
+    for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
+        for instance in [g.path for g in os.scandir(app_param) if g.is_dir()]:
+            if re.match(".*instance_[0-9]*", instance):
+                instance_num = int(instance[instance.rfind("instance_")+len("instance_"):])
+                for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
+                    if re.match(".*attempt_[0-9]*", attempt):
+                        ann_def, metric_def, cap = load_perception_dataset(attempt)
+                        if ann_def is not None:
+                            instances[instance_num]= ann_def, metric_def, cap, len(cap.captures.to_dict('records')), attempt
+    
+    if len(instances) > 0:
+        return instances
+    else:
+        return None
+        
+
 @st.cache(show_spinner=True, allow_output_mutation=True)
 def load_perception_dataset(data_root: str) -> Tuple:
     try:
@@ -62,6 +82,35 @@ def create_session_state_data(attribute_values):
     for key in attribute_values:
         if key not in st.session_state:
             st.session_state[key] = attribute_values[key]
+
+def create_sidebar_labeler_menu(available_labelers):
+    st.sidebar.markdown("# Visualize Labelers")
+    labelers = {}
+    if 'bounding box' in available_labelers:
+        labelers['bounding box'] = st.sidebar.checkbox("Bounding Boxes 2D", False, key="bb2d")
+    if 'bounding box 3D' in available_labelers:
+        labelers['bounding box 3D'] = st.sidebar.checkbox("Bounding Boxes 3D", False, key="bb3d")
+    if 'keypoints' in available_labelers:
+        labelers['keypoints'] = st.sidebar.checkbox("Key Points", False, key="kp")
+    if 'instance segmentation' in available_labelers and 'semantic segmentation' in available_labelers:
+        if st.sidebar.checkbox('Segmentation', False, key="seg") and st.session_state.semantic_existed_last_time:
+            selected_segmentation = st.sidebar.radio("Select the segmentation type:",
+                                                     ['Semantic Segmentation', 'Instance Segmentation'],
+                                                     index=0, key="rb_seg")
+            if selected_segmentation == 'Semantic Segmentation':
+                labelers['semantic segmentation'] = True
+            elif selected_segmentation == 'Instance Segmentation':
+                labelers['instance segmentation'] = True
+        st.session_state.semantic_existed_last_time = True
+    elif 'semantic segmentation' in available_labelers:
+        labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation", False, key="ss")
+        st.session_state.semantic_existed_last_time = False
+    elif 'instance segmentation' in available_labelers:
+        labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation", False, key="is")
+        st.session_state.semantic_existed_last_time = False
+    else:
+        st.session_state.semantic_existed_last_time = False
+    return labelers
 
 def preview_dataset(base_dataset_dir: str):
     """
@@ -80,7 +129,7 @@ def preview_dataset(base_dataset_dir: str):
         'num_cols': '3',
         'current_page': 'main',
         'curr_dir': base_dataset_dir,
-        'segmentation_checked': 'False'
+        'semantic_existed_last_time': False
     })
     
     base_dataset_dir = st.session_state.curr_dir
@@ -115,61 +164,70 @@ def preview_dataset(base_dataset_dir: str):
         if dataset_name is not None:
             data_root = os.path.abspath(dataset_name)
             #data_root = os.path.join(base_dataset_dir, dataset_name)
-            
-            ann_def, metric_def, cap = load_perception_dataset(data_root)
-            if ann_def is None:
-                st.markdown("# Please select a valid dataset folder:")
-                if st.button("Select dataset folder"):
-                    folder_select()
-                return
 
-            st.sidebar.markdown("# Visualize Labelers")
+            instances = datamaker_dataset(data_root)
+            if instances is None:
+                ann_def, metric_def, cap = load_perception_dataset(data_root)
+                if ann_def is None:
+                    st.markdown("# Please select a valid dataset folder:")
+                    if st.button("Select dataset folder"):
+                        folder_select()
+                    return
 
-            available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
-
-            labelers = {}
-            if 'bounding box' in available_labelers:
-                labelers['bounding box'] = st.sidebar.checkbox("Bounding Boxes 2D", False, key="bb2d")
-            if 'bounding box 3D' in available_labelers:
-                labelers['bounding box 3D'] = st.sidebar.checkbox("Bounding Boxes 3D", False, key="bb3d")
-            if 'keypoints' in available_labelers:
-                labelers['keypoints'] = st.sidebar.checkbox("Key Points", False, key="kp")
-            if 'instance segmentation' in available_labelers and 'semantic segmentation' in available_labelers:
-                if st.sidebar.checkbox('Segmentation', st.session_state.segmentation_checked == 'True', key="seg"):
-                    selected_segmentation = st.sidebar.radio("Select the segmentation type:",
-                                                             ['Semantic Segmentation', 'Instance Segmentation'],
-                                                             index=0, key="rb_seg")
-                    if selected_segmentation == 'Semantic Segmentation':
-                        labelers['semantic segmentation'] = True
-                    elif selected_segmentation == 'Instance Segmentation':
-                        labelers['instance segmentation'] = True
-                    st.session_state.segmentation_checked = 'True'
-            elif 'semantic segmentation' in available_labelers:
-                labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation", False, key="ss")
-                st.session_state.segmentation_checked = 'False'
-            elif 'instance segmentation' in available_labelers:
-                labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation", False, key="is")
-                st.session_state.segmentation_checked = 'False'
+    
+                available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
+                labelers = create_sidebar_labeler_menu(available_labelers)
+                          
+    
+                # st.sidebar.markdown("# Filter Captures")
+                # st.sidebar.write("Coming soon")
+    
+                # st.sidebar.markdown("# Highlight Classes")
+                # st.sidebar.write("Coming soon")
+    
+                index = int(st.session_state.image)
+                if index >= 0:
+                    zoom(index, ann_def, metric_def, cap, data_root, labelers, data_root)
+                else:
+                    num_rows = 5
+                    grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers)
             else:
-                st.session_state.segmentation_checked = 'False'            
-
-            # st.sidebar.markdown("# Filter Captures")
-            # st.sidebar.write("Coming soon")
-
-            # st.sidebar.markdown("# Highlight Classes")
-            # st.sidebar.write("Coming soon")
-
-            index = int(st.session_state.image)
-            if index >= 0:
-                zoom(index, ann_def, metric_def, cap, data_root, labelers, data_root)
-            else:
-                num_rows = 5
-                grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers)
+                index = int(st.session_state.image)
+                if index >= 0:
+                    ann_def, metric_def, cap, _, data_root = get_instance_by_capture_idx(instances, index)
+                    available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
+                    labelers = create_sidebar_labeler_menu(available_labelers)
+                    zoom(index, ann_def, metric_def, cap, data_root, labelers, data_root)
+                else:
+                    index = st.session_state.start_at
+                    num_rows = 5
+                    ann_def, metric_def, cap, _, data_root = get_instance_by_capture_idx(instances, index)
+                    available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
+                    labelers = create_sidebar_labeler_menu(available_labelers)
+                    grid_view_instances(num_rows, instances, data_root, labelers)
         else:
             st.markdown("# Please select a valid dataset folder:")
             if st.button("Select dataset folder"):
                 folder_select()
 
+def get_instance_by_capture_idx(instances, index):
+    sum = 0
+    keys = list(instances.keys())
+    keys.sort()
+    for key in keys:
+        sum = sum + instances[key][3]
+        if int(index) <= sum - 1:
+            return instances[key][0], instances[key][1], instances[key][2], key, instances[key][4]
+
+def get_dataset_length_with_instances(instances, until_instance=-1):
+    sum = 0
+    keys = list(instances.keys())
+    keys.sort()
+    for key in keys:
+        if 0 <= until_instance <= key:
+            break
+        sum = sum + instances[key][3]
+    return sum
 
 def get_annotation_def(ann_def, name):
     for idx, a in enumerate(ann_def.table.to_dict('records')):
@@ -191,7 +249,6 @@ def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers
 
     filename = os.path.join(data_root, capture)
     image = Image.open(filename)
-
 
     if 'bounding box' in labelers_to_use and labelers_to_use['bounding box']:
         bounding_box_definition_id = get_annotation_def(ann_def, 'bounding box')
@@ -243,9 +300,6 @@ def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers
             image, inst
         )
 
-    
-    
-
     return image
 
 
@@ -264,8 +318,7 @@ def folder_select():
     st.session_state.curr_dir = proj_root
     st.experimental_rerun()
 
-
-def grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers):
+def create_grid_view_controls(num_rows, dataset_size):
     header = st.beta_columns([2 / 3, 1 / 3])
 
     num_cols = header[1].slider(label="Frames per row: ", min_value=1, max_value=5, step=1,
@@ -276,14 +329,16 @@ def grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers):
 
     with header[0]:
         start_at = int(cc.item_selector(int(st.session_state.start_at), num_cols * num_rows,
-                                    len(cap.captures.to_dict('records'))))
+                                        dataset_size))
         st.session_state.start_at = start_at
-
+        
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=10)
+    return num_cols, start_at
 
+def create_grid_containers(num_rows, num_cols, start_at, dataset_size):
     cols = st.beta_columns(num_cols)
     containers = [None]*(num_cols*num_rows)
-    for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
+    for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
         containers[i - start_at] = cols[(i - (start_at % num_cols)) % num_cols].beta_container()
         # container.write("Frame #" + str(i))
         with containers[i - start_at]:
@@ -294,12 +349,27 @@ def grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers):
         if expand_image:
             st.session_state.image = i
             st.experimental_rerun()
+    return containers
 
+def grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers):
+    num_cols, start_at = create_grid_view_controls(num_rows, len(cap.captures.to_dict('records')))
+    
+    containers = create_grid_containers(num_rows, num_cols, start_at, len(cap.captures.to_dict('records')))
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
         image = get_image_with_labelers(i, ann_def, metric_def, cap, data_root, labelers, max_size=(6-num_cols)*150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
+def grid_view_instances(num_rows, instances, data_root, labelers):
+    dataset_size = get_dataset_length_with_instances(instances)
+    num_cols, start_at = create_grid_view_controls(num_rows, dataset_size)
+
+    containers = create_grid_containers(num_rows, num_cols, start_at, dataset_size)
+
+    for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
+        ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, i)
+        image = get_image_with_labelers(i - get_dataset_length_with_instances(instances, instance_key), ann_def, metric_def, cap, data_root, labelers, max_size=(6-num_cols)*150)
+        containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 def zoom(index, ann_def, metric_def, cap, data_root, labelers, dataset_path):
     header = st.beta_columns([0.2, 0.6, 0.2])

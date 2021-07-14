@@ -2,8 +2,6 @@
 
 This Python based tool allows you to visualize datasets created using Unity Computer Vision tools.
 
-For the latest version of the application and its documentation, visit our Github page at https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer
-
 === Requirements === 
 
 - Windows 10 or OSX

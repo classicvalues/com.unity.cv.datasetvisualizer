@@ -1,0 +1,5383 @@
+{
+  "version": "0.0.1",
+  "metrics": [
+    {
+      "capture_id": "74cf3945-7c98-48b8-8d2c-f55f3e1649c2",
+      "annotation_id": null,
+      "sequence_id": "d340fea3-0d38-44f3-b5b4-1b4d61fb98da",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 3
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 2
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 4
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "capture_id": "74cf3945-7c98-48b8-8d2c-f55f3e1649c2",
+      "annotation_id": null,
+      "sequence_id": "d340fea3-0d38-44f3-b5b4-1b4d61fb98da",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 24635
+        },
+        {
+          "label_id": 4,
+          "instance_id": 4,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 223,
+            "a": 255
+          },
+          "visible_pixels": 61500
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 68212
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 27360
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 5936
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 105456
+        },
+        {
+          "label_id": 3,
+          "instance_id": 16,
+          "instance_color": {
+            "r": 96,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 109961
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 24013
+        },
+        {
+          "label_id": 3,
+          "instance_id": 23,
+          "instance_color": {
+            "r": 0,
+            "g": 107,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 45247
+        },
+        {
+          "label_id": 1,
+          "instance_id": 11,
+          "instance_color": {
+            "r": 234,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 48344
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 31093
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 60319
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d3339b44-d6dd-44c1-a893-86b2348ba86e",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 101
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d3339b44-d6dd-44c1-a893-86b2348ba86e",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d3339b44-d6dd-44c1-a893-86b2348ba86e",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.26229202747344971,
+          "color": {
+            "r": 0.97133171558380127,
+            "g": 0.48429074883461,
+            "b": 0.46650433540344238,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 105.42607879638672,
+          "color": {
+            "r": 0.96986550092697144,
+            "g": 0.96223127841949463,
+            "b": 0.95136409997940063,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.52059894800186157,
+          "color": {
+            "r": 0.4355781078338623,
+            "g": 0.80669379234313965,
+            "b": 0.8952142596244812,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 0.78871029615402222,
+          "color": {
+            "r": 0.56086266040802,
+            "g": 0.94323611259460449,
+            "b": 0.92712360620498657,
+            "a": 1.0
+          },
+          "x_rotation": 319.00302124023438,
+          "y_rotation": 43.616985321044922,
+          "z_rotation": 198.10078430175781
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d3339b44-d6dd-44c1-a893-86b2348ba86e",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -6.0712933540344238,
+          "contrast": -4.3643355369567871,
+          "gaussianDofStart": 2.2389922142028809,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "25664400-0850-47b0-944a-93f9d06101c1",
+      "annotation_id": null,
+      "sequence_id": "d3339b44-d6dd-44c1-a893-86b2348ba86e",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 6
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 3
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "25664400-0850-47b0-944a-93f9d06101c1",
+      "annotation_id": null,
+      "sequence_id": "d3339b44-d6dd-44c1-a893-86b2348ba86e",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 8963
+        },
+        {
+          "label_id": 1,
+          "instance_id": 13,
+          "instance_color": {
+            "r": 0,
+            "g": 255,
+            "b": 127,
+            "a": 255
+          },
+          "visible_pixels": 39158
+        },
+        {
+          "label_id": 1,
+          "instance_id": 12,
+          "instance_color": {
+            "r": 202,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 35439
+        },
+        {
+          "label_id": 1,
+          "instance_id": 11,
+          "instance_color": {
+            "r": 234,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 14964
+        },
+        {
+          "label_id": 2,
+          "instance_id": 17,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 171,
+            "a": 255
+          },
+          "visible_pixels": 64304
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 61262
+        },
+        {
+          "label_id": 1,
+          "instance_id": 14,
+          "instance_color": {
+            "r": 255,
+            "g": 53,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8435
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 91878
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 20677
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 69244
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23965
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "750c9c45-2a5f-474f-9931-9f0348d211c5",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 102
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "750c9c45-2a5f-474f-9931-9f0348d211c5",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "750c9c45-2a5f-474f-9931-9f0348d211c5",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.37062186002731323,
+          "color": {
+            "r": 0.52895230054855347,
+            "g": 0.71241861581802368,
+            "b": 0.66190367937088013,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 102.95842742919922,
+          "color": {
+            "r": 0.89483129978179932,
+            "g": 0.71523773670196533,
+            "b": 0.53356599807739258,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.33211088180541992,
+          "color": {
+            "r": 0.74103832244873047,
+            "g": 0.5551532506942749,
+            "b": 0.806900680065155,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.2596192359924316,
+          "color": {
+            "r": 0.40803667902946472,
+            "g": 0.99091112613677979,
+            "b": 0.77700984477996826,
+            "a": 1.0
+          },
+          "x_rotation": 327.66726684570313,
+          "y_rotation": 183.48773193359375,
+          "z_rotation": 157.66548156738281
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "750c9c45-2a5f-474f-9931-9f0348d211c5",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -5.7548117637634277,
+          "contrast": 1.098480224609375,
+          "gaussianDofStart": 2.6315574645996094,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "dbe96cc4-fae4-4cdb-8432-8a68a3b62417",
+      "annotation_id": null,
+      "sequence_id": "750c9c45-2a5f-474f-9931-9f0348d211c5",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 4
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "dbe96cc4-fae4-4cdb-8432-8a68a3b62417",
+      "annotation_id": null,
+      "sequence_id": "750c9c45-2a5f-474f-9931-9f0348d211c5",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 3,
+          "instance_id": 23,
+          "instance_color": {
+            "r": 0,
+            "g": 107,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 3229
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 69568
+        },
+        {
+          "label_id": 3,
+          "instance_id": 16,
+          "instance_color": {
+            "r": 96,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 6813
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 74395
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 91612
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 4262
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "de94a3a2-a59f-4abb-93cd-6aa2b405a2f0",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 103
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "de94a3a2-a59f-4abb-93cd-6aa2b405a2f0",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "de94a3a2-a59f-4abb-93cd-6aa2b405a2f0",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.29011428356170654,
+          "color": {
+            "r": 0.560398519039154,
+            "g": 0.43378940224647522,
+            "b": 0.43360930681228638,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 105.11441802978516,
+          "color": {
+            "r": 0.42531949281692505,
+            "g": 0.7998199462890625,
+            "b": 0.44982394576072693,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.915885329246521,
+          "color": {
+            "r": 0.87484604120254517,
+            "g": 0.58317297697067261,
+            "b": 0.84494376182556152,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.5448780059814453,
+          "color": {
+            "r": 0.92826837301254272,
+            "g": 0.73481988906860352,
+            "b": 0.44221863150596619,
+            "a": 1.0
+          },
+          "x_rotation": 325.09017944335938,
+          "y_rotation": 300.99603271484375,
+          "z_rotation": 318.72796630859375
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "de94a3a2-a59f-4abb-93cd-6aa2b405a2f0",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 0.32812595367431641,
+          "contrast": -7.974095344543457,
+          "gaussianDofStart": 0.17900800704956055,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "0c4f4409-8645-4330-bb64-8bc1f1383697",
+      "annotation_id": null,
+      "sequence_id": "de94a3a2-a59f-4abb-93cd-6aa2b405a2f0",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "0c4f4409-8645-4330-bb64-8bc1f1383697",
+      "annotation_id": null,
+      "sequence_id": "de94a3a2-a59f-4abb-93cd-6aa2b405a2f0",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 26399
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 38041
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 7509
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 152579
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "58326ef9-451a-4d51-93a4-4e6f43d3cb38",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 104
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "58326ef9-451a-4d51-93a4-4e6f43d3cb38",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "58326ef9-451a-4d51-93a4-4e6f43d3cb38",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.3978651762008667,
+          "color": {
+            "r": 0.87020283937454224,
+            "g": 0.43052962422370911,
+            "b": 0.40893441438674927,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 69.992446899414063,
+          "color": {
+            "r": 0.58951759338378906,
+            "g": 0.88708078861236572,
+            "b": 0.75560814142227173,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.50087308883666992,
+          "color": {
+            "r": 0.52256393432617188,
+            "g": 0.60485374927520752,
+            "b": 0.9627336859703064,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.7559051513671875,
+          "color": {
+            "r": 0.63203132152557373,
+            "g": 0.47016716003417969,
+            "b": 0.52387464046478271,
+            "a": 1.0
+          },
+          "x_rotation": 85.668174743652344,
+          "y_rotation": 58.74102783203125,
+          "z_rotation": 144.04679870605469
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "58326ef9-451a-4d51-93a4-4e6f43d3cb38",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -9.5530624389648438,
+          "contrast": 0.52415132522583008,
+          "gaussianDofStart": 1.3630237579345703,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "630723c6-53c1-45f5-bfd1-7e115536900f",
+      "annotation_id": null,
+      "sequence_id": "58326ef9-451a-4d51-93a4-4e6f43d3cb38",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 4
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 3
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "capture_id": "630723c6-53c1-45f5-bfd1-7e115536900f",
+      "annotation_id": null,
+      "sequence_id": "58326ef9-451a-4d51-93a4-4e6f43d3cb38",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23693
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 14604
+        },
+        {
+          "label_id": 4,
+          "instance_id": 4,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 223,
+            "a": 255
+          },
+          "visible_pixels": 30792
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 56273
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8725
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 29053
+        },
+        {
+          "label_id": 2,
+          "instance_id": 18,
+          "instance_color": {
+            "r": 0,
+            "g": 245,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 1366
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 3069
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 48453
+        },
+        {
+          "label_id": 2,
+          "instance_id": 17,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 171,
+            "a": 255
+          },
+          "visible_pixels": 40134
+        },
+        {
+          "label_id": 3,
+          "instance_id": 16,
+          "instance_color": {
+            "r": 96,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 40645
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 40823
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "fecbf8fc-42a6-4c5c-b662-bd9fda6e1734",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 105
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "fecbf8fc-42a6-4c5c-b662-bd9fda6e1734",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "fecbf8fc-42a6-4c5c-b662-bd9fda6e1734",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.44525277614593506,
+          "color": {
+            "r": 0.56329214572906494,
+            "g": 0.49304884672164917,
+            "b": 0.44134950637817383,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 67.52294921875,
+          "color": {
+            "r": 0.51885002851486206,
+            "g": 0.66293549537658691,
+            "b": 0.67173022031784058,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.32485079765319824,
+          "color": {
+            "r": 0.51879560947418213,
+            "g": 0.78351473808288574,
+            "b": 0.74541002511978149,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.3182483911514282,
+          "color": {
+            "r": 0.90130996704101563,
+            "g": 0.90721917152404785,
+            "b": 0.70264750719070435,
+            "a": 1.0
+          },
+          "x_rotation": 28.247270584106445,
+          "y_rotation": 34.032642364501953,
+          "z_rotation": 103.61895751953125
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "fecbf8fc-42a6-4c5c-b662-bd9fda6e1734",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 5.7548356056213379,
+          "contrast": 2.0001053810119629,
+          "gaussianDofStart": 3.4527702331542969,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "606e8148-6d88-4915-be29-24d9d07f7c29",
+      "annotation_id": null,
+      "sequence_id": "fecbf8fc-42a6-4c5c-b662-bd9fda6e1734",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 5
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "606e8148-6d88-4915-be29-24d9d07f7c29",
+      "annotation_id": null,
+      "sequence_id": "fecbf8fc-42a6-4c5c-b662-bd9fda6e1734",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 9201
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 42362
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 6996
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 39377
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 55648
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 46759
+        },
+        {
+          "label_id": 3,
+          "instance_id": 23,
+          "instance_color": {
+            "r": 0,
+            "g": 107,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 83206
+        },
+        {
+          "label_id": 3,
+          "instance_id": 16,
+          "instance_color": {
+            "r": 96,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 40220
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 33304
+        },
+        {
+          "label_id": 3,
+          "instance_id": 24,
+          "instance_color": {
+            "r": 181,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 4067
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "476d8539-54e5-411b-bcd3-b33d88038c65",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 106
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "476d8539-54e5-411b-bcd3-b33d88038c65",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "476d8539-54e5-411b-bcd3-b33d88038c65",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.39237239956855774,
+          "color": {
+            "r": 0.83426403999328613,
+            "g": 0.41646549105644226,
+            "b": 0.72307771444320679,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 93.690147399902344,
+          "color": {
+            "r": 0.81870651245117188,
+            "g": 0.83191239833831787,
+            "b": 0.5368686318397522,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.524168848991394,
+          "color": {
+            "r": 0.71386098861694336,
+            "g": 0.78066802024841309,
+            "b": 0.56098747253417969,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.1564456224441528,
+          "color": {
+            "r": 0.47849911451339722,
+            "g": 0.58554351329803467,
+            "b": 0.645412027835846,
+            "a": 1.0
+          },
+          "x_rotation": 293.70895385742188,
+          "y_rotation": 305.59841918945313,
+          "z_rotation": 259.6925048828125
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "476d8539-54e5-411b-bcd3-b33d88038c65",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -7.6768660545349121,
+          "contrast": 4.17140007019043,
+          "gaussianDofStart": 0.16721296310424805,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "a06a02a1-afe8-45ab-860c-3812bbd6e315",
+      "annotation_id": null,
+      "sequence_id": "476d8539-54e5-411b-bcd3-b33d88038c65",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 4
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "capture_id": "a06a02a1-afe8-45ab-860c-3812bbd6e315",
+      "annotation_id": null,
+      "sequence_id": "476d8539-54e5-411b-bcd3-b33d88038c65",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 6684
+        },
+        {
+          "label_id": 2,
+          "instance_id": 18,
+          "instance_color": {
+            "r": 0,
+            "g": 245,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 13826
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 60390
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 31145
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 14226
+        },
+        {
+          "label_id": 2,
+          "instance_id": 17,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 171,
+            "a": 255
+          },
+          "visible_pixels": 42175
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "900a6bc8-1a90-41bd-ade1-35674e85afb4",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 107
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "900a6bc8-1a90-41bd-ade1-35674e85afb4",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "900a6bc8-1a90-41bd-ade1-35674e85afb4",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.26468852162361145,
+          "color": {
+            "r": 0.523171067237854,
+            "g": 0.63215243816375732,
+            "b": 0.83364200592041016,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": true,
+          "intensity": 71.6950912475586,
+          "color": {
+            "r": 0.74014073610305786,
+            "g": 0.62092483043670654,
+            "b": 0.60271304845809937,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.51788890361785889,
+          "color": {
+            "r": 0.44243705272674561,
+            "g": 0.8358420729637146,
+            "b": 0.92487919330596924,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 0.56094098091125488,
+          "color": {
+            "r": 0.680686354637146,
+            "g": 0.4276261031627655,
+            "b": 0.86661803722381592,
+            "a": 1.0
+          },
+          "x_rotation": 350.935546875,
+          "y_rotation": 277.18612670898438,
+          "z_rotation": 102.81387329101563
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "900a6bc8-1a90-41bd-ade1-35674e85afb4",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 6.76098108291626,
+          "contrast": -6.9999074935913086,
+          "gaussianDofStart": 0.60195255279541016,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "b966db22-a254-43a1-9d38-6d2fc0e78eb5",
+      "annotation_id": null,
+      "sequence_id": "900a6bc8-1a90-41bd-ade1-35674e85afb4",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 1
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 2
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 2
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "b966db22-a254-43a1-9d38-6d2fc0e78eb5",
+      "annotation_id": null,
+      "sequence_id": "900a6bc8-1a90-41bd-ade1-35674e85afb4",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 5415
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 107114
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16952
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 64123
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 18077
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 21939
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "38840395-a0bb-4bef-8af4-c7dc4ba7cde4",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 108
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "38840395-a0bb-4bef-8af4-c7dc4ba7cde4",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "38840395-a0bb-4bef-8af4-c7dc4ba7cde4",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.4618690013885498,
+          "color": {
+            "r": 0.84248644113540649,
+            "g": 0.880290150642395,
+            "b": 0.48313310742378235,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": true,
+          "intensity": 58.772480010986328,
+          "color": {
+            "r": 0.49744716286659241,
+            "g": 0.7427215576171875,
+            "b": 0.42563819885253906,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.64292669296264648,
+          "color": {
+            "r": 0.8469652533531189,
+            "g": 0.49710461497306824,
+            "b": 0.4236418604850769,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.6679096221923828,
+          "color": {
+            "r": 0.93800175189971924,
+            "g": 0.87908965349197388,
+            "b": 0.60075110197067261,
+            "a": 1.0
+          },
+          "x_rotation": 271.01141357421875,
+          "y_rotation": 286.52914428710938,
+          "z_rotation": 295.81158447265625
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "38840395-a0bb-4bef-8af4-c7dc4ba7cde4",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 7.2278404235839844,
+          "contrast": 2.3534965515136719,
+          "gaussianDofStart": 1.4666070938110352,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "da5915c8-f1c7-4fc4-a4c3-716966475e21",
+      "annotation_id": null,
+      "sequence_id": "38840395-a0bb-4bef-8af4-c7dc4ba7cde4",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 2
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "da5915c8-f1c7-4fc4-a4c3-716966475e21",
+      "annotation_id": null,
+      "sequence_id": "38840395-a0bb-4bef-8af4-c7dc4ba7cde4",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 62257
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 3290
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 4459
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 9754
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 41171
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "dd635744-8d4c-4ebe-a7b1-f9dca0f0fa1b",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 109
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "dd635744-8d4c-4ebe-a7b1-f9dca0f0fa1b",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "dd635744-8d4c-4ebe-a7b1-f9dca0f0fa1b",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.2054622620344162,
+          "color": {
+            "r": 0.85013854503631592,
+            "g": 0.70050859451293945,
+            "b": 0.75355440378189087,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": true,
+          "intensity": 79.749420166015625,
+          "color": {
+            "r": 0.67366361618041992,
+            "g": 0.49115714430809021,
+            "b": 0.78889650106430054,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.70194071531295776,
+          "color": {
+            "r": 0.42821076512336731,
+            "g": 0.40296503901481628,
+            "b": 0.76175665855407715,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.6478891372680664,
+          "color": {
+            "r": 0.6789206862449646,
+            "g": 0.64860081672668457,
+            "b": 0.58208549022674561,
+            "a": 1.0
+          },
+          "x_rotation": 319.0416259765625,
+          "y_rotation": 295.0699462890625,
+          "z_rotation": 38.4720573425293
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "dd635744-8d4c-4ebe-a7b1-f9dca0f0fa1b",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -9.05820083618164,
+          "contrast": -0.98968505859375,
+          "gaussianDofStart": 3.1329307556152344,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "1682b7c7-3fbd-4c5d-9fc4-8afd2472deb6",
+      "annotation_id": null,
+      "sequence_id": "dd635744-8d4c-4ebe-a7b1-f9dca0f0fa1b",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 2
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "1682b7c7-3fbd-4c5d-9fc4-8afd2472deb6",
+      "annotation_id": null,
+      "sequence_id": "dd635744-8d4c-4ebe-a7b1-f9dca0f0fa1b",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 58392
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 85716
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 6312
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 59733
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 1543
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 25536
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "61005446-c600-4e16-a6de-a2732b07eff4",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 110
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "61005446-c600-4e16-a6de-a2732b07eff4",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "61005446-c600-4e16-a6de-a2732b07eff4",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.37705188989639282,
+          "color": {
+            "r": 0.6572115421295166,
+            "g": 0.77438575029373169,
+            "b": 0.54919683933258057,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 103.19099426269531,
+          "color": {
+            "r": 0.62113618850708008,
+            "g": 0.90416872501373291,
+            "b": 0.657697856426239,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.34556671977043152,
+          "color": {
+            "r": 0.97144711017608643,
+            "g": 0.731045663356781,
+            "b": 0.98912447690963745,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.6646606922149658,
+          "color": {
+            "r": 0.51960885524749756,
+            "g": 0.57965552806854248,
+            "b": 0.524373471736908,
+            "a": 1.0
+          },
+          "x_rotation": 347.34506225585938,
+          "y_rotation": 259.99835205078125,
+          "z_rotation": 249.70671081542969
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "61005446-c600-4e16-a6de-a2732b07eff4",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 7.404325008392334,
+          "contrast": -5.2802658081054688,
+          "gaussianDofStart": 1.8057866096496582,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "09d83f7d-b288-421f-9fdb-2c75a6b443a7",
+      "annotation_id": null,
+      "sequence_id": "61005446-c600-4e16-a6de-a2732b07eff4",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 2
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "capture_id": "09d83f7d-b288-421f-9fdb-2c75a6b443a7",
+      "annotation_id": null,
+      "sequence_id": "61005446-c600-4e16-a6de-a2732b07eff4",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 58807
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 5214
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 30178
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 48618
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 72798
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "99e97e7e-62d0-4728-a145-6cd8f804ef2d",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 111
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "99e97e7e-62d0-4728-a145-6cd8f804ef2d",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "99e97e7e-62d0-4728-a145-6cd8f804ef2d",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.44961434602737427,
+          "color": {
+            "r": 0.6038815975189209,
+            "g": 0.94729745388031006,
+            "b": 0.57238644361495972,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 80.827346801757813,
+          "color": {
+            "r": 0.60337591171264648,
+            "g": 0.77101689577102661,
+            "b": 0.69994527101516724,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.88934993743896484,
+          "color": {
+            "r": 0.66167294979095459,
+            "g": 0.54203182458877563,
+            "b": 0.93984740972518921,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 0.59423494338989258,
+          "color": {
+            "r": 0.65691781044006348,
+            "g": 0.40564081072807312,
+            "b": 0.94663095474243164,
+            "a": 1.0
+          },
+          "x_rotation": 67.369026184082031,
+          "y_rotation": 332.62100219726563,
+          "z_rotation": 338.13287353515625
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "99e97e7e-62d0-4728-a145-6cd8f804ef2d",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 1.2671971321105957,
+          "contrast": 2.2948598861694336,
+          "gaussianDofStart": 0.23004531860351563,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "a1c021b2-1bfb-463c-88f7-df68244621e6",
+      "annotation_id": null,
+      "sequence_id": "99e97e7e-62d0-4728-a145-6cd8f804ef2d",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "a1c021b2-1bfb-463c-88f7-df68244621e6",
+      "annotation_id": null,
+      "sequence_id": "99e97e7e-62d0-4728-a145-6cd8f804ef2d",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 26200
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 57969
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "9ed83be3-c1e5-4a54-bd35-a4cf9940eb67",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 112
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "9ed83be3-c1e5-4a54-bd35-a4cf9940eb67",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "9ed83be3-c1e5-4a54-bd35-a4cf9940eb67",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.48737066984176636,
+          "color": {
+            "r": 0.604038655757904,
+            "g": 0.79034888744354248,
+            "b": 0.578311562538147,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 68.541397094726563,
+          "color": {
+            "r": 0.6450844407081604,
+            "g": 0.40104719996452332,
+            "b": 0.71314197778701782,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.582832932472229,
+          "color": {
+            "r": 0.97021901607513428,
+            "g": 0.44320237636566162,
+            "b": 0.775398313999176,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.6712954044342041,
+          "color": {
+            "r": 0.93512380123138428,
+            "g": 0.67430508136749268,
+            "b": 0.84324955940246582,
+            "a": 1.0
+          },
+          "x_rotation": 359.15213012695313,
+          "y_rotation": 197.8394775390625,
+          "z_rotation": 344.2889404296875
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "9ed83be3-c1e5-4a54-bd35-a4cf9940eb67",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 6.7932868003845215,
+          "contrast": -8.1813125610351563,
+          "gaussianDofStart": 2.6401786804199219,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "5a7e5e59-6090-4732-b94b-b6186837dbda",
+      "annotation_id": null,
+      "sequence_id": "9ed83be3-c1e5-4a54-bd35-a4cf9940eb67",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 1
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 2
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "5a7e5e59-6090-4732-b94b-b6186837dbda",
+      "annotation_id": null,
+      "sequence_id": "9ed83be3-c1e5-4a54-bd35-a4cf9940eb67",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 2728
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 9582
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 108563
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 33888
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 116414
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c290ad38-551f-4e4d-bb45-900c29584bee",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 113
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c290ad38-551f-4e4d-bb45-900c29584bee",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c290ad38-551f-4e4d-bb45-900c29584bee",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.45774072408676147,
+          "color": {
+            "r": 0.56864076852798462,
+            "g": 0.87783944606781006,
+            "b": 0.90878570079803467,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": true,
+          "intensity": 66.402450561523438,
+          "color": {
+            "r": 0.84803187847137451,
+            "g": 0.58407330513000488,
+            "b": 0.46788406372070313,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.77253025770187378,
+          "color": {
+            "r": 0.75770610570907593,
+            "g": 0.789043664932251,
+            "b": 0.98022419214248657,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.0707886219024658,
+          "color": {
+            "r": 0.87354028224945068,
+            "g": 0.51150345802307129,
+            "b": 0.98832923173904419,
+            "a": 1.0
+          },
+          "x_rotation": 320.72869873046875,
+          "y_rotation": 174.44082641601563,
+          "z_rotation": 306.3421630859375
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c290ad38-551f-4e4d-bb45-900c29584bee",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 8.8355903625488281,
+          "contrast": 5.1270079612731934,
+          "gaussianDofStart": 3.3400845527648926,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "92d62b1d-91a6-46f4-98b8-f85eced16432",
+      "annotation_id": null,
+      "sequence_id": "c290ad38-551f-4e4d-bb45-900c29584bee",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 4
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "92d62b1d-91a6-46f4-98b8-f85eced16432",
+      "annotation_id": null,
+      "sequence_id": "c290ad38-551f-4e4d-bb45-900c29584bee",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 39450
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16106
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 1545
+        },
+        {
+          "label_id": 2,
+          "instance_id": 17,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 171,
+            "a": 255
+          },
+          "visible_pixels": 9792
+        },
+        {
+          "label_id": 2,
+          "instance_id": 18,
+          "instance_color": {
+            "r": 0,
+            "g": 245,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 13069
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 122330
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 69431
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ff774691-0a3e-4c9f-ade8-c4cdb4dc092f",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 114
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ff774691-0a3e-4c9f-ade8-c4cdb4dc092f",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ff774691-0a3e-4c9f-ade8-c4cdb4dc092f",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.32043340802192688,
+          "color": {
+            "r": 0.58038997650146484,
+            "g": 0.94001156091690063,
+            "b": 0.95887428522109985,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 119.05014801025391,
+          "color": {
+            "r": 0.895793080329895,
+            "g": 0.44791048765182495,
+            "b": 0.95195090770721436,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.94775557518005371,
+          "color": {
+            "r": 0.69862622022628784,
+            "g": 0.50785338878631592,
+            "b": 0.513430118560791,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.1475836038589478,
+          "color": {
+            "r": 0.882464587688446,
+            "g": 0.571966290473938,
+            "b": 0.4261687695980072,
+            "a": 1.0
+          },
+          "x_rotation": 344.56253051757813,
+          "y_rotation": 306.016845703125,
+          "z_rotation": 2.4160065650939941
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ff774691-0a3e-4c9f-ade8-c4cdb4dc092f",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -3.5516905784606934,
+          "contrast": 7.7480769157409668,
+          "gaussianDofStart": 0.17642784118652344,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "d948d1ef-60f3-48be-b341-00fce8dfbef9",
+      "annotation_id": null,
+      "sequence_id": "ff774691-0a3e-4c9f-ade8-c4cdb4dc092f",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 2
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "capture_id": "d948d1ef-60f3-48be-b341-00fce8dfbef9",
+      "annotation_id": null,
+      "sequence_id": "ff774691-0a3e-4c9f-ade8-c4cdb4dc092f",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 4,
+          "instance_id": 4,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 223,
+            "a": 255
+          },
+          "visible_pixels": 11674
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 27585
+        },
+        {
+          "label_id": 4,
+          "instance_id": 5,
+          "instance_color": {
+            "r": 0,
+            "g": 255,
+            "b": 212,
+            "a": 255
+          },
+          "visible_pixels": 74204
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 1512
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 22523
+        },
+        {
+          "label_id": 4,
+          "instance_id": 21,
+          "instance_color": {
+            "r": 0,
+            "g": 255,
+            "b": 42,
+            "a": 255
+          },
+          "visible_pixels": 104742
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 19148
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 169421
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 10437
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 5370
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "cc1f04a4-9f25-4a43-8e5f-f78ff9be7180",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 115
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "cc1f04a4-9f25-4a43-8e5f-f78ff9be7180",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "cc1f04a4-9f25-4a43-8e5f-f78ff9be7180",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.21538794040679932,
+          "color": {
+            "r": 0.74549835920333862,
+            "g": 0.47624263167381287,
+            "b": 0.92871290445327759,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 82.671836853027344,
+          "color": {
+            "r": 0.40835148096084595,
+            "g": 0.47694942355155945,
+            "b": 0.66240990161895752,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.77415913343429565,
+          "color": {
+            "r": 0.934525191783905,
+            "g": 0.937882125377655,
+            "b": 0.76661348342895508,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.3772280216217041,
+          "color": {
+            "r": 0.84426629543304443,
+            "g": 0.95137917995452881,
+            "b": 0.61820542812347412,
+            "a": 1.0
+          },
+          "x_rotation": 276.9718017578125,
+          "y_rotation": 189.56326293945313,
+          "z_rotation": 302.85311889648438
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "cc1f04a4-9f25-4a43-8e5f-f78ff9be7180",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -9.9575157165527344,
+          "contrast": -5.1452732086181641,
+          "gaussianDofStart": 2.8886814117431641,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "0cc5547f-591e-4b9f-951c-918977701f4f",
+      "annotation_id": null,
+      "sequence_id": "cc1f04a4-9f25-4a43-8e5f-f78ff9be7180",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 2
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "0cc5547f-591e-4b9f-951c-918977701f4f",
+      "annotation_id": null,
+      "sequence_id": "cc1f04a4-9f25-4a43-8e5f-f78ff9be7180",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 57243
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 6139
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 10023
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 73873
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 140380
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 4399
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 127826
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "2542dd6c-f2bb-4435-9b0b-b61884bd45f2",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 116
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "2542dd6c-f2bb-4435-9b0b-b61884bd45f2",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "2542dd6c-f2bb-4435-9b0b-b61884bd45f2",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.23301628232002258,
+          "color": {
+            "r": 0.53083056211471558,
+            "g": 0.85753846168518066,
+            "b": 0.42776653170585632,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": true,
+          "intensity": 76.920768737792969,
+          "color": {
+            "r": 0.47928237915039063,
+            "g": 0.70685493946075439,
+            "b": 0.85711312294006348,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.84285193681716919,
+          "color": {
+            "r": 0.45029148459434509,
+            "g": 0.46592435240745544,
+            "b": 0.76762843132019043,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.8073453903198242,
+          "color": {
+            "r": 0.86949491500854492,
+            "g": 0.52539503574371338,
+            "b": 0.9180138111114502,
+            "a": 1.0
+          },
+          "x_rotation": 77.612442016601563,
+          "y_rotation": 88.932571411132813,
+          "z_rotation": 8.22751522064209
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "2542dd6c-f2bb-4435-9b0b-b61884bd45f2",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 5.3675508499145508,
+          "contrast": 2.0027732849121094,
+          "gaussianDofStart": 0.299135684967041,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "f98b857c-1b0a-4631-9879-fb2a0877387d",
+      "annotation_id": null,
+      "sequence_id": "2542dd6c-f2bb-4435-9b0b-b61884bd45f2",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "f98b857c-1b0a-4631-9879-fb2a0877387d",
+      "annotation_id": null,
+      "sequence_id": "2542dd6c-f2bb-4435-9b0b-b61884bd45f2",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 20020
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 4130
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 28806
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 9434
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 24085
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 59459
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "47f4e408-663e-40e2-b3eb-7c24d2318326",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 117
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "47f4e408-663e-40e2-b3eb-7c24d2318326",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "47f4e408-663e-40e2-b3eb-7c24d2318326",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.36423355340957642,
+          "color": {
+            "r": 0.760219156742096,
+            "g": 0.9303596019744873,
+            "b": 0.66497588157653809,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 52.664054870605469,
+          "color": {
+            "r": 0.90843367576599121,
+            "g": 0.59093558788299561,
+            "b": 0.84598350524902344,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.82464659214019775,
+          "color": {
+            "r": 0.5934794545173645,
+            "g": 0.429650217294693,
+            "b": 0.64565479755401611,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.9716577529907227,
+          "color": {
+            "r": 0.83508181571960449,
+            "g": 0.46293500065803528,
+            "b": 0.44953152537345886,
+            "a": 1.0
+          },
+          "x_rotation": 5.0183486938476563,
+          "y_rotation": 41.227012634277344,
+          "z_rotation": 350.13507080078125
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "47f4e408-663e-40e2-b3eb-7c24d2318326",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 3.0323410034179688,
+          "contrast": -5.4806876182556152,
+          "gaussianDofStart": 0.41062545776367188,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "49c95d83-28f0-4fa0-88ec-a22f7422349f",
+      "annotation_id": null,
+      "sequence_id": "47f4e408-663e-40e2-b3eb-7c24d2318326",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 1
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 4
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "capture_id": "49c95d83-28f0-4fa0-88ec-a22f7422349f",
+      "annotation_id": null,
+      "sequence_id": "47f4e408-663e-40e2-b3eb-7c24d2318326",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 32501
+        },
+        {
+          "label_id": 4,
+          "instance_id": 4,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 223,
+            "a": 255
+          },
+          "visible_pixels": 53546
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 5386
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 112101
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 23630
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 90742
+        },
+        {
+          "label_id": 2,
+          "instance_id": 18,
+          "instance_color": {
+            "r": 0,
+            "g": 245,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 22903
+        },
+        {
+          "label_id": 2,
+          "instance_id": 17,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 171,
+            "a": 255
+          },
+          "visible_pixels": 7943
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 72904
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d6f99871-dc3c-470e-99d0-8b2e39db61c0",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 118
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d6f99871-dc3c-470e-99d0-8b2e39db61c0",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d6f99871-dc3c-470e-99d0-8b2e39db61c0",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.4474201500415802,
+          "color": {
+            "r": 0.5162692666053772,
+            "g": 0.790332019329071,
+            "b": 0.69237434864044189,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": true,
+          "intensity": 115.64768218994141,
+          "color": {
+            "r": 0.67553913593292236,
+            "g": 0.56670409440994263,
+            "b": 0.40220600366592407,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.62684345245361328,
+          "color": {
+            "r": 0.77638107538223267,
+            "g": 0.43109160661697388,
+            "b": 0.46581575274467468,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 0.90860563516616821,
+          "color": {
+            "r": 0.67374259233474731,
+            "g": 0.761436939239502,
+            "b": 0.85219889879226685,
+            "a": 1.0
+          },
+          "x_rotation": 67.834312438964844,
+          "y_rotation": 41.767189025878906,
+          "z_rotation": 153.10331726074219
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "d6f99871-dc3c-470e-99d0-8b2e39db61c0",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -1.3961124420166016,
+          "contrast": 8.3353090286254883,
+          "gaussianDofStart": 0.28587102890014648,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "35145a51-015f-4cd9-80d9-89f81613b3ac",
+      "annotation_id": null,
+      "sequence_id": "d6f99871-dc3c-470e-99d0-8b2e39db61c0",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "35145a51-015f-4cd9-80d9-89f81613b3ac",
+      "annotation_id": null,
+      "sequence_id": "d6f99871-dc3c-470e-99d0-8b2e39db61c0",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 2036
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 33914
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 21894
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 21103
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 105642
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 54889
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "289ebd70-f4af-4f90-9498-597018beda27",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 119
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "289ebd70-f4af-4f90-9498-597018beda27",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "289ebd70-f4af-4f90-9498-597018beda27",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.26628059148788452,
+          "color": {
+            "r": 0.69399243593215942,
+            "g": 0.95293569564819336,
+            "b": 0.72758746147155762,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": true,
+          "intensity": 64.8382797241211,
+          "color": {
+            "r": 0.74112898111343384,
+            "g": 0.995635986328125,
+            "b": 0.744406521320343,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.69270575046539307,
+          "color": {
+            "r": 0.82640159130096436,
+            "g": 0.90096521377563477,
+            "b": 0.85108846426010132,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.8506543636322021,
+          "color": {
+            "r": 0.80762326717376709,
+            "g": 0.67559570074081421,
+            "b": 0.968695342540741,
+            "a": 1.0
+          },
+          "x_rotation": 41.272125244140625,
+          "y_rotation": 3.86564302444458,
+          "z_rotation": 195.31094360351563
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "289ebd70-f4af-4f90-9498-597018beda27",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 7.9871940612792969,
+          "contrast": -1.0893392562866211,
+          "gaussianDofStart": 3.955202579498291,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "68c02e37-5a5a-4c6d-8c5c-9ac05f74ea55",
+      "annotation_id": null,
+      "sequence_id": "289ebd70-f4af-4f90-9498-597018beda27",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 1
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "68c02e37-5a5a-4c6d-8c5c-9ac05f74ea55",
+      "annotation_id": null,
+      "sequence_id": "289ebd70-f4af-4f90-9498-597018beda27",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 3490
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 23097
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 43577
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 20792
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "1c4aa7ff-1f58-4a7f-8cd6-7d618e0ee549",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 120
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "1c4aa7ff-1f58-4a7f-8cd6-7d618e0ee549",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "1c4aa7ff-1f58-4a7f-8cd6-7d618e0ee549",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.37421852350234985,
+          "color": {
+            "r": 0.67666357755661011,
+            "g": 0.6901547908782959,
+            "b": 0.84316635131835938,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 74.6011734008789,
+          "color": {
+            "r": 0.606689453125,
+            "g": 0.7542726993560791,
+            "b": 0.66943442821502686,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.89438098669052124,
+          "color": {
+            "r": 0.58888804912567139,
+            "g": 0.9822075366973877,
+            "b": 0.84186995029449463,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.2848542928695679,
+          "color": {
+            "r": 0.49800348281860352,
+            "g": 0.84181219339370728,
+            "b": 0.76208889484405518,
+            "a": 1.0
+          },
+          "x_rotation": 354.9903564453125,
+          "y_rotation": 41.592964172363281,
+          "z_rotation": 68.967475891113281
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "1c4aa7ff-1f58-4a7f-8cd6-7d618e0ee549",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 8.08328628540039,
+          "contrast": 1.2171053886413574,
+          "gaussianDofStart": 1.1669354438781738,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "c3fc725c-3e18-4529-b7e0-b721623dda81",
+      "annotation_id": null,
+      "sequence_id": "1c4aa7ff-1f58-4a7f-8cd6-7d618e0ee549",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 2
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 2
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "capture_id": "c3fc725c-3e18-4529-b7e0-b721623dda81",
+      "annotation_id": null,
+      "sequence_id": "1c4aa7ff-1f58-4a7f-8cd6-7d618e0ee549",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 4,
+          "instance_id": 4,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 223,
+            "a": 255
+          },
+          "visible_pixels": 27264
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 47284
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 5211
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 134541
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 74253
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 67573
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 21222
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 33856
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 98468
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c58d18d7-e0e0-4ba2-a297-30bdf74f9123",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 121
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c58d18d7-e0e0-4ba2-a297-30bdf74f9123",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c58d18d7-e0e0-4ba2-a297-30bdf74f9123",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.25264701247215271,
+          "color": {
+            "r": 0.8562200665473938,
+            "g": 0.94767284393310547,
+            "b": 0.73077476024627686,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 70.674270629882813,
+          "color": {
+            "r": 0.662712812423706,
+            "g": 0.73894089460372925,
+            "b": 0.58514887094497681,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.56158846616745,
+          "color": {
+            "r": 0.59532910585403442,
+            "g": 0.51214045286178589,
+            "b": 0.55443423986434937,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.600435733795166,
+          "color": {
+            "r": 0.9454798698425293,
+            "g": 0.87291824817657471,
+            "b": 0.434491366147995,
+            "a": 1.0
+          },
+          "x_rotation": 73.027091979980469,
+          "y_rotation": 82.64990234375,
+          "z_rotation": 338.59017944335938
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "c58d18d7-e0e0-4ba2-a297-30bdf74f9123",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 8.5980148315429688,
+          "contrast": -9.4677371978759766,
+          "gaussianDofStart": 2.2603802680969238,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "784eda05-e556-460b-a5cf-ed9a1f5963a9",
+      "annotation_id": null,
+      "sequence_id": "c58d18d7-e0e0-4ba2-a297-30bdf74f9123",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "784eda05-e556-460b-a5cf-ed9a1f5963a9",
+      "annotation_id": null,
+      "sequence_id": "c58d18d7-e0e0-4ba2-a297-30bdf74f9123",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 3681
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 5441
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 122660
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16505
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 47179
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "64065b72-55f2-46d2-beee-d47390382b60",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 122
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "64065b72-55f2-46d2-beee-d47390382b60",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "64065b72-55f2-46d2-beee-d47390382b60",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.24472619593143463,
+          "color": {
+            "r": 0.64769250154495239,
+            "g": 0.84144222736358643,
+            "b": 0.42550989985466003,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 110.78549194335938,
+          "color": {
+            "r": 0.979581356048584,
+            "g": 0.529899537563324,
+            "b": 0.52075624465942383,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.8965984582901001,
+          "color": {
+            "r": 0.70216077566146851,
+            "g": 0.47477069497108459,
+            "b": 0.90826529264450073,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.527408242225647,
+          "color": {
+            "r": 0.422270268201828,
+            "g": 0.69293582439422607,
+            "b": 0.42604517936706543,
+            "a": 1.0
+          },
+          "x_rotation": 87.942619323730469,
+          "y_rotation": 170.80242919921875,
+          "z_rotation": 251.59829711914063
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "64065b72-55f2-46d2-beee-d47390382b60",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 9.60543441772461,
+          "contrast": -1.1421966552734375,
+          "gaussianDofStart": 0.72798776626586914,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "8eee4d85-27d6-40f8-b6a2-9d546990a347",
+      "annotation_id": null,
+      "sequence_id": "64065b72-55f2-46d2-beee-d47390382b60",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 1
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 3
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 3
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "capture_id": "8eee4d85-27d6-40f8-b6a2-9d546990a347",
+      "annotation_id": null,
+      "sequence_id": "64065b72-55f2-46d2-beee-d47390382b60",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 2,
+          "instance_id": 17,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 171,
+            "a": 255
+          },
+          "visible_pixels": 1350
+        },
+        {
+          "label_id": 3,
+          "instance_id": 6,
+          "instance_color": {
+            "r": 255,
+            "g": 138,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 42127
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 92375
+        },
+        {
+          "label_id": 4,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 26371
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 3551
+        },
+        {
+          "label_id": 2,
+          "instance_id": 9,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 85,
+            "a": 255
+          },
+          "visible_pixels": 24636
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 96279
+        },
+        {
+          "label_id": 3,
+          "instance_id": 16,
+          "instance_color": {
+            "r": 96,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 35231
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 81638
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ec384e21-9bac-454f-b493-4eefe260691b",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 123
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ec384e21-9bac-454f-b493-4eefe260691b",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ec384e21-9bac-454f-b493-4eefe260691b",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.21035884320735931,
+          "color": {
+            "r": 0.59308844804763794,
+            "g": 0.80292338132858276,
+            "b": 0.76451569795608521,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 58.1883544921875,
+          "color": {
+            "r": 0.90764296054840088,
+            "g": 0.71787947416305542,
+            "b": 0.9150996208190918,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.39308440685272217,
+          "color": {
+            "r": 0.69124174118041992,
+            "g": 0.4812147319316864,
+            "b": 0.58582109212875366,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 2.0551855564117432,
+          "color": {
+            "r": 0.49135896563529968,
+            "g": 0.78610563278198242,
+            "b": 0.43976113200187683,
+            "a": 1.0
+          },
+          "x_rotation": 307.43612670898438,
+          "y_rotation": 217.67225646972656,
+          "z_rotation": 327.76144409179688
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "ec384e21-9bac-454f-b493-4eefe260691b",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": -1.9270420074462891,
+          "contrast": 5.4075145721435547,
+          "gaussianDofStart": 1.2604103088378906,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "5811daef-a960-4886-9ab3-b548a82c0737",
+      "annotation_id": null,
+      "sequence_id": "ec384e21-9bac-454f-b493-4eefe260691b",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 3
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "5811daef-a960-4886-9ab3-b548a82c0737",
+      "annotation_id": null,
+      "sequence_id": "ec384e21-9bac-454f-b493-4eefe260691b",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 11,
+          "instance_color": {
+            "r": 234,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 118126
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 31641
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 6407
+        },
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 101289
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 10546
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 45290
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "0bae6d47-0d00-4b43-9f13-7373f5a5331b",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 124
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "0bae6d47-0d00-4b43-9f13-7373f5a5331b",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "0bae6d47-0d00-4b43-9f13-7373f5a5331b",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.34027069807052612,
+          "color": {
+            "r": 0.54232501983642578,
+            "g": 0.54066658020019531,
+            "b": 0.43569684028625488,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 102.85745239257813,
+          "color": {
+            "r": 0.67806845903396606,
+            "g": 0.8083031177520752,
+            "b": 0.95442348718643188,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.884649395942688,
+          "color": {
+            "r": 0.58750665187835693,
+            "g": 0.82797855138778687,
+            "b": 0.90069115161895752,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 0.70865887403488159,
+          "color": {
+            "r": 0.83457928895950317,
+            "g": 0.68671929836273193,
+            "b": 0.99116408824920654,
+            "a": 1.0
+          },
+          "x_rotation": 307.73709106445313,
+          "y_rotation": 279.28497314453125,
+          "z_rotation": 87.8555679321289
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "0bae6d47-0d00-4b43-9f13-7373f5a5331b",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 1.7056703567504883,
+          "contrast": 4.7203493118286133,
+          "gaussianDofStart": 3.8548521995544434,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    },
+    {
+      "capture_id": "59858777-8e0a-4d2b-99d8-60a71c29e366",
+      "annotation_id": null,
+      "sequence_id": "0bae6d47-0d00-4b43-9f13-7373f5a5331b",
+      "step": 0,
+      "metric_definition": "51da3c27-369d-4929-aea6-d01614635ce2",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Cube",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Sphere",
+          "count": 1
+        },
+        {
+          "label_id": 3,
+          "label_name": "Capsule",
+          "count": 1
+        },
+        {
+          "label_id": 4,
+          "label_name": "Cylinder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": "59858777-8e0a-4d2b-99d8-60a71c29e366",
+      "annotation_id": null,
+      "sequence_id": "0bae6d47-0d00-4b43-9f13-7373f5a5331b",
+      "step": 0,
+      "metric_definition": "659c6e36-f9f8-4dd6-9651-4a80e51eabc4",
+      "values": [
+        {
+          "label_id": 4,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 54439
+        },
+        {
+          "label_id": 1,
+          "instance_id": 10,
+          "instance_color": {
+            "r": 0,
+            "g": 160,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 30569
+        },
+        {
+          "label_id": 3,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 30371
+        },
+        {
+          "label_id": 2,
+          "instance_id": 7,
+          "instance_color": {
+            "r": 64,
+            "g": 0,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 3603
+        },
+        {
+          "label_id": 1,
+          "instance_id": 8,
+          "instance_color": {
+            "r": 11,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 7260
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "f85ce04a-e348-4d88-a7a2-ad12bb1e0bd6",
+      "step": 0,
+      "metric_definition": "db1b258e-d1d0-41b6-8751-16f601a2e230",
+      "values": [
+        {
+          "iteration": 125
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "f85ce04a-e348-4d88-a7a2-ad12bb1e0bd6",
+      "step": 0,
+      "metric_definition": "061e08cc-4428-4926-9933-a6732524b52b",
+      "values": []
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "f85ce04a-e348-4d88-a7a2-ad12bb1e0bd6",
+      "step": 0,
+      "metric_definition": "939248ee-668a-4e98-8e79-e7909f034a47",
+      "values": [
+        {
+          "lightName": "Directional Light_All_2",
+          "enabled": true,
+          "intensity": 0.2789229154586792,
+          "color": {
+            "r": 0.938231885433197,
+            "g": 0.8401181697845459,
+            "b": 0.89816087484359741,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_Background_1_Intermittent",
+          "enabled": false,
+          "intensity": 83.022552490234375,
+          "color": {
+            "r": 0.76695990562438965,
+            "g": 0.55706900358200073,
+            "b": 0.50173288583755493,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 180.0,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_0",
+          "enabled": true,
+          "intensity": 0.53525233268737793,
+          "color": {
+            "r": 0.753727376461029,
+            "g": 0.75723326206207275,
+            "b": 0.81786900758743286,
+            "a": 1.0
+          },
+          "x_rotation": 0.0,
+          "y_rotation": 120.00000762939453,
+          "z_rotation": 0.0
+        },
+        {
+          "lightName": "Directional Light_All_1",
+          "enabled": true,
+          "intensity": 1.2178750038146973,
+          "color": {
+            "r": 0.49915203452110291,
+            "g": 0.59089940786361694,
+            "b": 0.9038701057434082,
+            "a": 1.0
+          },
+          "x_rotation": 63.069122314453125,
+          "y_rotation": 162.26982116699219,
+          "z_rotation": 212.96827697753906
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "f85ce04a-e348-4d88-a7a2-ad12bb1e0bd6",
+      "step": 0,
+      "metric_definition": "a4b2253c-0eb2-4a90-9b20-6e77f1d13286",
+      "values": [
+        {
+          "saturation": 2.6848506927490234,
+          "contrast": 9.2238693237304688,
+          "gaussianDofStart": 0.1903996467590332,
+          "gaussianDofEnd": 3.0,
+          "gaussianDofRadius": 1.5
+        }
+      ]
+    }
+  ]
+}

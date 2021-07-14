@@ -3,10 +3,10 @@ from pathlib import Path
 import numpy as np
 import PIL
 
-from datasetinsights_master.datasetinsights.datasets.unity_perception import AnnotationDefinitions
-from datasetinsights_master.datasetinsights.datasets.unity_perception.captures import Captures
-from datasetinsights_master.datasetinsights.datasets.synthetic import read_bounding_box_2d, read_bounding_box_3d
-from datasetinsights_master.datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d, plot_keypoints
+from datasetinsights.datasets.unity_perception import AnnotationDefinitions
+from datasetinsights.datasets.unity_perception.captures import Captures
+from datasetinsights.datasets.synthetic import read_bounding_box_2d, read_bounding_box_3d
+from datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d, plot_keypoints
 
 from PIL.Image import Image
 from PIL.ImageDraw import ImageDraw

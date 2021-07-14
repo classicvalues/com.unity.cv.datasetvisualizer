@@ -6,10 +6,8 @@ import time
 import subprocess
 from typing import List, Tuple
 import re
-import pandas as pd
 
 import streamlit as st
-from pandas import Series
 
 # import SessionState
 import PIL.Image as Image
@@ -187,17 +185,18 @@ def preview_dataset(base_dataset_dir: str):
     
                 index = int(st.session_state.image)
                 if index >= 0:
-                    zoom(index, ann_def, metric_def, cap, data_root, labelers, data_root)
+                    zoom(index, 0, ann_def, metric_def, cap, data_root, labelers, data_root)
                 else:
                     num_rows = 5
                     grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers)
             else:
                 index = int(st.session_state.image)
                 if index >= 0:
-                    ann_def, metric_def, cap, _, data_root = get_instance_by_capture_idx(instances, index)
+                    ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, index)
+                    offset = get_dataset_length_with_instances(instances, instance_key)
                     available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                     labelers = create_sidebar_labeler_menu(available_labelers)
-                    zoom(index, ann_def, metric_def, cap, data_root, labelers, data_root)
+                    zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, data_root)
                 else:
                     index = st.session_state.start_at
                     num_rows = 5
@@ -371,20 +370,27 @@ def grid_view_instances(num_rows, instances, data_root, labelers):
         image = get_image_with_labelers(i - get_dataset_length_with_instances(instances, instance_key), ann_def, metric_def, cap, data_root, labelers, max_size=(6-num_cols)*150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
-def zoom(index, ann_def, metric_def, cap, data_root, labelers, dataset_path):
-    header = st.beta_columns([0.2, 0.6, 0.2])
+def zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, dataset_path):
+    dataset_size =  len(cap.captures.to_dict('records'))
+    
 
-    if header[0].button('< Back to Grid view'):
+    if st.button('< Back to Grid view'):
         st.session_state.image = -1
         st.experimental_rerun()
+        
+    components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=10)
 
-    with header[1]:
-        new_index = cc.item_selector_zoom(index, len(cap.captures.to_dict('records')))
+    header = st.beta_columns([2/3, 1/3])
+    with header[0]:
+        new_index = cc.item_selector_zoom(index,dataset_size + offset)
         if not new_index == index:
             st.session_state.image = new_index
             st.experimental_rerun()
+            
+    components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 
-    image = get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers, max_size=1000)
+    index = index - offset
+    image = get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers, max_size=2000)
 
     layout = st.beta_columns([0.7, 0.3])
     layout[0].image(image, use_column_width=True)
@@ -396,20 +402,23 @@ def zoom(index, ann_def, metric_def, cap, data_root, labelers, dataset_path):
         if name.startswith("Dataset") and "." not in name[1:]:
             captures_dir = directory[0]
             break
-    # TODO Change 150 to whatever the number really is in the metadata
-    first = cap.captures.loc[0, "filename"]
-    if not isinstance(first, str):
-        first = first.tolist()[0]
+            
+    # first = cap.captures.loc[0, "filename"]
+    # if not isinstance(first, str):
+    #     first = first.tolist()[0]
+    # inner_offset = int(first[-5])
 
-    offset = int(first[-5])
-
-    file_num = index // (150 - offset)
+    path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_000.json")
+    json_file = json.load(open(path_to_captures, "r"))
+    num_captures_per_file = len(json_file["captures"])
+    
+    file_num = index // num_captures_per_file
     postfix = ('000' + str(file_num))
     postfix = postfix[len(postfix) - 3:]
     path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_" + postfix + ".json")
     with layout[1]:
         json_file = json.load(open(path_to_captures, "r"))
-        st.write(json_file["captures"][index % (150 - offset)])
+        st.write(json_file["captures"][index % num_captures_per_file])
 
 
 def preview_app(args):

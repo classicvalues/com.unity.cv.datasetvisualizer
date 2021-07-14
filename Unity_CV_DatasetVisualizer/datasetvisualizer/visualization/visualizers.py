@@ -1,5 +1,4 @@
-﻿import os
-from pathlib import Path
+﻿from pathlib import Path
 import numpy as np
 import PIL
 
@@ -9,7 +8,6 @@ from datasetinsights.datasets.synthetic import read_bounding_box_2d, read_boundi
 from datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d, plot_keypoints
 
 from PIL.Image import Image
-from PIL.ImageDraw import ImageDraw
 
 
 def cleanup(catalog, data_root):

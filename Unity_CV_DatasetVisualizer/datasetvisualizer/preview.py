@@ -127,7 +127,8 @@ def preview_dataset(base_dataset_dir: str):
         'num_cols': '3',
         'current_page': 'main',
         'curr_dir': base_dataset_dir,
-        'semantic_existed_last_time': False
+        'semantic_existed_last_time': False,
+        'just_opened_zoom': True,
     })
     
     base_dataset_dir = st.session_state.curr_dir
@@ -345,6 +346,7 @@ def create_grid_containers(num_rows, num_cols, start_at, dataset_size):
         expand_image = containers[i - start_at].button(label="Expand Frame", key="exp" + str(i))
         if expand_image:
             st.session_state.image = i
+            st.session_state.just_opened_zoom = True
             st.experimental_rerun()
     return containers
 
@@ -374,15 +376,17 @@ def zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, dataset_p
 
     if st.button('< Back to Grid view'):
         st.session_state.image = -1
+        st.session_state.start_at = index
         st.experimental_rerun()
 
     header = st.beta_columns([2/3, 1/3])
     with header[0]:
         new_index = cc.item_selector_zoom(index,dataset_size + offset)
-        if not new_index == index:
+        if not new_index == index and not st.session_state.just_opened_zoom:
             st.session_state.image = new_index
-            index = new_index
-            #st.experimental_rerun()
+            st.experimental_rerun()
+    
+    st.session_state.just_opened_zoom = False
             
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 

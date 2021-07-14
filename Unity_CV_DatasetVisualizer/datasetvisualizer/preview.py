@@ -151,8 +151,10 @@ def preview_dataset(base_dataset_dir: str):
             folder_select()
 
         dataset_name = base_dataset_dir
-        st.sidebar.markdown("## Current dataset:")
-        st.sidebar.write(os.path.abspath(dataset_name))
+        folder_name = dataset_name.split('/')
+        if len(folder_name) > 1:
+            st.sidebar.markdown("# Current dataset:")
+            st.sidebar.write(folder_name[-2])        
 
         # for ctime, item in datasets:
         #     if dataset_name.startswith(ctime):
@@ -171,17 +173,12 @@ def preview_dataset(base_dataset_dir: str):
                     if st.button("Select dataset folder"):
                         folder_select()
                     return
-
+                
+                st.sidebar.markdown("### Dataset Size: " + str(len(cap.captures.to_dict('records'))))
     
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                          
-    
-                # st.sidebar.markdown("# Filter Captures")
-                # st.sidebar.write("Coming soon")
-    
-                # st.sidebar.markdown("# Highlight Classes")
-                # st.sidebar.write("Coming soon")
+                
     
                 index = int(st.session_state.image)
                 if index >= 0:
@@ -190,6 +187,8 @@ def preview_dataset(base_dataset_dir: str):
                     num_rows = 5
                     grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers)
             else:
+                st.sidebar.markdown("### Dataset Size: " + str(get_dataset_length_with_instances(instances)))
+                
                 index = int(st.session_state.image)
                 if index >= 0:
                     ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, index)

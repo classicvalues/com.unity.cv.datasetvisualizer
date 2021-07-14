@@ -377,8 +377,6 @@ def zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, dataset_p
     if st.button('< Back to Grid view'):
         st.session_state.image = -1
         st.experimental_rerun()
-        
-    components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=10)
 
     header = st.beta_columns([2/3, 1/3])
     with header[0]:

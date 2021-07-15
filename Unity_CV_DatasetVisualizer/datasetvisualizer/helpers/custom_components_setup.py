@@ -53,27 +53,27 @@ def discrete_slider(greeting, name, key, default=0):
     return _discrete_slider(greeting=greeting, name=name, default=default, key=key)
 
 
-def page_selector(startAt, incrementAmt, key='0'):
+def page_selector(startAt, incrementAmt, key='6'):
     return _page_selector(startAt=startAt, incrementAmt=incrementAmt, key=key, default=0)
 
 
-def go_to(key='0'):
+def go_to(key='5'):
     return _go_to(key=key, default=0)
 
 
-def item_selector(startAt, incrementAmt, datasetSize, key='0'):
+def item_selector(startAt, incrementAmt, datasetSize, key='4'):
     return _item_selector(startAt=startAt, incrementAmt=incrementAmt, datasetSize=datasetSize, key=key, default=startAt)
 
 
-def image_selector(index, key=0):
+def image_selector(index, key='3'):
     return _image_selector(index=index, key=key, default=index)
 
 
-def json_viewer(metadata, key=0):
+def json_viewer(metadata, key='2'):
     return _json_viewer(jsonMetadata=metadata, key=key, default=0)
 
 
-def item_selector_zoom(index, datasetSize, key='0'):
+def item_selector_zoom(index, datasetSize, key='1'):
     return _item_selector_zoom(index=index, datasetSize=datasetSize, key=key, default=index)
 
 

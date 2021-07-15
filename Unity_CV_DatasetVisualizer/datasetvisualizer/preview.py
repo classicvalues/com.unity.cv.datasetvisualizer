@@ -328,6 +328,7 @@ def create_grid_view_controls(num_rows, dataset_size):
     with header[0]:
         start_at = int(cc.item_selector(int(st.session_state.start_at), num_cols * num_rows,
                                         dataset_size))
+        
         st.session_state.start_at = start_at
         
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=10)

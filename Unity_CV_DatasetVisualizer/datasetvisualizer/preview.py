@@ -85,26 +85,38 @@ def create_sidebar_labeler_menu(available_labelers):
     st.sidebar.markdown("# Visualize Labelers")
     labelers = {}
     if 'bounding box' in available_labelers:
-        labelers['bounding box'] = st.sidebar.checkbox("Bounding Boxes 2D", False, key="bb2d")
+        labelers['bounding box'] = st.sidebar.checkbox("Bounding Boxes 2D") and st.session_state.bbox2d_existed_last_time
+        st.session_state.bbox2d_existed_last_time = True
+    else:
+        st.session_state.bbox2d_existed_last_time = False
+        
     if 'bounding box 3D' in available_labelers:
-        labelers['bounding box 3D'] = st.sidebar.checkbox("Bounding Boxes 3D", False, key="bb3d")
+        labelers['bounding box 3D'] = st.sidebar.checkbox("Bounding Boxes 3D") and st.session_state.bbox3d_existed_last_time
+        st.session_state.bbox3d_existed_last_time = True
+    else:
+        st.session_state.bbox3d_existed_last_time = False
+        
     if 'keypoints' in available_labelers:
-        labelers['keypoints'] = st.sidebar.checkbox("Key Points", False, key="kp")
+        labelers['keypoints'] = st.sidebar.checkbox("Key Points") and st.session_state.keypoints_existed_last_time
+        st.session_state.keypoints_existed_last_time = True
+    else:
+        st.session_state.keypoints_existed_last_time = False
+        
     if 'instance segmentation' in available_labelers and 'semantic segmentation' in available_labelers:
-        if st.sidebar.checkbox('Segmentation', False, key="seg") and st.session_state.semantic_existed_last_time:
+        if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
             selected_segmentation = st.sidebar.radio("Select the segmentation type:",
                                                      ['Semantic Segmentation', 'Instance Segmentation'],
-                                                     index=0, key="rb_seg")
+                                                     index=0)
             if selected_segmentation == 'Semantic Segmentation':
                 labelers['semantic segmentation'] = True
             elif selected_segmentation == 'Instance Segmentation':
                 labelers['instance segmentation'] = True
         st.session_state.semantic_existed_last_time = True
     elif 'semantic segmentation' in available_labelers:
-        labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation", False, key="ss")
+        labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation")
         st.session_state.semantic_existed_last_time = False
     elif 'instance segmentation' in available_labelers:
-        labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation", False, key="is")
+        labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation")
         st.session_state.semantic_existed_last_time = False
     else:
         st.session_state.semantic_existed_last_time = False

@@ -4,7 +4,7 @@ import os
 import sys
 import time
 import subprocess
-from typing import List, Tuple
+from typing import List, Tuple, Optional, Dict
 import re
 
 import streamlit as st
@@ -21,87 +21,112 @@ st.set_page_config(layout="wide")  # This needs to be the first streamlit comman
 import helpers.custom_components_setup as cc
 
 
-def list_datasets(path) -> List:
+def datamaker_dataset(path: str) -> Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]:
+    """ Reads the given path as a datamaker dataset
+
+        Assumes that the given path contains a folder structure as follows:
+        - path
+            - urn_app_params folders
+                - instance_#
+                    - attempt_#
+                        - Normal Perception dataset folder structure
+
+        :param path: path to dataset
+        :type path: str
+
+        :return: Dictionary containing an entry for every instance, the key is the instance number, 
+                each entry is a tuple as follows: (AnnotationDefinition, MetricDefiniton, Captures, number of captures, 
+                absolute path to instance)
+        :rtype: Dict[int, (AnnotationDefinitions, MetricDefinitions, Captures, int, str)]
     """
-    Lists the datasets in a diretory.
-    :param path: path to a directory that contains dataset folders
-    :type str:
-    :return: list of dataset directories
-    :rtype: List
-    """
-    datasets = []
-    for item in os.listdir(path):
-        path_to_item = os.path.join(path, item)
-        if os.path.isdir(path_to_item) and item != "Unity" and item != ".streamlit":
-            ann_def, _, _ = load_perception_dataset(path_to_item)
-            if ann_def is not None:
-                date = os.path.getctime(path_to_item)
-                datasets.append((date, item))
-
-    datasets.sort(reverse=True)
-    for idx, (date, item) in enumerate(datasets):
-        datasets[idx] = (time.ctime(date)[4:], item)
-
-    if len(datasets) == 0:
-        st.error("Seems like the folder you selected does not contain any datasets")
-    return datasets
-
-
-def datamaker_dataset(path):
     instances = {}
     for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
         for instance in [g.path for g in os.scandir(app_param) if g.is_dir()]:
             if re.match(".*instance_[0-9]*", instance):
-                instance_num = int(instance[instance.rfind("instance_")+len("instance_"):])
+                instance_num = int(instance[instance.rfind("instance_") + len("instance_"):])
                 for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
                     if re.match(".*attempt_[0-9]*", attempt):
                         ann_def, metric_def, cap = load_perception_dataset(attempt)
                         if ann_def is not None:
-                            instances[instance_num]= ann_def, metric_def, cap, len(cap.captures.to_dict('records')), attempt
-    
+                            instances[instance_num] = ann_def, metric_def, cap, len(
+                                cap.captures.to_dict('records')), attempt
+
     if len(instances) > 0:
         return instances
     else:
         return None
-        
+
 
 @st.cache(show_spinner=True, allow_output_mutation=True)
-def load_perception_dataset(data_root: str) -> Tuple:
+def load_perception_dataset(path: str) -> Tuple[AnnotationDefinitions, MetricDefinitions, Captures]:
+    """ Reads the given path as a normal Perception dataset and returns Dataset Insight objects that represent it
+
+    :param path: root directory for a normal Perception dataset
+    :type path: str
+
+    :return: Annotations, Metrics and Captures for the given perception_dataset, if the dataset is invalid it returns
+            (None, None, None)
+    :rtype: (AnnotationDefinitions, MetricDefinitions, Captures)
+    """
     try:
-        ann_def = AnnotationDefinitions(data_root)
-        metric_def = MetricDefinitions(data_root)
-        cap = Captures(data_root)
+        ann_def = AnnotationDefinitions(path)
+        metric_def = MetricDefinitions(path)
+        cap = Captures(path)
         return ann_def, metric_def, cap
     except Exception:
         return None, None, None
 
 
-def create_session_state_data(attribute_values):
+def create_session_state_data(attribute_values: Dict[str, any]):
+    """ Takes a dictionary of attributes to values to create the streamlit session_state object. 
+    The values are the default values
+
+    :param attribute_values: dictionary of session_state parameter to default values
+    :type attribute_values: Dict[str, any]
+    """
     for key in attribute_values:
         if key not in st.session_state:
             st.session_state[key] = attribute_values[key]
 
-def create_sidebar_labeler_menu(available_labelers):
+
+def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool]:
+    """
+    Creates a streamlit sidebar menu that displays checkboxes and radio buttons to select which labelers to display
+
+    :param available_labelers: List of strings representing labelers
+    :type available_labelers: List[str]
+
+    :return: Dictionary where keys are the available_labelers and values are bool representing if they have been chosen
+    :rtype: Dict[str, bool]
+    """
+
+    # Note that here there is use of st.session_state._____existed_last_time this is used to workaround a streamlit bug
+    # if this is removed then when user selects dataset with labeler X and turns it on then changes to dataset without
+    # it then changes to a dataset with labeler X, labeler X appears as unselected but returns True as a value so acts
+    # as if it was selected
+    
     st.sidebar.markdown("# Visualize Labelers")
     labelers = {}
     if 'bounding box' in available_labelers:
-        labelers['bounding box'] = st.sidebar.checkbox("Bounding Boxes 2D") and st.session_state.bbox2d_existed_last_time
+        labelers['bounding box'] = st.sidebar.checkbox(
+            "Bounding Boxes 2D") and st.session_state.bbox2d_existed_last_time
         st.session_state.bbox2d_existed_last_time = True
     else:
         st.session_state.bbox2d_existed_last_time = False
-        
+
     if 'bounding box 3D' in available_labelers:
-        labelers['bounding box 3D'] = st.sidebar.checkbox("Bounding Boxes 3D") and st.session_state.bbox3d_existed_last_time
+        labelers['bounding box 3D'] = st.sidebar.checkbox(
+            "Bounding Boxes 3D") and st.session_state.bbox3d_existed_last_time
         st.session_state.bbox3d_existed_last_time = True
     else:
         st.session_state.bbox3d_existed_last_time = False
-        
+
     if 'keypoints' in available_labelers:
         labelers['keypoints'] = st.sidebar.checkbox("Key Points") and st.session_state.keypoints_existed_last_time
         st.session_state.keypoints_existed_last_time = True
     else:
         st.session_state.keypoints_existed_last_time = False
-        
+
     if 'instance segmentation' in available_labelers and 'semantic segmentation' in available_labelers:
         if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
             selected_segmentation = st.sidebar.radio("Select the segmentation type:",
@@ -122,139 +147,154 @@ def create_sidebar_labeler_menu(available_labelers):
         st.session_state.semantic_existed_last_time = False
     return labelers
 
+
+def display_number_frames(num_frames: int):
+    """
+    Creates a sidebar display for the number of frames in the selected dataset
+
+    :param num_frames: Number of frames in the selected dataset
+    :type num_frames: int
+    """
+    st.sidebar.markdown("### Number of frames: " + str(num_frames))
+
+
 def preview_dataset(base_dataset_dir: str):
     """
     Adds streamlit components to the app to construct the dataset preview.
 
-    :param base_dataset_dir: The directory that contains the perceptions datasets.
-    :type str:
+    :param base_dataset_dir: The directory that contains the perception dataset.
+    :type base_dataset_dir: str
     """
 
-    # session_state = SessionState.get(image='-1', start_at='0', num_cols='3', current_page='main',
-    #                                 curr_dir=base_dataset_dir, labelers={})
-    
+    # Create state with default values
     create_session_state_data({
-        'image': '-1',
+        'zoom_image': '-1',
         'start_at': '0',
         'num_cols': '3',
-        'current_page': 'main',
         'curr_dir': base_dataset_dir,
-        'semantic_existed_last_time': False,
+
         'just_opened_zoom': True,
+        'just_opened_grid': True,
+
+        'bbox2d_existed_last_time': False,
+        'bbox3d_existed_last_time': False,
+        'keypoints_existed_last_time': False,
+        'semantic_existed_last_time': False,
     })
-    
+
+    # Gets the latest selected directory
     base_dataset_dir = st.session_state.curr_dir
 
-    # st.sidebar.markdown("# Select Project")
-    # if st.sidebar.button("Change project folder"):
-    #     folder_select(session_state)
+    # Display select dataset menu
+    st.sidebar.markdown("# Select Dataset")
+    if st.sidebar.button("Change Dataset"):
+        folder_select()
 
-    if st.session_state.current_page == 'main':
-        # st.sidebar.markdown("# Select Dataset")
-        # datasets = list_datasets(base_dataset_dir)
-        # if len(datasets) == 0:
-        #     return
-        # datasets_names = [ctime + " " + item for ctime, item in datasets]
+    # Display name of dataset (Name of folder)
+    dataset_name = base_dataset_dir
+    folder_name = dataset_name.split('/')
+    if len(folder_name) > 1:
+        st.sidebar.markdown("# Current dataset:")
+        st.sidebar.write(folder_name[-2])
 
-        # dataset_name = st.sidebar.selectbox(
-        #     "Please select a dataset...", datasets_names
-        # )
-        st.sidebar.markdown("# Select Dataset")
-        if st.sidebar.button("Change Dataset"):
-            folder_select()
+    if dataset_name is not None:
+        data_root = os.path.abspath(dataset_name)
 
-        dataset_name = base_dataset_dir
-        folder_name = dataset_name.split('/')
-        if len(folder_name) > 1:
-            st.sidebar.markdown("# Current dataset:")
-            st.sidebar.write(folder_name[-2])        
+        # Attempt to read data_root as a datamaker dataset
+        instances = datamaker_dataset(data_root)
 
-        # for ctime, item in datasets:
-        #     if dataset_name.startswith(ctime):
-        #         dataset_name = item
-        #         break
+        # if it is not a datamaker dataset
+        if instances is None:
+            # Attempt to read as a normal perception dataset
+            ann_def, metric_def, cap = load_perception_dataset(data_root)
 
-        if dataset_name is not None:
-            data_root = os.path.abspath(dataset_name)
-            #data_root = os.path.join(base_dataset_dir, dataset_name)
+            # if it fails to open as a normal percpetion dataset then consider it to be an invalid folder
+            if ann_def is None:
+                st.markdown("# Please select a valid dataset folder:")
+                if st.button("Select dataset folder"):
+                    folder_select()
+                return
 
-            instances = datamaker_dataset(data_root)
-            if instances is None:
-                ann_def, metric_def, cap = load_perception_dataset(data_root)
-                if ann_def is None:
-                    st.markdown("# Please select a valid dataset folder:")
-                    if st.button("Select dataset folder"):
-                        folder_select()
-                    return
-                
-                st.sidebar.markdown("### Number of frames: "  + str(len(cap.captures.to_dict('records'))))
-    
+            display_number_frames(len(cap.captures.to_dict('records')))
+
+            available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
+            labelers = create_sidebar_labeler_menu(available_labelers)
+
+            # zoom_image is negative if the application isn't in zoom mode
+            index = int(st.session_state.zoom_image)
+            if index >= 0:
+                zoom(index, 0, ann_def, cap, data_root, labelers, data_root)
+            else:
+                num_rows = 5
+                grid_view(num_rows, ann_def, cap, data_root, labelers)
+
+        # if it is a datamaker dataset
+        else:
+            display_number_frames(get_dataset_length_with_instances(instances))
+
+            # zoom_image is negative if the application isn't in zoom mode
+            index = int(st.session_state.zoom_image)
+            if index >= 0:
+                ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, index)
+                offset = get_dataset_length_with_instances(instances, instance_key)
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                
-    
-                index = int(st.session_state.image)
-                if index >= 0:
-                    zoom(index, 0, ann_def, metric_def, cap, data_root, labelers, data_root)
-                else:
-                    num_rows = 5
-                    grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers)
+                zoom(index, offset, ann_def, cap, data_root, labelers, data_root)
             else:
-                st.sidebar.markdown("### Number of frames: " + str(get_dataset_length_with_instances(instances)))
-                
-                index = int(st.session_state.image)
-                if index >= 0:
-                    ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, index)
-                    offset = get_dataset_length_with_instances(instances, instance_key)
-                    available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
-                    labelers = create_sidebar_labeler_menu(available_labelers)
-                    zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, data_root)
-                else:
-                    index = st.session_state.start_at
-                    num_rows = 5
-                    ann_def, metric_def, cap, _, data_root = get_instance_by_capture_idx(instances, index)
-                    available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
-                    labelers = create_sidebar_labeler_menu(available_labelers)
-                    grid_view_instances(num_rows, instances, data_root, labelers)
-        else:
-            st.markdown("# Please select a valid dataset folder:")
-            if st.button("Select dataset folder"):
-                folder_select()
+                index = st.session_state.start_at
+                num_rows = 5
+                ann_def, metric_def, cap, _, data_root = get_instance_by_capture_idx(instances, index)
+                available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
+                labelers = create_sidebar_labeler_menu(available_labelers)
+                grid_view_instances(num_rows, instances, data_root, labelers)
+    else:
+        st.markdown("# Please select a valid dataset folder:")
+        if st.button("Select dataset folder"):
+            folder_select()
 
-def get_instance_by_capture_idx(instances, index):
-    sum = 0
+
+def get_instance_by_capture_idx(instances, index) -> Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]:
+    """
+    
+    :param instances: 
+    :param index: 
+    :return: 
+    """
+    total = 0
     keys = list(instances.keys())
     keys.sort()
     for key in keys:
-        sum = sum + instances[key][3]
-        if int(index) <= sum - 1:
+        total = total + instances[key][3]
+        if int(index) <= total - 1:
             return instances[key][0], instances[key][1], instances[key][2], key, instances[key][4]
 
-def get_dataset_length_with_instances(instances, until_instance=-1):
-    sum = 0
+
+def get_dataset_length_with_instances(instances, until_instance=-1) -> int:
+    total = 0
     keys = list(instances.keys())
     keys.sort()
     for key in keys:
         if 0 <= until_instance <= key:
             break
-        sum = sum + instances[key][3]
-    return sum
+        total = total + instances[key][3]
+    return total
 
-def get_annotation_def(ann_def, name):
+
+def get_annotation_def(ann_def, name) -> Optional[str]:
     for idx, a in enumerate(ann_def.table.to_dict('records')):
         if a["name"] == name:
             return a["id"]
-    return -1
+    return None
 
 
-def get_annotation_index(ann_def, name):
+def get_annotation_index(ann_def, name) -> int:
     for idx, a in enumerate(ann_def.table.to_dict('records')):
         if a["name"] == name:
             return idx
     return -1
 
 
-def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers_to_use, max_size=500):
+def get_image_with_labelers(index, ann_def, cap, data_root, labelers_to_use, max_size=500) -> Image:
     captures = cap.filter(def_id=ann_def.table.to_dict('records')[0]["id"])
     capture = captures.loc[index, "filename"]
     filename = os.path.join(data_root, capture)
@@ -284,15 +324,15 @@ def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers
         annotations = box_captures.loc[index, "annotation.values"]
         sensor = box_captures.loc[index, "sensor"]
         image = v.draw_image_with_box_3d(image, sensor, annotations, None)
-    
-    image.thumbnail((max_size,max_size))
+
+    image.thumbnail((max_size, max_size))
     if 'semantic segmentation' in labelers_to_use and labelers_to_use['semantic segmentation']:
         semantic_segmentation_definition_id = get_annotation_def(ann_def, 'semantic segmentation')
 
         seg_captures = cap.filter(def_id=semantic_segmentation_definition_id)
         seg_filename = os.path.join(data_root, seg_captures.loc[index, "annotation.filename"])
         seg = Image.open(seg_filename)
-        seg.thumbnail((max_size,max_size))
+        seg.thumbnail((max_size, max_size))
 
         image = v.draw_image_with_segmentation(
             image, seg
@@ -304,8 +344,8 @@ def get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers
         inst_captures = cap.filter(def_id=instance_segmentation_definition_id)
         inst_filename = os.path.join(data_root, inst_captures.loc[index, "annotation.filename"])
         inst = Image.open(inst_filename)
-        inst.thumbnail((max_size,max_size))
-        
+        inst.thumbnail((max_size, max_size))
+
         image = v.draw_image_with_segmentation(
             image, inst
         )
@@ -328,6 +368,7 @@ def folder_select():
     st.session_state.curr_dir = proj_root
     st.experimental_rerun()
 
+
 def create_grid_view_controls(num_rows, dataset_size):
     header = st.beta_columns([2 / 3, 1 / 3])
 
@@ -338,17 +379,21 @@ def create_grid_view_controls(num_rows, dataset_size):
         st.experimental_rerun()
 
     with header[0]:
-        start_at = int(cc.item_selector(int(st.session_state.start_at), num_cols * num_rows,
+        new_start_at = int(cc.item_selector(int(st.session_state.start_at), num_cols * num_rows,
                                         dataset_size))
-        
-        st.session_state.start_at = start_at
-        
+        if not new_start_at == st.session_state.start_at and not st.session_state.just_opened_grid:
+            st.session_state.start_at = new_start_at
+
+        st.session_state.just_opened_grid = False
+        start_at = int(st.session_state.start_at)
+
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=10)
     return num_cols, start_at
 
+
 def create_grid_containers(num_rows, num_cols, start_at, dataset_size):
     cols = st.beta_columns(num_cols)
-    containers = [None]*(num_cols*num_rows)
+    containers = [None] * (num_cols * num_rows)
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
         containers[i - start_at] = cols[(i - (start_at % num_cols)) % num_cols].beta_container()
         # container.write("Frame #" + str(i))
@@ -358,19 +403,21 @@ def create_grid_containers(num_rows, num_cols, start_at, dataset_size):
                 height=35)
         expand_image = containers[i - start_at].button(label="Expand Frame", key="exp" + str(i))
         if expand_image:
-            st.session_state.image = i
+            st.session_state.zoom_image = i
             st.session_state.just_opened_zoom = True
             st.experimental_rerun()
     return containers
 
-def grid_view(num_rows, ann_def, metric_def, cap, data_root, labelers):
+
+def grid_view(num_rows, ann_def, cap, data_root, labelers):
     num_cols, start_at = create_grid_view_controls(num_rows, len(cap.captures.to_dict('records')))
-    
+
     containers = create_grid_containers(num_rows, num_cols, start_at, len(cap.captures.to_dict('records')))
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
-        image = get_image_with_labelers(i, ann_def, metric_def, cap, data_root, labelers, max_size=(6-num_cols)*150)
+        image = get_image_with_labelers(i, ann_def, cap, data_root, labelers, max_size=(6 - num_cols) * 150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
+
 
 def grid_view_instances(num_rows, instances, data_root, labelers):
     dataset_size = get_dataset_length_with_instances(instances)
@@ -380,31 +427,37 @@ def grid_view_instances(num_rows, instances, data_root, labelers):
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
         ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, i)
-        image = get_image_with_labelers(i - get_dataset_length_with_instances(instances, instance_key), ann_def, metric_def, cap, data_root, labelers, max_size=(6-num_cols)*150)
+        image = get_image_with_labelers(i - get_dataset_length_with_instances(instances, instance_key), ann_def,
+                                        cap, data_root, labelers, max_size=(6 - num_cols) * 150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
-def zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, dataset_path):
-    dataset_size =  len(cap.captures.to_dict('records'))
-    
+
+def zoom(index, offset, ann_def, cap, data_root, labelers, dataset_path):
+    dataset_size = len(cap.captures.to_dict('records'))
+
+    st.session_state.start_at = index
 
     if st.button('< Back to Grid view'):
-        st.session_state.image = -1
-        st.session_state.start_at = index
+        st.session_state.zoom_image = -1
+        st.session_state.just_opened_grid = True
         st.experimental_rerun()
 
-    header = st.beta_columns([2/3, 1/3])
+    header = st.beta_columns([2 / 3, 1 / 3])
     with header[0]:
-        new_index = cc.item_selector_zoom(index,dataset_size + offset)
+        new_index = cc.item_selector_zoom(index, dataset_size + offset)
         if not new_index == index and not st.session_state.just_opened_zoom:
-            st.session_state.image = new_index
+            st.session_state.zoom_image = new_index
+            st.session_state.start_at = index
             st.experimental_rerun()
-    
+
+    st.session_state.start_at = index
+
     st.session_state.just_opened_zoom = False
-            
+
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 
     index = index - offset
-    image = get_image_with_labelers(index, ann_def, metric_def, cap, data_root, labelers, max_size=2000)
+    image = get_image_with_labelers(index, ann_def, cap, data_root, labelers, max_size=2000)
 
     layout = st.beta_columns([0.7, 0.3])
     layout[0].image(image, use_column_width=True)
@@ -416,16 +469,11 @@ def zoom(index, offset, ann_def, metric_def, cap, data_root, labelers, dataset_p
         if name.startswith("Dataset") and "." not in name[1:]:
             captures_dir = directory[0]
             break
-            
-    # first = cap.captures.loc[0, "filename"]
-    # if not isinstance(first, str):
-    #     first = first.tolist()[0]
-    # inner_offset = int(first[-5])
 
     path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_000.json")
     json_file = json.load(open(path_to_captures, "r"))
     num_captures_per_file = len(json_file["captures"])
-    
+
     file_num = index // num_captures_per_file
     postfix = ('000' + str(file_num))
     postfix = postfix[len(postfix) - 3:]
@@ -449,9 +497,9 @@ def preview_app(args):
 
 
 if __name__ == "__main__":
-    #removes the default zoom button on images
+    # removes the default zoom button on images
     st.markdown('<style>button.css-enefr8{display: none}</style>', unsafe_allow_html=True)
-    try: 
+    try:
         parser = argparse.ArgumentParser()
         parser.add_argument("data", type=str)
         args = parser.parse_args()

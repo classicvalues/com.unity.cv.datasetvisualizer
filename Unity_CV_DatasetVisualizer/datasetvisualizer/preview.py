@@ -248,7 +248,7 @@ def preview_dataset(base_dataset_dir: str):
                 ann_def, metric_def, cap, _, data_root = instances[instance_key]
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                grid_view_instances(num_rows, instances, data_root, labelers)
+                grid_view_instances(num_rows, instances, labelers)
     else:
         st.markdown("# Please select a valid dataset folder:")
         if st.button("Select dataset folder"):
@@ -505,17 +505,19 @@ def create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset_
 
 
 def grid_view(num_rows: int, ann_def: AnnotationDefinitions, cap: Captures, data_root: str, labelers: Dict[str, bool]):
-    """
-    
-    :param num_rows: 
+    """ Creates the grid view streamlit components
+
+    :param num_rows: Number of rows
     :type num_rows: int
-    :param ann_def: 
+    :param ann_def: Annotations for dataset
     :type ann_def: AnnotationDefinitions
-    :param cap: 
+    :param cap: Captures for dataset
     :type cap: Captures
-    :param data_root: 
-    :param labelers: 
-    :return: 
+    :param data_root: Path to dataset root
+    :type data_root: str
+    :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
+                     and the corresponding value is a boolean representing whether or not to display it
+    :type labelers: Dict[str, bool]
     """
     num_cols, start_at = create_grid_view_controls(num_rows, len(cap.captures.to_dict('records')))
 
@@ -526,7 +528,19 @@ def grid_view(num_rows: int, ann_def: AnnotationDefinitions, cap: Captures, data
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
-def grid_view_instances(num_rows, instances, data_root, labelers):
+def grid_view_instances(num_rows, instances, labelers):
+    """ Creates the grid view streamlit components when using a Datamaker dataset
+
+    :param num_rows: Number of rows
+    :type num_rows: int
+    :param instances: Dictionary of instances
+    :type instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]
+    :param data_root: Path to dataset root
+    :type data_root: str
+    :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
+                     and the corresponding value is a boolean representing whether or not to display it
+    :type labelers: Dict[str, bool]
+    """
     dataset_size = get_dataset_length_with_instances(instances)
     num_cols, start_at = create_grid_view_controls(num_rows, dataset_size)
 
@@ -541,6 +555,17 @@ def grid_view_instances(num_rows, instances, data_root, labelers):
 
 
 def zoom(index, offset, ann_def, cap, data_root, labelers, dataset_path):
+    """ Creates streamlit components for Zoom in view
+    
+    :param index: Index of the image 
+    :param offset: 
+    :param ann_def: 
+    :param cap: 
+    :param data_root: 
+    :param labelers: 
+    :param dataset_path: 
+    :return: 
+    """
     dataset_size = len(cap.captures.to_dict('records'))
 
     st.session_state.start_at = index

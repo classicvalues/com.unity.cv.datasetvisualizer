@@ -2,7 +2,6 @@ import argparse
 import json
 import os
 import sys
-import time
 import subprocess
 from typing import List, Tuple, Optional, Dict
 import re
@@ -17,7 +16,6 @@ from datasetinsights.datasets.unity_perception import AnnotationDefinitions, Met
 from datasetinsights.datasets.unity_perception.captures import Captures
 import visualization.visualizers as v
 
-st.set_page_config(layout="wide")  # This needs to be the first streamlit command
 import helpers.custom_components_setup as cc
 
 
@@ -223,7 +221,7 @@ def preview_dataset(base_dataset_dir: str):
             # zoom_image is negative if the application isn't in zoom mode
             index = int(st.session_state.zoom_image)
             if index >= 0:
-                zoom(index, 0, ann_def, cap, data_root, labelers, data_root)
+                zoom(index, 0, ann_def, cap, data_root, labelers)
             else:
                 num_rows = 5
                 grid_view(num_rows, ann_def, cap, data_root, labelers)
@@ -240,7 +238,7 @@ def preview_dataset(base_dataset_dir: str):
                 ann_def, metric_def, cap, size, data_root = instances[instance_key]
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                zoom(index, offset, ann_def, cap, data_root, labelers, data_root)
+                zoom(index, offset, ann_def, cap, data_root, labelers)
             else:
                 index = st.session_state.start_at
                 num_rows = 5
@@ -528,7 +526,10 @@ def grid_view(num_rows: int, ann_def: AnnotationDefinitions, cap: Captures, data
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
-def grid_view_instances(num_rows, instances, labelers):
+def grid_view_instances(
+        num_rows: int,
+        instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]],
+        labelers: Dict[str, bool]):
     """ Creates the grid view streamlit components when using a Datamaker dataset
 
     :param num_rows: Number of rows
@@ -554,17 +555,28 @@ def grid_view_instances(num_rows, instances, labelers):
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
-def zoom(index, offset, ann_def, cap, data_root, labelers, dataset_path):
+def zoom(index: int,
+         offset: int,
+         ann_def: AnnotationDefinitions,
+         cap: Captures,
+         data_root: str,
+         labelers: Dict[str, bool]):
     """ Creates streamlit components for Zoom in view
-    
-    :param index: Index of the image 
-    :param offset: 
-    :param ann_def: 
-    :param cap: 
-    :param data_root: 
-    :param labelers: 
-    :param dataset_path: 
-    :return: 
+
+    :param index: Index of the image
+    :type index: int
+    :param offset: Is how much the index needs to be offset, this is only needed to 
+                   handle multiple instances (Datamaker datasets)
+    :type offset: int
+    :param ann_def: Annotations for Dataset
+    :type ann_def: AnnotationsDefinitions
+    :param cap: Captures for Dataset
+    :type cap: Captures
+    :param data_root: Path to dataset (Note that when using instances this is the path to the instance the index is in)
+    :type data_root: str
+    :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
+                     and the corresponding value is a boolean representing whether or not to display it
+    :type labelers: Dict[str, bool]
     """
     dataset_size = len(cap.captures.to_dict('records'))
 
@@ -597,7 +609,7 @@ def zoom(index, offset, ann_def, cap, data_root, labelers, dataset_path):
     layout[1].title("JSON metadata")
 
     captures_dir = None
-    for directory in os.walk(dataset_path):
+    for directory in os.walk(data_root):
         name = str(directory[0]).replace('\\', '/').split('/')[-1]
         if name.startswith("Dataset") and "." not in name[1:]:
             captures_dir = directory[0]
@@ -623,19 +635,19 @@ def preview_app(args):
     :param args: Arguments for the app, such as dataset
     :type args: Namespace
     """
-    # if args is None:
-    #    preview_dataset(None)
-    # else: 
     preview_dataset(args["data"])
 
 
 if __name__ == "__main__":
+    # This needs to be the first streamlit command
+    st.set_page_config(layout="wide")
     # removes the default zoom button on images
     st.markdown('<style>button.css-enefr8{display: none}</style>', unsafe_allow_html=True)
-    try:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("data", type=str)
-        args = parser.parse_args()
-        preview_app(args)
-    except Exception:
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("data", type=str)
+    args = parser.parse_args()
+    if os.path.isdir(args.data):
+        preview_app({"data": args.data})
+    else:
         preview_app({"data": ""})

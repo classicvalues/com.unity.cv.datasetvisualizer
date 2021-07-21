@@ -8,7 +8,7 @@ subparsers = cli.add_subparsers(dest="subcommand")
 
 
 def argument(*name_or_flags, **kwargs):
-    return ([*name_or_flags], kwargs)
+    return [*name_or_flags], kwargs
 
 
 def subcommand(args=[], parent=subparsers):
@@ -39,10 +39,12 @@ def preview(args):
 def main():
     args = cli.parse_args()
     if args.subcommand is None:
+        print("hello")
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "preview.py")
         streamlit.bootstrap.run(filename, "", {"data": ""}, None)
     else:
+        print("hi")
         args.func(args)
 
 

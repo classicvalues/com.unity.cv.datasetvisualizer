@@ -8,7 +8,6 @@ else:
 
 dialog = QFileDialog()
 dialog.setFileMode(QFileDialog.Directory)
-#dialog.setOptions(QFileDialog.DontUseNativeDialog)
 
 if dialog.exec_():
     fileName = dialog.selectedFiles()

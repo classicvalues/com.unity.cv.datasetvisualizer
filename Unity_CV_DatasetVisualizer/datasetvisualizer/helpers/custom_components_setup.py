@@ -55,7 +55,7 @@ def discrete_slider(greeting, name, key, default=0):
 
 def page_selector(startAt, incrementAmt, key='6'):
     return _page_selector(startAt=startAt, incrementAmt=incrementAmt, key=key, default=0)
-
+  
 
 def go_to(key='5'):
     return _go_to(key=key, default=0)

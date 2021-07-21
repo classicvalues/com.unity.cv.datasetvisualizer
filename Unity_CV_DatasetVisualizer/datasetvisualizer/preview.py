@@ -2,7 +2,6 @@ import argparse
 import json
 import os
 import sys
-import time
 import subprocess
 from typing import List, Tuple, Optional, Dict
 import re
@@ -17,7 +16,6 @@ from datasetinsights.datasets.unity_perception import AnnotationDefinitions, Met
 from datasetinsights.datasets.unity_perception.captures import Captures
 import visualization.visualizers as v
 
-st.set_page_config(layout="wide")  # This needs to be the first streamlit command
 import helpers.custom_components_setup as cc
 
 
@@ -104,7 +102,7 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
     # if this is removed then when user selects dataset with labeler X and turns it on then changes to dataset without
     # it then changes to a dataset with labeler X, labeler X appears as unselected but returns True as a value so acts
     # as if it was selected
-    
+
     st.sidebar.markdown("# Visualize Labelers")
     labelers = {}
     if 'bounding box' in available_labelers:
@@ -223,7 +221,7 @@ def preview_dataset(base_dataset_dir: str):
             # zoom_image is negative if the application isn't in zoom mode
             index = int(st.session_state.zoom_image)
             if index >= 0:
-                zoom(index, 0, ann_def, cap, data_root, labelers, data_root)
+                zoom(index, 0, ann_def, cap, data_root, labelers)
             else:
                 num_rows = 5
                 grid_view(num_rows, ann_def, cap, data_root, labelers)
@@ -235,30 +233,38 @@ def preview_dataset(base_dataset_dir: str):
             # zoom_image is negative if the application isn't in zoom mode
             index = int(st.session_state.zoom_image)
             if index >= 0:
-                ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, index)
+                instance_key = get_instance_by_capture_idx(instances, index)
                 offset = get_dataset_length_with_instances(instances, instance_key)
+                ann_def, metric_def, cap, size, data_root = instances[instance_key]
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                zoom(index, offset, ann_def, cap, data_root, labelers, data_root)
+                zoom(index, offset, ann_def, cap, data_root, labelers)
             else:
                 index = st.session_state.start_at
                 num_rows = 5
-                ann_def, metric_def, cap, _, data_root = get_instance_by_capture_idx(instances, index)
+                instance_key = get_instance_by_capture_idx(instances, index)
+                ann_def, metric_def, cap, _, data_root = instances[instance_key]
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                grid_view_instances(num_rows, instances, data_root, labelers)
+                grid_view_instances(num_rows, instances, labelers)
     else:
         st.markdown("# Please select a valid dataset folder:")
         if st.button("Select dataset folder"):
             folder_select()
 
 
-def get_instance_by_capture_idx(instances, index) -> Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]:
-    """
-    
-    :param instances: 
-    :param index: 
-    :return: 
+def get_instance_by_capture_idx(
+        instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]], index: int) \
+        -> int:
+    """ Gets the instance in instances that contains the given capture index
+
+    :param instances: Dictionary of instances
+    :type instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]
+    :param index: Capture index that we want
+    :type index: int
+
+    :return: key in dictionary
+    :rtype: int
     """
     total = 0
     keys = list(instances.keys())
@@ -266,10 +272,24 @@ def get_instance_by_capture_idx(instances, index) -> Tuple[AnnotationDefinitions
     for key in keys:
         total = total + instances[key][3]
         if int(index) <= total - 1:
-            return instances[key][0], instances[key][1], instances[key][2], key, instances[key][4]
+            return key
 
 
-def get_dataset_length_with_instances(instances, until_instance=-1) -> int:
+def get_dataset_length_with_instances(
+        instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]],
+        until_instance: int = -1) -> \
+        int:
+    """ Gets the total length of a dataset that goes over multiple instances (aka. Datamaker dataset)
+    optionally you can specify until which instance you want to count 
+    (the order is based by the natural ordering of keys)
+
+    :param instances: Dictionary of instances
+    :type instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]
+    :param until_instance: optional, will stop counting when it reaches the specified instance (non-inclusive)
+    :type until_instance: int
+    :return: length
+    :rtype: int
+    """
     total = 0
     keys = list(instances.keys())
     keys.sort()
@@ -280,28 +300,72 @@ def get_dataset_length_with_instances(instances, until_instance=-1) -> int:
     return total
 
 
-def get_annotation_def(ann_def, name) -> Optional[str]:
+def get_annotation_id(ann_def: AnnotationDefinitions, name: str) -> Optional[str]:
+    """ gets annotation definition id of the specified annotation
+
+    :param ann_def: Annotations in dataset
+    :type ann_def: AnnotationDefinitions
+    :param name: Name of the annotation we want the id of
+    :type name: str
+    :return: annotation definition id
+    :rtype: str
+    """
     for idx, a in enumerate(ann_def.table.to_dict('records')):
         if a["name"] == name:
             return a["id"]
     return None
 
 
-def get_annotation_index(ann_def, name) -> int:
+def get_annotation_index(ann_def: AnnotationDefinitions, name: str) -> int:
+    """ gets annotation definition index of the specified annotation
+
+    :param ann_def: Annotations in dataset
+    :type ann_def: AnnotationDefinitions
+    :param name: Name of the annotation we want the id of
+    :type name: str
+    :return: index
+    :rtype: int
+    """
     for idx, a in enumerate(ann_def.table.to_dict('records')):
         if a["name"] == name:
             return idx
     return -1
 
 
-def get_image_with_labelers(index, ann_def, cap, data_root, labelers_to_use, max_size=500) -> Image:
+def get_image_with_labelers(
+        index: int,
+        ann_def: AnnotationDefinitions,
+        cap: Captures,
+        data_root: str,
+        labelers_to_use: Dict[str, bool],
+        max_size: int = 500) -> Image:
+    """ Creates a PIL image of the capture at index that has all the labelers_to_use visualized
+
+    :param index: The index of the frame we want
+    :type index: int
+    :param ann_def: The Annotations for the dataset
+    :type ann_def: AnnotationsDefinitions
+    :param cap: The Captures for the dataset
+    :type cap: Captures
+    :param data_root: The root of the 
+    :type data_root: str
+    :param labelers_to_use: Dictionary containing keys for the name of every labeler available in the given dataset
+                            and the corresponding value is a boolean representing whether or not to display it
+    :type labelers_to_use: Dict[str, bool]
+    :param max_size: Optional (Default: 500), determines the maximum size of width and height of the created image
+                     Useful for optimizing. In the visualizer, if the images were full sized: the browser would take too
+                     much time to display them
+    :type max_size: int
+    :return: The image with the labelers
+    :rtype: PIL.Image
+    """
     captures = cap.filter(def_id=ann_def.table.to_dict('records')[0]["id"])
     capture = captures.loc[index, "filename"]
     filename = os.path.join(data_root, capture)
     image = Image.open(filename)
 
     if 'bounding box' in labelers_to_use and labelers_to_use['bounding box']:
-        bounding_box_definition_id = get_annotation_def(ann_def, 'bounding box')
+        bounding_box_definition_id = get_annotation_id(ann_def, 'bounding box')
         catalog = v.capture_df(bounding_box_definition_id, data_root)
         label_mappings = v.label_mappings_dict(bounding_box_definition_id, data_root)
         image = v.draw_image_with_boxes(
@@ -312,22 +376,26 @@ def get_image_with_labelers(index, ann_def, cap, data_root, labelers_to_use, max
         )
 
     if 'keypoints' in labelers_to_use and labelers_to_use['keypoints']:
-        keypoints_definition_id = get_annotation_def(ann_def, 'keypoints')
+        keypoints_definition_id = get_annotation_id(ann_def, 'keypoints')
         kp_captures = cap.filter(def_id=keypoints_definition_id)
         annotations = kp_captures.loc[index, "annotation.values"]
         templates = ann_def.table.to_dict('records')[get_annotation_index(ann_def, 'keypoints')]['spec']
         v.draw_image_with_keypoints(image, annotations, templates)
 
     if 'bounding box 3D' in labelers_to_use and labelers_to_use['bounding box 3D']:
-        bounding_box_3d_definition_id = get_annotation_def(ann_def, 'bounding box 3D')
+        bounding_box_3d_definition_id = get_annotation_id(ann_def, 'bounding box 3D')
         box_captures = cap.filter(def_id=bounding_box_3d_definition_id)
         annotations = box_captures.loc[index, "annotation.values"]
         sensor = box_captures.loc[index, "sensor"]
         image = v.draw_image_with_box_3d(image, sensor, annotations, None)
 
+    # bounding boxes and keypoints are depend on pixel coordinates so for now the thumbnail optimization applies only to
+    # segmentation
+    # TODO Make it so that bounding boxes and keypoints can be visualized at a lower resolution
+
     image.thumbnail((max_size, max_size))
     if 'semantic segmentation' in labelers_to_use and labelers_to_use['semantic segmentation']:
-        semantic_segmentation_definition_id = get_annotation_def(ann_def, 'semantic segmentation')
+        semantic_segmentation_definition_id = get_annotation_id(ann_def, 'semantic segmentation')
 
         seg_captures = cap.filter(def_id=semantic_segmentation_definition_id)
         seg_filename = os.path.join(data_root, seg_captures.loc[index, "annotation.filename"])
@@ -339,7 +407,7 @@ def get_image_with_labelers(index, ann_def, cap, data_root, labelers_to_use, max
         )
 
     if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
-        instance_segmentation_definition_id = get_annotation_def(ann_def, 'instance segmentation')
+        instance_segmentation_definition_id = get_annotation_id(ann_def, 'instance segmentation')
 
         inst_captures = cap.filter(def_id=instance_segmentation_definition_id)
         inst_filename = os.path.join(data_root, inst_captures.loc[index, "annotation.filename"])
@@ -354,6 +422,8 @@ def get_image_with_labelers(index, ann_def, cap, data_root, labelers_to_use, max
 
 
 def folder_select():
+    """ Runs a subprocess that opens a file dialog to select a new directory, this will update st.session_state.curr_dir
+    """
     output = subprocess.run(
         [sys.executable, os.path.join(os.path.dirname(os.path.realpath(__file__)), "helpers/folder_explorer.py")],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
@@ -369,7 +439,16 @@ def folder_select():
     st.experimental_rerun()
 
 
-def create_grid_view_controls(num_rows, dataset_size):
+def create_grid_view_controls(num_rows: int, dataset_size: int) -> Tuple[int, int]:
+    """ Creates the controls for grid view
+
+    :param num_rows: number of rows to display
+    :type num_rows: int
+    :param dataset_size: The size of the dataset
+    :type dataset_size: int
+    :return: Returns the number of columns and the index at which the grid must start
+    :rtype: Tuple[int, int]
+    """
     header = st.beta_columns([2 / 3, 1 / 3])
 
     num_cols = header[1].slider(label="Frames per row: ", min_value=1, max_value=5, step=1,
@@ -380,7 +459,7 @@ def create_grid_view_controls(num_rows, dataset_size):
 
     with header[0]:
         new_start_at = int(cc.item_selector(int(st.session_state.start_at), num_cols * num_rows,
-                                        dataset_size))
+                                            dataset_size))
         if not new_start_at == st.session_state.start_at and not st.session_state.just_opened_grid:
             st.session_state.start_at = new_start_at
 
@@ -391,7 +470,21 @@ def create_grid_view_controls(num_rows, dataset_size):
     return num_cols, start_at
 
 
-def create_grid_containers(num_rows, num_cols, start_at, dataset_size):
+def create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset_size: int) -> List[any]:
+    """ Creates the streamlit containers that will hold the images in a grid, this must happen before placing the images
+    so that when clicking on "Expand frame" it doesn't need to reload every image before opening in zoom view
+
+    :param num_rows: Number of rows
+    :type num_rows: int
+    :param num_cols: Number of columns
+    :type num_cols: int
+    :param start_at: Index at which the grid starts
+    :type start_at: int
+    :param dataset_size: Size of the dataset
+    :type dataset_size: int
+    :return: list of the containers in order from left to right, up to down
+    :rtype: List[any]
+    """
     cols = st.beta_columns(num_cols)
     containers = [None] * (num_cols * num_rows)
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
@@ -409,7 +502,21 @@ def create_grid_containers(num_rows, num_cols, start_at, dataset_size):
     return containers
 
 
-def grid_view(num_rows, ann_def, cap, data_root, labelers):
+def grid_view(num_rows: int, ann_def: AnnotationDefinitions, cap: Captures, data_root: str, labelers: Dict[str, bool]):
+    """ Creates the grid view streamlit components
+
+    :param num_rows: Number of rows
+    :type num_rows: int
+    :param ann_def: Annotations for dataset
+    :type ann_def: AnnotationDefinitions
+    :param cap: Captures for dataset
+    :type cap: Captures
+    :param data_root: Path to dataset root
+    :type data_root: str
+    :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
+                     and the corresponding value is a boolean representing whether or not to display it
+    :type labelers: Dict[str, bool]
+    """
     num_cols, start_at = create_grid_view_controls(num_rows, len(cap.captures.to_dict('records')))
 
     containers = create_grid_containers(num_rows, num_cols, start_at, len(cap.captures.to_dict('records')))
@@ -419,20 +526,58 @@ def grid_view(num_rows, ann_def, cap, data_root, labelers):
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
-def grid_view_instances(num_rows, instances, data_root, labelers):
+def grid_view_instances(
+        num_rows: int,
+        instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]],
+        labelers: Dict[str, bool]):
+    """ Creates the grid view streamlit components when using a Datamaker dataset
+
+    :param num_rows: Number of rows
+    :type num_rows: int
+    :param instances: Dictionary of instances
+    :type instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]
+    :param data_root: Path to dataset root
+    :type data_root: str
+    :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
+                     and the corresponding value is a boolean representing whether or not to display it
+    :type labelers: Dict[str, bool]
+    """
     dataset_size = get_dataset_length_with_instances(instances)
     num_cols, start_at = create_grid_view_controls(num_rows, dataset_size)
 
     containers = create_grid_containers(num_rows, num_cols, start_at, dataset_size)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        ann_def, metric_def, cap, instance_key, data_root = get_instance_by_capture_idx(instances, i)
+        instance_key = get_instance_by_capture_idx(instances, i)
+        ann_def, metric_def, cap, size, data_root = instances[instance_key]
         image = get_image_with_labelers(i - get_dataset_length_with_instances(instances, instance_key), ann_def,
                                         cap, data_root, labelers, max_size=(6 - num_cols) * 150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
-def zoom(index, offset, ann_def, cap, data_root, labelers, dataset_path):
+def zoom(index: int,
+         offset: int,
+         ann_def: AnnotationDefinitions,
+         cap: Captures,
+         data_root: str,
+         labelers: Dict[str, bool]):
+    """ Creates streamlit components for Zoom in view
+
+    :param index: Index of the image
+    :type index: int
+    :param offset: Is how much the index needs to be offset, this is only needed to 
+                   handle multiple instances (Datamaker datasets)
+    :type offset: int
+    :param ann_def: Annotations for Dataset
+    :type ann_def: AnnotationsDefinitions
+    :param cap: Captures for Dataset
+    :type cap: Captures
+    :param data_root: Path to dataset (Note that when using instances this is the path to the instance the index is in)
+    :type data_root: str
+    :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
+                     and the corresponding value is a boolean representing whether or not to display it
+    :type labelers: Dict[str, bool]
+    """
     dataset_size = len(cap.captures.to_dict('records'))
 
     st.session_state.start_at = index
@@ -464,7 +609,7 @@ def zoom(index, offset, ann_def, cap, data_root, labelers, dataset_path):
     layout[1].title("JSON metadata")
 
     captures_dir = None
-    for directory in os.walk(dataset_path):
+    for directory in os.walk(data_root):
         name = str(directory[0]).replace('\\', '/').split('/')[-1]
         if name.startswith("Dataset") and "." not in name[1:]:
             captures_dir = directory[0]
@@ -490,19 +635,19 @@ def preview_app(args):
     :param args: Arguments for the app, such as dataset
     :type args: Namespace
     """
-    # if args is None:
-    #    preview_dataset(None)
-    # else: 
     preview_dataset(args["data"])
 
 
 if __name__ == "__main__":
+    # This needs to be the first streamlit command
+    st.set_page_config(layout="wide")
     # removes the default zoom button on images
     st.markdown('<style>button.css-enefr8{display: none}</style>', unsafe_allow_html=True)
-    try:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("data", type=str)
-        args = parser.parse_args()
-        preview_app(args)
-    except Exception:
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("data", type=str)
+    args = parser.parse_args()
+    if os.path.isdir(args.data):
+        preview_app({"data": args.data})
+    else:
         preview_app({"data": ""})

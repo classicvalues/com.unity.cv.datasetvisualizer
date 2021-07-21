@@ -8,7 +8,7 @@ subparsers = cli.add_subparsers(dest="subcommand")
 
 
 def argument(*name_or_flags, **kwargs):
-    return ([*name_or_flags], kwargs)
+    return [*name_or_flags], kwargs
 
 
 def subcommand(args=[], parent=subparsers):

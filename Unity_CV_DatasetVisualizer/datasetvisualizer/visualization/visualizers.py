@@ -103,33 +103,6 @@ def find_metadata_annotation_index(dataset, name):
 def draw_image_with_keypoints(
     image, annotations, templates
 ):
-    # image = image.copy()
-    # image_draw = ImageDraw(image)
-
-    # radius = int(dataset.metadata.image_size[0] * 5 / 500)
-    # for i in range(len(keypoints)):
-    #     keypoint = keypoints[i]
-    #     if keypoint["state"] != 2:
-    #         continue
-    #     coordinates = (keypoint["x"] - radius, keypoint["y"] - radius, keypoint["x"] + radius, keypoint["y"] + radius)
-    #     color = \
-    #     dataset.metadata.annotations[find_metadata_annotation_index(dataset, "keypoints")]["spec"][0]["key_points"][i][
-    #         "color"]
-    #     image_draw.ellipse(coordinates, fill=(int(255 * color["r"]), int(255 * color["g"]), int(255 * color["b"]), 255))
-
-    # skeleton = dataset.metadata.annotations[find_metadata_annotation_index(dataset, "keypoints")]["spec"][0]["skeleton"]
-    # for bone in skeleton:
-    #     if keypoints[bone["joint1"]]["state"] != 2 or keypoints[bone["joint1"]]["state"] != 2:
-    #         continue
-    #     joint1 = (keypoints[bone["joint1"]]["x"], keypoints[bone["joint1"]]["y"])
-    #     joint2 = (keypoints[bone["joint2"]]["x"], keypoints[bone["joint2"]]["y"])
-    #     r = bone["color"]["r"]
-    #     g = bone["color"]["g"]
-    #     b = bone["color"]["b"]
-    #     image_draw.line([joint1, joint2], fill=(int(255 * r), int(255 * g), int(255 * b), 255),
-    #                     width=int(dataset.metadata.image_size[0] * 3 / 500))
-    # return image
-
     return plot_keypoints(image, annotations, templates)
 
 

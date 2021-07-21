@@ -143,6 +143,11 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
         st.session_state.semantic_existed_last_time = False
     else:
         st.session_state.semantic_existed_last_time = False
+    if st.session_state.previous_labelers != labelers:
+        st.session_state.labelers_changed = True
+    else:
+        st.session_state.labelers_changed = False
+    st.session_state.previous_labelers = labelers
     return labelers
 
 
@@ -178,6 +183,9 @@ def preview_dataset(base_dataset_dir: str):
         'bbox3d_existed_last_time': False,
         'keypoints_existed_last_time': False,
         'semantic_existed_last_time': False,
+        
+        'previous_labelers': {},
+        'labelers_changed': False,
     })
 
     # Gets the latest selected directory
@@ -536,8 +544,6 @@ def grid_view_instances(
     :type num_rows: int
     :param instances: Dictionary of instances
     :type instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]
-    :param data_root: Path to dataset root
-    :type data_root: str
     :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
                      and the corresponding value is a boolean representing whether or not to display it
     :type labelers: Dict[str, bool]
@@ -582,6 +588,7 @@ def zoom(index: int,
     dataset_size = len(cap.captures.to_dict('records'))
 
     st.session_state.start_at = index
+    st.session_state.zoom_image = index
 
     if st.button('< Back to Grid view'):
         st.session_state.zoom_image = -1
@@ -591,13 +598,13 @@ def zoom(index: int,
     header = st.beta_columns([2 / 3, 1 / 3])
     with header[0]:
         new_index = cc.item_selector_zoom(index, dataset_size + offset)
-        if not new_index == index and not st.session_state.just_opened_zoom:
+        if not new_index == index and not st.session_state.just_opened_zoom and not st.session_state.labelers_changed:
             st.session_state.zoom_image = new_index
             st.session_state.start_at = index
             st.experimental_rerun()
 
     st.session_state.start_at = index
-
+    st.session_state.zoom_image = index
     st.session_state.just_opened_zoom = False
 
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)

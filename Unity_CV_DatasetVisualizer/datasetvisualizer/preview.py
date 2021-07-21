@@ -221,7 +221,7 @@ def preview_dataset(base_dataset_dir: str):
             # zoom_image is negative if the application isn't in zoom mode
             index = int(st.session_state.zoom_image)
             if index >= 0:
-                zoom(index, 0, ann_def, cap, data_root, labelers)
+                zoom(index, 0, ann_def, metric_def, cap, data_root, labelers)
             else:
                 num_rows = 5
                 grid_view(num_rows, ann_def, cap, data_root, labelers)
@@ -238,7 +238,7 @@ def preview_dataset(base_dataset_dir: str):
                 ann_def, metric_def, cap, size, data_root = instances[instance_key]
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                zoom(index, offset, ann_def, cap, data_root, labelers)
+                zoom(index, offset, ann_def, metric_def, cap, data_root, labelers)
             else:
                 index = st.session_state.start_at
                 num_rows = 5
@@ -558,6 +558,7 @@ def grid_view_instances(
 def zoom(index: int,
          offset: int,
          ann_def: AnnotationDefinitions,
+         metrics_def: MetricDefinitions,
          cap: Captures,
          data_root: str,
          labelers: Dict[str, bool]):
@@ -604,9 +605,9 @@ def zoom(index: int,
     index = index - offset
     image = get_image_with_labelers(index, ann_def, cap, data_root, labelers, max_size=2000)
 
-    layout = st.beta_columns([0.7, 0.3])
-    layout[0].image(image, use_column_width=True)
-    layout[1].title("JSON metadata")
+    st.image(image, use_column_width=True)
+    layout = st.beta_columns(2)
+    layout[0].title("Captures Metadata")
 
     captures_dir = None
     for directory in os.walk(data_root):
@@ -623,9 +624,25 @@ def zoom(index: int,
     postfix = ('000' + str(file_num))
     postfix = postfix[len(postfix) - 3:]
     path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_" + postfix + ".json")
-    with layout[1]:
+    with layout[0]:
         json_file = json.load(open(path_to_captures, "r"))
-        st.write(json_file["captures"][index % num_captures_per_file])
+        capture = json_file['captures'][index % num_captures_per_file]
+        st.write(capture)
+
+    layout[1].title("Metrics Metadata")
+    metrics = []
+    for i in os.listdir(captures_dir):
+        path_to_metrics = os.path.join(captures_dir, i)
+        if os.path.isfile(path_to_metrics) and 'metrics_' in i and 'definitions' not in i:
+            json_file = json.load(open(path_to_metrics))
+            metrics.extend(json_file['metrics'])
+    with layout[1]:
+        for metric in metrics:
+            if metric['sequence_id'] == capture['sequence_id'] and metric['step'] == capture['step']:
+                for metric_def in metrics_def.table.to_dict('records'):
+                    if metric_def['id'] == metric['metric_definition']:
+                        st.markdown("## " + metric_def['name'])
+                st.write(metric)
 
 
 def preview_app(args):

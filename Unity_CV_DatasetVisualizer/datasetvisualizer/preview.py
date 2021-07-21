@@ -143,6 +143,11 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
         st.session_state.semantic_existed_last_time = False
     else:
         st.session_state.semantic_existed_last_time = False
+    if st.session_state.previous_labelers != labelers:
+        st.session_state.labelers_changed = True
+    else:
+        st.session_state.labelers_changed = False
+    st.session_state.previous_labelers = labelers
     return labelers
 
 
@@ -178,6 +183,9 @@ def preview_dataset(base_dataset_dir: str):
         'bbox3d_existed_last_time': False,
         'keypoints_existed_last_time': False,
         'semantic_existed_last_time': False,
+        
+        'previous_labelers': {},
+        'labelers_changed': False,
     })
 
     # Gets the latest selected directory
@@ -221,7 +229,7 @@ def preview_dataset(base_dataset_dir: str):
             # zoom_image is negative if the application isn't in zoom mode
             index = int(st.session_state.zoom_image)
             if index >= 0:
-                zoom(index, 0, ann_def, cap, data_root, labelers)
+                zoom(index, 0, ann_def, metric_def, cap, data_root, labelers)
             else:
                 num_rows = 5
                 grid_view(num_rows, ann_def, cap, data_root, labelers)
@@ -238,7 +246,7 @@ def preview_dataset(base_dataset_dir: str):
                 ann_def, metric_def, cap, size, data_root = instances[instance_key]
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                zoom(index, offset, ann_def, cap, data_root, labelers)
+                zoom(index, offset, ann_def, metric_def, cap, data_root, labelers)
             else:
                 index = st.session_state.start_at
                 num_rows = 5
@@ -536,8 +544,6 @@ def grid_view_instances(
     :type num_rows: int
     :param instances: Dictionary of instances
     :type instances: Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]
-    :param data_root: Path to dataset root
-    :type data_root: str
     :param labelers: Dictionary containing keys for the name of every labeler available in the given dataset
                      and the corresponding value is a boolean representing whether or not to display it
     :type labelers: Dict[str, bool]
@@ -558,6 +564,7 @@ def grid_view_instances(
 def zoom(index: int,
          offset: int,
          ann_def: AnnotationDefinitions,
+         metrics_def: MetricDefinitions,
          cap: Captures,
          data_root: str,
          labelers: Dict[str, bool]):
@@ -581,6 +588,7 @@ def zoom(index: int,
     dataset_size = len(cap.captures.to_dict('records'))
 
     st.session_state.start_at = index
+    st.session_state.zoom_image = index
 
     if st.button('< Back to Grid view'):
         st.session_state.zoom_image = -1
@@ -590,13 +598,13 @@ def zoom(index: int,
     header = st.beta_columns([2 / 3, 1 / 3])
     with header[0]:
         new_index = cc.item_selector_zoom(index, dataset_size + offset)
-        if not new_index == index and not st.session_state.just_opened_zoom:
+        if not new_index == index and not st.session_state.just_opened_zoom and not st.session_state.labelers_changed:
             st.session_state.zoom_image = new_index
             st.session_state.start_at = index
             st.experimental_rerun()
 
     st.session_state.start_at = index
-
+    st.session_state.zoom_image = index
     st.session_state.just_opened_zoom = False
 
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
@@ -604,9 +612,9 @@ def zoom(index: int,
     index = index - offset
     image = get_image_with_labelers(index, ann_def, cap, data_root, labelers, max_size=2000)
 
-    layout = st.beta_columns([0.7, 0.3])
-    layout[0].image(image, use_column_width=True)
-    layout[1].title("JSON metadata")
+    st.image(image, use_column_width=True)
+    layout = st.beta_columns(2)
+    layout[0].title("Captures Metadata")
 
     captures_dir = None
     for directory in os.walk(data_root):
@@ -623,9 +631,25 @@ def zoom(index: int,
     postfix = ('000' + str(file_num))
     postfix = postfix[len(postfix) - 3:]
     path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_" + postfix + ".json")
-    with layout[1]:
+    with layout[0]:
         json_file = json.load(open(path_to_captures, "r"))
-        st.write(json_file["captures"][index % num_captures_per_file])
+        capture = json_file['captures'][index % num_captures_per_file]
+        st.write(capture)
+
+    layout[1].title("Metrics Metadata")
+    metrics = []
+    for i in os.listdir(captures_dir):
+        path_to_metrics = os.path.join(captures_dir, i)
+        if os.path.isfile(path_to_metrics) and 'metrics_' in i and 'definitions' not in i:
+            json_file = json.load(open(path_to_metrics))
+            metrics.extend(json_file['metrics'])
+    with layout[1]:
+        for metric in metrics:
+            if metric['sequence_id'] == capture['sequence_id'] and metric['step'] == capture['step']:
+                for metric_def in metrics_def.table.to_dict('records'):
+                    if metric_def['id'] == metric['metric_definition']:
+                        st.markdown("## " + metric_def['name'])
+                st.write(metric)
 
 
 def preview_app(args):

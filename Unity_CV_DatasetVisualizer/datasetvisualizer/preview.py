@@ -339,6 +339,13 @@ def get_annotation_index(ann_def: AnnotationDefinitions, name: str) -> int:
             return idx
     return -1
 
+def custom_compare_filenames(filenames):
+    num1 = int(os.path.basename(filenames[0])[4:-4])
+    num2 = int(os.path.basename(filenames[1])[4:-4])
+    if num1 > num2:
+        filenames[0] = filenames[1]
+        filenames[1] = filenames[0]
+    return filenames
 
 def get_image_with_labelers(
         index: int,
@@ -368,6 +375,7 @@ def get_image_with_labelers(
     :rtype: PIL.Image
     """
     captures = cap.filter(def_id=ann_def.table.to_dict('records')[0]["id"])
+    print(captures.sort_values(by='filename', key=custom_compare_filenames))
     capture = captures.loc[index, "filename"]
     filename = os.path.join(data_root, capture)
     image = Image.open(filename)

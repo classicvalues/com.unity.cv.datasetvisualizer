@@ -535,9 +535,9 @@ def grid_view(num_rows: int, ann_def: AnnotationDefinitions, cap: Captures, data
 
 def get_resolution_from_num_cols(num_cols):
     if num_cols == 5:
-        return 200
+        return 300
     else:
-        return (6 - num_cols) * 160
+        return (6 - num_cols) * 200
 
 
 def grid_view_instances(

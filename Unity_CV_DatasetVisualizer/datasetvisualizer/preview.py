@@ -530,8 +530,14 @@ def grid_view(num_rows: int, ann_def: AnnotationDefinitions, cap: Captures, data
     containers = create_grid_containers(num_rows, num_cols, start_at, len(cap.captures.to_dict('records')))
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
-        image = get_image_with_labelers(i, ann_def, cap, data_root, labelers, max_size=(6 - num_cols) * 150)
+        image = get_image_with_labelers(i, ann_def, cap, data_root, labelers, max_size=get_resolution_from_num_cols(num_cols))
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
+
+def get_resolution_from_num_cols(num_cols):
+    if num_cols == 5:
+        return 200
+    else:
+        return (6 - num_cols) * 160
 
 
 def grid_view_instances(

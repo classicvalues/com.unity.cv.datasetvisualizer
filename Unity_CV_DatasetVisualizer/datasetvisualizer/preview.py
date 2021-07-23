@@ -375,7 +375,7 @@ def get_image_with_labelers(
     :rtype: PIL.Image
     """
     captures = cap.filter(def_id=ann_def.table.to_dict('records')[0]["id"])
-    print(captures.sort_values(by='filename', key=custom_compare_filenames))
+    captures = captures.sort_values(by='filename', key=custom_compare_filenames)
     capture = captures.loc[index, "filename"]
     filename = os.path.join(data_root, capture)
     image = Image.open(filename)

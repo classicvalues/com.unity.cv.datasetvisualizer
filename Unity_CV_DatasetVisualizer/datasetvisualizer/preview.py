@@ -391,6 +391,7 @@ def get_image_with_labelers(
     if 'keypoints' in labelers_to_use and labelers_to_use['keypoints']:
         keypoints_definition_id = get_annotation_id(ann_def, 'keypoints')
         kp_captures = cap.filter(def_id=keypoints_definition_id)
+        kp_captures = kp_captures.sort_values(by='filename', key=custom_compare_filenames).reset_index(drop=True)
         annotations = kp_captures.loc[index, "annotation.values"]
         templates = ann_def.table.to_dict('records')[get_annotation_index(ann_def, 'keypoints')]['spec']
         v.draw_image_with_keypoints(image, annotations, templates)
@@ -398,6 +399,7 @@ def get_image_with_labelers(
     if 'bounding box 3D' in labelers_to_use and labelers_to_use['bounding box 3D']:
         bounding_box_3d_definition_id = get_annotation_id(ann_def, 'bounding box 3D')
         box_captures = cap.filter(def_id=bounding_box_3d_definition_id)
+        box_captures = box_captures.sort_values(by='filename', key=custom_compare_filenames).reset_index(drop=True)
         annotations = box_captures.loc[index, "annotation.values"]
         sensor = box_captures.loc[index, "sensor"]
         image = v.draw_image_with_box_3d(image, sensor, annotations, None)
@@ -409,8 +411,9 @@ def get_image_with_labelers(
     image.thumbnail((max_size, max_size))
     if 'semantic segmentation' in labelers_to_use and labelers_to_use['semantic segmentation']:
         semantic_segmentation_definition_id = get_annotation_id(ann_def, 'semantic segmentation')
-
+        
         seg_captures = cap.filter(def_id=semantic_segmentation_definition_id)
+        seg_captures = seg_captures.sort_values(by='filename', key=custom_compare_filenames).reset_index(drop=True)
         seg_filename = os.path.join(data_root, seg_captures.loc[index, "annotation.filename"])
         seg = Image.open(seg_filename)
         seg.thumbnail((max_size, max_size))
@@ -423,6 +426,7 @@ def get_image_with_labelers(
         instance_segmentation_definition_id = get_annotation_id(ann_def, 'instance segmentation')
 
         inst_captures = cap.filter(def_id=instance_segmentation_definition_id)
+        inst_captures = inst_captures.sort_values(by='filename', key=custom_compare_filenames).reset_index(drop=True)
         inst_filename = os.path.join(data_root, inst_captures.loc[index, "annotation.filename"])
         inst = Image.open(inst_filename)
         inst.thumbnail((max_size, max_size))

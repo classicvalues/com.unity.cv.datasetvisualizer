@@ -14,8 +14,8 @@ import streamlit.components.v1 as components
 
 from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
 from datasetinsights.datasets.unity_perception.captures import Captures
-import visualization.visualizers as v
 
+import visualization.visualizers as v
 import helpers.custom_components_setup as cc
 
 
@@ -183,7 +183,7 @@ def preview_dataset(base_dataset_dir: str):
         'bbox3d_existed_last_time': False,
         'keypoints_existed_last_time': False,
         'semantic_existed_last_time': False,
-        
+
         'previous_labelers': {},
         'labelers_changed': False,
     })
@@ -577,6 +577,8 @@ def zoom(index: int,
     :type offset: int
     :param ann_def: Annotations for Dataset
     :type ann_def: AnnotationsDefinitions
+    :param metrics_def: Metrics for the dataset
+    :type metrics_def: MetricsDefinitions
     :param cap: Captures for Dataset
     :type cap: Captures
     :param data_root: Path to dataset (Note that when using instances this is the path to the instance the index is in)
@@ -619,8 +621,10 @@ def zoom(index: int,
     captures_dir = None
     for directory in os.walk(data_root):
         name = str(directory[0]).replace('\\', '/').split('/')[-1]
-        if name.startswith("Dataset") and "." not in name[1:]:
-            captures_dir = directory[0]
+        if name.startswith("Dataset") and \
+                "." not in name[1:] and \
+                os.path.abspath(data_root) != os.path.abspath(directory[0]):
+            captures_dir = os.path.abspath(directory[0])
             break
 
     path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_000.json")
@@ -663,6 +667,7 @@ def preview_app(args):
 
 
 if __name__ == "__main__":
+
     # This needs to be the first streamlit command
     st.set_page_config(layout="wide")
     # removes the default zoom button on images

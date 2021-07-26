@@ -10,42 +10,6 @@ from datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d
 from PIL.Image import Image
 
 
-def cleanup(catalog, data_root):
-    catalog = remove_captures_with_missing_files(data_root, catalog)
-    # catalog = remove_captures_without_bboxes(catalog)
-    return catalog
-
-
-def remove_captures_without_bboxes(catalog):
-    keep_mask = catalog["annotation.values"].apply(len) > 0
-    return catalog[keep_mask]
-
-
-def remove_captures_with_missing_files(root, catalog):
-    def exists(capture_file):
-        path = Path(root) / capture_file
-        return path.exists()
-
-    keep_mask = catalog.filename.apply(exists)
-    return catalog[keep_mask]
-
-
-def capture_df(def_id, data_root):
-    captures = Captures(data_root)
-    catalog = captures.filter(def_id)
-    catalog = cleanup(catalog, data_root)
-    return catalog
-
-
-def label_mappings_dict(def_id, data_root):
-    annotation_def = AnnotationDefinitions(data_root)
-    init_definition = annotation_def.get_definition(def_id)
-    label_mappings = {
-        m["label_id"]: m["label_name"] for m in init_definition["spec"]
-    }
-    return label_mappings
-
-
 def draw_image_with_boxes(
     image,
     index,

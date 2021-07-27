@@ -203,9 +203,8 @@ def preview_dataset(base_dataset_dir: str):
         st.sidebar.markdown("# Current dataset:")
         st.sidebar.write(folder_name[-2])
 
-    if dataset_name is not None:
+    if dataset_name is not None and dataset_name.strip() != "":
         data_root = os.path.abspath(dataset_name)
-
         # Attempt to read data_root as a datamaker dataset
         instances = datamaker_dataset(data_root)
 

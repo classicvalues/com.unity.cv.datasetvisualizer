@@ -25,7 +25,7 @@ jobs:
         --sdist
         --wheel
         --outdir dist/
-        .
+        ./unity_cv_datasetvisualizer/
     - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:

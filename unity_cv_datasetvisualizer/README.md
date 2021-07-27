@@ -25,3 +25,4 @@ Once in the application, you will be prompted to select a dataset folder. Click 
 * The tool cannot open a dataset that has no labeler data (bounding boxes, semantic segmentation, etc.)
 * On Windows: a warning appears when launching the app (This can be ignored)
 * 3D bounding boxes are not rendered properly when the camera is inside the box.
+* Opening a folder that isn't a dataset folder may hang the program (The workaround is: kill the process and start it again)

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54197f1a-e4f9-43f0-ad77-a5fbdeb6405a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Unity_CV_DatasetVisualizer/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/Unity_CV_DatasetVisualizer/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unity_cv_datasetvisualizer/datasetvisualizer/preview.py" beforeDir="false" afterPath="$PROJECT_DIR$/unity_cv_datasetvisualizer/datasetvisualizer/preview.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unity_cv_datasetvisualizer/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/unity_cv_datasetvisualizer/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +35,8 @@
       <option name="presentableId" value="Default" />
       <updated>1627321006357</updated>
       <workItem from="1627321009308" duration="16000" />
+      <workItem from="1627595884209" duration="50000" />
+      <workItem from="1627595945715" duration="13000" />
     </task>
     <servers />
   </component>

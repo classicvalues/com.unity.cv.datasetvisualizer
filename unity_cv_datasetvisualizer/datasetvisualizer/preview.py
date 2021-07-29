@@ -18,7 +18,7 @@ import visualization.visualizers as v
 import helpers.custom_components_setup as cc
 
 
-def datamaker_dataset(path: str) -> Optional[Dict[int, Tuple[Any, Any, Any, int, Any]]]:
+def datamaker_dataset(path: str) -> Optional[Dict[int, Tuple[any, any, any, int, any]]]:
     """ Reads the given path as a datamaker dataset
 
         Assumes that the given path contains a folder structure as follows:

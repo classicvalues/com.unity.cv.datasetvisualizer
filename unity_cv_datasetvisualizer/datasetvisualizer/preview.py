@@ -8,7 +8,6 @@ import re
 
 import streamlit as st
 
-# import SessionState
 import PIL.Image as Image
 import streamlit.components.v1 as components
 
@@ -19,7 +18,7 @@ import visualization.visualizers as v
 import helpers.custom_components_setup as cc
 
 
-def datamaker_dataset(path: str) -> Dict[int, Tuple[AnnotationDefinitions, MetricDefinitions, Captures, int, str]]:
+def datamaker_dataset(path: str) -> Optional[Dict[int, Tuple[Any, Any, Any, int, Any]]]:
     """ Reads the given path as a datamaker dataset
 
         Assumes that the given path contains a folder structure as follows:

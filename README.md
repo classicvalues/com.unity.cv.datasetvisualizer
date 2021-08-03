@@ -28,13 +28,12 @@ conda activate dv_env
 ```
 **Step 2:** Install application
 
-Use the following commands to clone this Github repository and install the visualizer.
+Use the following command to install the visualizer.
 
 ```bash
-git clone https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.git
-cd com.unity.cv.datasetvisualizer/Unity_CV_DatasetVisualizer
-pip install -e .
+pip install unity-cv-datasetvisualizer
 ```
+
 > :information_source: On Windows, if you get an error about the system not being able to create a process when running the install command, make sure you have the latest version of Conda installed. Then create a new environment with a new name, and try the install command again. If the error persists, try leaving the Conda virtual environment using `conda deactivate` and running the command outside of any virtual environment. 
 
 > :information_source: If you receive an error saying the unity-dataset-visualizer' distribution was not found, try closing your command line window, opening it again and activating the `dv_env` environment, and running the `datasetvisualizer` command again.
@@ -45,6 +44,12 @@ Run the command:
 
 ```bash
 datasetvisualizer
+```
+
+Or if you want to specify a path to a dataset:
+
+```bash
+datasetvisualizer preview --data="<path_to_dataset>"
 ```
 
 This command may take a few seconds to execute. Once it is done, your browser will automatically open to `http://localhost:8501/` and display the application. If that does not happen, open a new browser tab and manually navigate to that address.

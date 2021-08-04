@@ -18,4 +18,3 @@ dialog.show()
 if dialog.exec_():
     fileName = dialog.selectedFiles()
     print(fileName[0])
-    sys.exit(app.exec_())

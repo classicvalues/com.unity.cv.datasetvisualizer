@@ -691,7 +691,8 @@ if __name__ == "__main__":
     # This needs to be the first streamlit command
     st.set_page_config(layout="wide")
     # removes the default zoom button on images
-    st.markdown('<style>button.css-enefr8{display: none}</style>', unsafe_allow_html=True)
+    st.markdown('<style>button.css-enefr8{display: none;}'
+                '       button.css-1u96g9d{display: none;}</style>', unsafe_allow_html=True)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("data", type=str)

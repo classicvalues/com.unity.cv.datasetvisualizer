@@ -196,7 +196,7 @@ def preview_dataset(base_dataset_dir: str):
         folder_select()
 
     # Display name of dataset (Name of folder)
-    dataset_name = base_dataset_dir
+    dataset_name = os.path.abspath(base_dataset_dir).replace("\\", "/")
     folder_name = dataset_name.split('/')
     if len(folder_name) > 1:
         st.sidebar.markdown("# Current dataset:")

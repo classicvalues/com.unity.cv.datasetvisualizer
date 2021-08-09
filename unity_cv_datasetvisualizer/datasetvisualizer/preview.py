@@ -37,16 +37,19 @@ def datamaker_dataset(path: str) -> Optional[Dict[int, Tuple[any, any, any, int,
         :rtype: Dict[int, (AnnotationDefinitions, MetricDefinitions, Captures, int, str)]
     """
     instances = {}
-    for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
-        for instance in [g.path for g in os.scandir(app_param) if g.is_dir()]:
-            if re.match(".*instance_[0-9]*", instance):
-                instance_num = int(instance[instance.rfind("instance_") + len("instance_"):])
-                for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
-                    if re.match(".*attempt_[0-9]*", attempt):
-                        ann_def, metric_def, cap = load_perception_dataset(attempt)
-                        if ann_def is not None:
-                            instances[instance_num] = ann_def, metric_def, cap, len(
-                                cap.captures.to_dict('records')), attempt
+    try:
+        for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
+            for instance in [g.path for g in os.scandir(app_param) if g.is_dir()]:
+                if re.match(".*instance_[0-9]*", instance):
+                    instance_num = int(instance[instance.rfind("instance_") + len("instance_"):])
+                    for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
+                        if re.match(".*attempt_[0-9]*", attempt):
+                            ann_def, metric_def, cap = load_perception_dataset(attempt)
+                            if ann_def is not None:
+                                instances[instance_num] = ann_def, metric_def, cap, len(
+                                    cap.captures.to_dict('records')), attempt
+    except PermissionError:
+        return None
 
     if len(instances) > 0:
         return instances
@@ -102,18 +105,18 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
     # it then changes to a dataset with labeler X, labeler X appears as unselected but returns True as a value so acts
     # as if it was selected
 
-    st.sidebar.markdown("# Visualize Labelers")
+    st.sidebar.markdown("# Visualize Labels")
     labelers = {}
     if 'bounding box' in available_labelers:
         labelers['bounding box'] = st.sidebar.checkbox(
-            "Bounding Boxes 2D") and st.session_state.bbox2d_existed_last_time
+            "2D Bounding Boxes") and st.session_state.bbox2d_existed_last_time
         st.session_state.bbox2d_existed_last_time = True
     else:
         st.session_state.bbox2d_existed_last_time = False
 
     if 'bounding box 3D' in available_labelers:
         labelers['bounding box 3D'] = st.sidebar.checkbox(
-            "Bounding Boxes 3D") and st.session_state.bbox3d_existed_last_time
+            "3D Bounding Boxes") and st.session_state.bbox3d_existed_last_time
         st.session_state.bbox3d_existed_last_time = True
     else:
         st.session_state.bbox3d_existed_last_time = False
@@ -148,6 +151,17 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
         st.session_state.labelers_changed = False
     st.session_state.previous_labelers = labelers
     return labelers
+
+
+def check_folder_valid(base_dataset_dir: str):
+    try:
+        children_dirs = [os.path.basename(f.path.replace("\\", "/")) for f in os.scandir(base_dataset_dir) if f.is_dir()]
+        for children_dir in children_dirs:
+            if "Dataset" in children_dir:
+                return True
+        return False
+    except PermissionError:
+        return False
 
 
 def display_number_frames(num_frames: int):
@@ -192,15 +206,16 @@ def preview_dataset(base_dataset_dir: str):
 
     # Display select dataset menu
     st.sidebar.markdown("# Select Dataset")
-    if st.sidebar.button("Change Dataset"):
+    if st.sidebar.button("Open Dataset"):
         folder_select()
 
     # Display name of dataset (Name of folder)
     dataset_name = os.path.abspath(base_dataset_dir).replace("\\", "/")
-    folder_name = dataset_name.split('/')
-    if len(folder_name) > 1:
-        st.sidebar.markdown("# Current dataset:")
-        st.sidebar.write(folder_name[-2])
+
+    if dataset_name[-1] == '/':
+        folder_name = dataset_name.split('/')[-2]
+    else:
+        folder_name = dataset_name.split('/')[-1]
 
     if dataset_name is not None and dataset_name.strip() != "":
         data_root = os.path.abspath(dataset_name)
@@ -210,14 +225,21 @@ def preview_dataset(base_dataset_dir: str):
         # if it is not a datamaker dataset
         if instances is None:
             # Attempt to read as a normal perception dataset
-            ann_def, metric_def, cap = load_perception_dataset(data_root)
+            if check_folder_valid(data_root):
+                ann_def, metric_def, cap = load_perception_dataset(data_root)
+            else:
+                ann_def = None
 
             # if it fails to open as a normal percpetion dataset then consider it to be an invalid folder
             if ann_def is None:
-                st.markdown("# Please select a valid dataset folder:")
-                if st.button("Select dataset folder"):
+                st.markdown("# Please open a dataset folder:")
+                if st.button("Open Dataset", key="second open dataset"):
                     folder_select()
                 return
+
+            if len(folder_name) >= 1:
+                st.sidebar.markdown("# Current dataset:")
+                st.sidebar.write(folder_name)
 
             display_number_frames(len(cap.captures.to_dict('records')))
 
@@ -234,6 +256,10 @@ def preview_dataset(base_dataset_dir: str):
 
         # if it is a datamaker dataset
         else:
+            if len(folder_name) >= 1:
+                st.sidebar.markdown("# Current dataset:")
+                st.sidebar.write(folder_name)
+
             display_number_frames(get_dataset_length_with_instances(instances))
 
             # zoom_image is negative if the application isn't in zoom mode
@@ -449,7 +475,12 @@ def folder_select():
         [sys.executable, os.path.join(os.path.dirname(os.path.realpath(__file__)), "helpers/folder_explorer.py")],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
+
+    if str(output.stdout).split("\'")[1] == "" or output.stdout is None:
+        return
+
     stdout = str(os.path.abspath(str(output.stdout).split("\'")[1]))
+
     if stdout[-4:] == "\\r\\n":
         stdout = stdout[:-4]
     elif stdout[-2:] == '\\n':
@@ -543,7 +574,8 @@ def grid_view(num_rows: int, ann_def: AnnotationDefinitions, cap: Captures, data
     containers = create_grid_containers(num_rows, num_cols, start_at, len(cap.captures.to_dict('records')))
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), len(cap.captures.to_dict('records')))):
-        image = get_image_with_labelers(i, ann_def, cap, data_root, labelers, max_size=get_resolution_from_num_cols(num_cols))
+        image = get_image_with_labelers(i, ann_def, cap, data_root, labelers,
+                                        max_size=get_resolution_from_num_cols(num_cols))
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54197f1a-e4f9-43f0-ad77-a5fbdeb6405a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unity_cv_datasetvisualizer/datasetvisualizer/preview.py" beforeDir="false" afterPath="$PROJECT_DIR$/unity_cv_datasetvisualizer/datasetvisualizer/preview.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unity_cv_datasetvisualizer/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/unity_cv_datasetvisualizer/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +11,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/unity_cv_datasetvisualizer/setup.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1vrX6GvIk5U57XiRhXgxmd0sqoW" />
   <component name="ProjectViewState">
@@ -23,6 +24,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../DatasetInsights/streamlit_components/itemselector" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
   </component>
@@ -37,6 +39,7 @@
       <workItem from="1627321009308" duration="16000" />
       <workItem from="1627595884209" duration="50000" />
       <workItem from="1627595945715" duration="13000" />
+      <workItem from="1628194445153" duration="36000" />
     </task>
     <servers />
   </component>

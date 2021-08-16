@@ -154,12 +154,19 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
 
 
 def check_folder_valid(base_dataset_dir: str):
+    found_dataset = False
+    found_rgb = False
+    found_logs = False
     try:
         children_dirs = [os.path.basename(f.path.replace("\\", "/")) for f in os.scandir(base_dataset_dir) if f.is_dir()]
         for children_dir in children_dirs:
-            if "Dataset" in children_dir:
-                return True
-        return False
+            if children_dir.startswith("Dataset"):
+                found_dataset = True
+            elif children_dir.startswith("RGB"):
+                found_rgb = True
+            elif children_dir == "Logs":
+                found_logs = True
+        return found_dataset and found_rgb and found_logs
     except PermissionError:
         return False
 
@@ -209,6 +216,12 @@ def preview_dataset(base_dataset_dir: str):
     if st.sidebar.button("Open Dataset"):
         folder_select()
 
+    if base_dataset_dir is None:
+        st.markdown("# Please open a dataset folder:")
+        if st.button("Open Dataset", key="second open dataset"):
+            folder_select()
+        return
+
     # Display name of dataset (Name of folder)
     dataset_name = os.path.abspath(base_dataset_dir).replace("\\", "/")
 
@@ -228,6 +241,7 @@ def preview_dataset(base_dataset_dir: str):
             if check_folder_valid(data_root):
                 ann_def, metric_def, cap = load_perception_dataset(data_root)
             else:
+                st.warning("The provided Dataset folder \"" + data_root + "\" is not considered valid")
                 ann_def = None
 
             # if it fails to open as a normal percpetion dataset then consider it to be an invalid folder
@@ -732,4 +746,4 @@ if __name__ == "__main__":
     if os.path.isdir(args.data):
         preview_app({"data": args.data})
     else:
-        preview_app({"data": ""})
+        preview_app({"data": None})

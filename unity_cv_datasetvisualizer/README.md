@@ -19,7 +19,7 @@ datasetvisualizer
 Or if you want to specify a path to a dataset:
 
 ```bash
-datasetvisualizer preview --data="<path_to_dataset>"
+datasetvisualizer --data="<path_to_dataset>"
 ```
 
 This command may take a few seconds to execute. Once it is done, your browser will automatically open to `http://localhost:8501/` and display the application. If that does not happen, open a new browser tab and manually navigate to that address.

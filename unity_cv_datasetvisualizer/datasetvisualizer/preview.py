@@ -199,7 +199,7 @@ def preview_dataset(base_dataset_dir: str):
         if instances is None:
             # Attempt to read as a normal perception dataset
             ds = Dataset(data_root)
-            if not ds.dataset_valid:
+            if not ds.dataset_valid:                
                 st.warning("The provided Dataset folder \"" + data_root + "\" is not considered valid")
 
                 st.markdown("# Please open a dataset folder:")
@@ -455,7 +455,7 @@ def zoom(index: int,
             break
 
     path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_000.json")
-    json_file = json.load(open(path_to_captures, "r"))
+    json_file = json.load(open(path_to_captures, "r", encoding="utf8"))
     num_captures_per_file = len(json_file["captures"])
 
     file_num = index // num_captures_per_file
@@ -463,7 +463,7 @@ def zoom(index: int,
     postfix = postfix[len(postfix) - 3:]
     path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_" + postfix + ".json")
     with layout[0]:
-        json_file = json.load(open(path_to_captures, "r"))
+        json_file = json.load(open(path_to_captures, "r", encoding="utf8"))
         capture = json_file['captures'][index % num_captures_per_file]
         st.write(capture)
 
@@ -472,7 +472,7 @@ def zoom(index: int,
     for i in os.listdir(captures_dir):
         path_to_metrics = os.path.join(captures_dir, i)
         if os.path.isfile(path_to_metrics) and 'metrics_' in i and 'definitions' not in i:
-            json_file = json.load(open(path_to_metrics))
+            json_file = json.load(open(path_to_metrics, encoding="utf8"))
             metrics.extend(json_file['metrics'])
     with layout[1]:
         for metric in metrics:

@@ -28,21 +28,22 @@ class Dataset:
         except PermissionError:
             return False
 
-    def __init__(self, data_root: str):
+    def __init__(self, data_root: str):        
         if Dataset.check_folder_valid(data_root):
-            try:
-                self.ann_def = AnnotationDefinitions(data_root)
+            try:                
+                self.ann_def = AnnotationDefinitions(data_root)                                
                 self.metric_def = MetricDefinitions(data_root)
                 self.cap = Captures(data_root)
                 self.data_root = data_root
                 self.dataset_valid = True
-            except Exception:
+            except Exception as e:
+                print(e)
                 self.ann_def = None
                 self.metric_def = None
                 self.cap = None
                 self.data_root = None
                 self.dataset_valid = False
-        else:
+        else:            
             self.ann_def = None
             self.metric_def = None
             self.cap = None

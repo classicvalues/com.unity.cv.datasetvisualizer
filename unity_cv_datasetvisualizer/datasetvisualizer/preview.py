@@ -16,6 +16,8 @@ from datasetinsights.datasets.unity_perception.captures import Captures
 import helpers.custom_components_setup as cc
 from datasetvisualizer.Dataset import Dataset
 
+import helpers.datamaker_dataset_helper as datamaker
+
 
 def datamaker_dataset(path: str) -> Optional[Dict[int, Dataset]]:
     """ Reads the given path as a datamaker dataset
@@ -37,23 +39,30 @@ def datamaker_dataset(path: str) -> Optional[Dict[int, Dataset]]:
     """
     instances = {}
     try:
-        for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
-            for instance in [g.path for g in os.scandir(app_param) if g.is_dir()]:
-                if re.match(".*instance_[0-9]*", instance):
-                    instance_num = int(instance[instance.rfind("instance_") + len("instance_"):])
-                    for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
-                        if re.match(".*attempt_[0-9]*", attempt):
-                            ds = Dataset(attempt)
-                            if ds.dataset_valid:
-                                instances[instance_num] = ds
-    except PermissionError:
-        return None
+        for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:            
+            read_datamaker_instance_output(app_param, instances)
+    except Exception:
+        #The user may be selecting an actual app-param folder instead of a folder containing app-params. This can happen if the user is on the mac and there is only one app-param folder in the downloaded dataset.
+        try:            
+            read_datamaker_instance_output(path, instances)
+        except Exception:
+            return None
 
     if len(instances) > 0:
         return instances
     else:
         return None
 
+
+def read_datamaker_instance_output(path, instances):
+    for instance in [g.path for g in os.scandir(path) if g.is_dir()]:
+            if re.match(".*instance_[0-9]*", instance):
+                instance_num = int(instance[instance.rfind("instance_") + len("instance_"):])
+                for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
+                    if re.match(".*attempt_[0-9]*", attempt):
+                        ds = Dataset(attempt)
+                        if ds.dataset_valid:
+                            instances[instance_num] = ds
 
 def create_session_state_data(attribute_values: Dict[str, any]):
     """ Takes a dictionary of attributes to values to create the streamlit session_state object. 
@@ -167,6 +176,7 @@ def preview_dataset(base_dataset_dir: str):
         'previous_labelers': {},
         'labelers_changed': False,
     })
+    })    
 
     # Gets the latest selected directory
     base_dataset_dir = st.session_state.curr_dir
@@ -194,7 +204,7 @@ def preview_dataset(base_dataset_dir: str):
         data_root = os.path.abspath(dataset_name)
         # Attempt to read data_root as a datamaker dataset
         instances = datamaker_dataset(data_root)
-
+        
         # if it is not a datamaker dataset
         if instances is None:
             # Attempt to read as a normal perception dataset
@@ -230,22 +240,35 @@ def preview_dataset(base_dataset_dir: str):
                 st.sidebar.markdown("# Current dataset:")
                 st.sidebar.write(folder_name)
 
-            display_number_frames(get_dataset_length_with_instances(instances))
+            display_number_frames(datamaker.get_dataset_length_with_instances(instances))
 
             # zoom_image is negative if the application isn't in zoom mode
-            index = int(st.session_state.zoom_image)
+            index = int(st.session_state.zoom_image)            
             if index >= 0:
-                instance_key = get_instance_by_capture_idx(instances, index)
-                offset = get_dataset_length_with_instances(instances, instance_key)
-                ann_def, metric_def, cap, size, data_root = instances[instance_key]
+                instance_key = datamaker.get_instance_by_capture_idx(instances, index)
+                
+                if (instance_key is None):
+                    index = 0
+                    instance_key = datamaker.get_instance_by_capture_idx(instances, index)
+
+                offset = datamaker.get_dataset_length_with_instances(instances, instance_key)
+                ds = instances[instance_key]
+                ann_def = ds.ann_def                                                      
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
-                zoom(index, offset, ann_def, metric_def, cap, data_root, labelers)
+                zoom(index, offset, ds, labelers)
             else:
-                index = st.session_state.start_at
+                index = st.session_state.start_at                
                 num_rows = 5
-                instance_key = get_instance_by_capture_idx(instances, index)
-                ann_def, metric_def, cap, _, data_root = instances[instance_key]
+                instance_key = datamaker.get_instance_by_capture_idx(instances, index)                           
+                
+                if (instance_key is None):
+                    st.session_state.start_at = 0
+                    index = 0
+                    instance_key = datamaker.get_instance_by_capture_idx(instances, index)
+
+                ds = instances[instance_key]
+                ann_def = ds.ann_def                                
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
                 grid_view_instances(num_rows, instances, labelers)
@@ -384,16 +407,18 @@ def grid_view_instances(
                      and the corresponding value is a boolean representing whether or not to display it
     :type labelers: Dict[str, bool]
     """
-    dataset_size = get_dataset_length_with_instances(instances)
+    dataset_size = datamaker.get_dataset_length_with_instances(instances)
     num_cols, start_at = create_grid_view_controls(num_rows, dataset_size)
 
     containers = create_grid_containers(num_rows, num_cols, start_at, dataset_size)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        instance_key = get_instance_by_capture_idx(instances, i)
-        ann_def, metric_def, cap, size, data_root = instances[instance_key]
-        image = get_image_with_labelers(i - get_dataset_length_with_instances(instances, instance_key), ann_def,
-                                        cap, data_root, labelers, max_size=(6 - num_cols) * 150)
+        instance_key = datamaker.get_instance_by_capture_idx(instances, i)
+        ds = instances[instance_key]
+        ann_def = ds.ann_def        
+        cap = ds.cap
+        data_root = ds.data_root                
+        image = ds.get_image_with_labelers(i - datamaker.get_dataset_length_with_instances(instances, instance_key), labelers, max_size=(6 - num_cols) * 150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 

@@ -175,7 +175,6 @@ def preview_dataset(base_dataset_dir: str):
 
         'previous_labelers': {},
         'labelers_changed': False,
-    })
     })    
 
     # Gets the latest selected directory

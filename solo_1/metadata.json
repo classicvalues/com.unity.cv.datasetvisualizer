@@ -1,0 +1,24 @@
+{
+  "unity_version": "2019.4.19f1",
+  "perception_version": "0.8.0-preview.4",
+  "render_pipeline": "URP",
+  "Simulation Start Time": "11/2/2021 11:19:02 AM",
+  "scenario_random_seed": 5.39662E+08,
+  "scenario_active_randomizers": [],
+  "total_frames": 30,
+  "total_sequences": 10,
+  "sensors": [
+    "camera"
+  ],
+  "annotators": [
+    "bounding box",
+    "semantic segmentation",
+    "bounding box 3d",
+    "instance segmentation"
+  ],
+  "metric_collectors": [
+    "scenario_iteration",
+    "random-seed"
+  ],
+  "Simulation End Time": "11/2/2021 11:19:03 AM"
+}

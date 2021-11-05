@@ -232,6 +232,10 @@ def preview_dataset(base_dataset_dir: str):
                 st.sidebar.markdown("# Current dataset:")
                 st.sidebar.write(folder_name)
 
+            # SB HERE
+            dataset_len = ds.length()
+
+
             dataset_len = sum(os.path.isdir(i) for i in os.listdir(data_root))
             display_number_frames(dataset_len)
 

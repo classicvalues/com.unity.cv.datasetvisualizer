@@ -7,12 +7,15 @@ from datasetinsights.datasets.unity_perception.captures import Captures
 
 import visualization.visualizers as v
 import json
-from google.protobuf.json_format import Parse, ParseError
+
+from google.protobuf.json_format import MessageToDict, Parse, ParseError
+from UnityVisionHub.tools.consumers.solo.parser import Solo
 from UnityVisionHub.tools.consumers.protos.solo_pb2 import (
     BoundingBox2DAnnotation,
     BoundingBox3DAnnotation,
     Frame,
     InstanceSegmentationAnnotation,
+    SemanticSegmentationAnnotation,
     RGBCamera,
 )
 
@@ -69,6 +72,8 @@ class Dataset:
                 # self.metric_def = MetricDefinitions(data_root)
                 # self.cap = Captures(data_root)
 
+                self.solo = Solo(data_root, start=0)
+
                 self.dataset_valid = True
             except Exception as e:
                 print(e)
@@ -106,6 +111,7 @@ class Dataset:
     def get_annotation_definitions(self):
         f = open(os.path.join(self.data_root, "metadata" + "." + "json"), "r")
         metadata = json.load(f)
+        self.ann_def = metadata
         return metadata
 
     def get_available_labelers(self, data_dir: str):
@@ -142,6 +148,34 @@ class Dataset:
     #             return idx
     #     return -1
 
+    def __to_annotation__(self, annotation):
+        if annotation == 'semantic segmentation':
+            return SemanticSegmentationAnnotation()
+        if annotation == 'instance segmentation':
+            return InstanceSegmentationAnnotation()
+        if annotation == 'bounding box':
+            return BoundingBox2DAnnotation()
+        return None
+
+    def __get_annotation_from_sensor__(self, sensor, annotation):
+        annotations = sensor.annotations
+        ann_type = self.__to_annotation__(annotation)
+
+        found = False;
+        for a in annotations:
+            if a.Is(ann_type.DESCRIPTOR):
+                found = True;
+                a.Unpack(ann_type)
+                break
+
+        if found:
+            return MessageToDict(a)
+
+        return None
+
+
+
+
     # @staticmethod
     # def custom_compare_filenames(filenames):
     #     for i in range(len(filenames)):
@@ -154,11 +188,49 @@ class Dataset:
             labelers_to_use: Dict[str, bool],
             max_size: int = 500) -> Image:
 
-        # filename = os.path.join(self.data_root, "step 0."+labelers_to_use+".png")
-        # if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
-        filename = os.path.join(self.data_root, "sequence.1", "step0.instance_segmentation.png")
+        #filename = os.path.join(self.data_root, "step 0."+labelers_to_use+".png")
+        #if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
+#        filename = os.path.join(self.data_root, "sequence.1", "step0.instance_segmentation.png")
+#        image = Image.open(filename)
+#        return image
+
+        self.solo.jump_to(index)
+
+        sensor = self.solo.sensors()[0]['message']
+        part_a = self.solo.sequence_path
+        part_b = sensor.filename
+        filename = os.path.join(self.solo.sequence_path, sensor.filename)
         image = Image.open(filename)
+
+        if 'bounding box' in labelers_to_use and labelers_to_use['bounding box']:
+            bbox_data = self.__get_annotation_from_sensor__(sensor, 'bounding box')
+            image = v.draw_image_with_boxes(image, bbox_data)
+
+        image.thumbnail((max_size, max_size))
+
+        if 'semantic segmentation' in labelers_to_use and labelers_to_use['semantic segmentation']:
+            seg_data = self.__get_annotation_from_sensor__(sensor, 'semantic segmentation')
+            seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
+            seg = Image.open(seg_filename)
+            seg.thumbnail((max_size, max_size))
+
+            image = v.draw_image_with_segmentation(
+                image, seg
+            )
+
+        if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
+            seg_data = self.__get_annotation_from_sensor__(sensor, 'instance segmentation')
+            seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
+            seg = Image.open(seg_filename)
+            seg.thumbnail((max_size, max_size))
+
+            image = v.draw_image_with_segmentation(
+                image, seg
+            )
+
         return image
+
+
     # else:
     #     return None
 

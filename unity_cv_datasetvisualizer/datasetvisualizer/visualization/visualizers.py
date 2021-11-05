@@ -1,4 +1,6 @@
 ﻿from pathlib import Path
+
+import cv2.cv2
 import numpy as np
 import PIL
 
@@ -12,16 +14,19 @@ from PIL.Image import Image
 
 def draw_image_with_boxes(
     image,
-    index,
-    catalog,
-    label_mappings,
+    boxes
 ):
-    cap = catalog.iloc[index]
-    ann = cap["annotation.values"]
-    capture = image
-    image = capture.convert("RGB")  # Remove alpha channel
-    bboxes = read_bounding_box_2d(ann, label_mappings)
-    return plot_bboxes(image, bboxes, label_mappings)
+    img = image.convert("RGB")  # Remove alpha channel
+    np_img = np.array(img)
+
+    for b in boxes['values']:
+        origin = b['origin']
+        dim = b['dimension']
+        start = ((int)(origin[0]), (int)(origin[1]))
+        end = (start[0] + (int)(dim[0]), start[1] + (int)(dim[1]))
+        np_img = cv2.cv2.rectangle(np_img, start, end, (255, 255, 0), 2)
+
+    return PIL.Image.fromarray(np_img)
 
 
 def draw_image_with_segmentation(

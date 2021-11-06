@@ -9,26 +9,14 @@ import re
 import streamlit as st
 
 import streamlit.components.v1 as components
-import itertools
 
 from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
 from datasetinsights.datasets.unity_perception.captures import Captures
 
 import helpers.custom_components_setup as cc
-from datasetvisualizer.SoloDataset import Dataset
+from datasetvisualizer.Dataset import Dataset
 
 import helpers.datamaker_dataset_helper as datamaker
-
-
-from google.protobuf.json_format import Parse, ParseError
-
-from UnityVisionHub.tools.consumers.protos.solo_pb2 import (
-    BoundingBox2DAnnotation,
-    BoundingBox3DAnnotation,
-    Frame,
-    InstanceSegmentationAnnotation,
-    RGBCamera,
-)
 
 
 def datamaker_dataset(path: str) -> Optional[Dict[int, Dataset]]:
@@ -44,18 +32,18 @@ def datamaker_dataset(path: str) -> Optional[Dict[int, Dataset]]:
         :param path: path to dataset
         :type path: str
 
-        :return: Dictionary containing an entry for every instance, the key is the instance number,
-                each entry is a tuple as follows: (AnnotationDefinition, MetricDefiniton, Captures, number of captures,
+        :return: Dictionary containing an entry for every instance, the key is the instance number, 
+                each entry is a tuple as follows: (AnnotationDefinition, MetricDefiniton, Captures, number of captures, 
                 absolute path to instance)
         :rtype: Dict[int, (AnnotationDefinitions, MetricDefinitions, Captures, int, str)]
     """
     instances = {}
     try:
-        for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
+        for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:            
             read_datamaker_instance_output(app_param, instances)
     except Exception:
         #The user may be selecting an actual app-param folder instead of a folder containing app-params. This can happen if the user is on the mac and there is only one app-param folder in the downloaded dataset.
-        try:
+        try:            
             read_datamaker_instance_output(path, instances)
         except Exception:
             return None
@@ -77,7 +65,7 @@ def read_datamaker_instance_output(path, instances):
                             instances[instance_num] = ds
 
 def create_session_state_data(attribute_values: Dict[str, any]):
-    """ Takes a dictionary of attributes to values to create the streamlit session_state object.
+    """ Takes a dictionary of attributes to values to create the streamlit session_state object. 
     The values are the default values
 
     :param attribute_values: dictionary of session_state parameter to default values
@@ -187,7 +175,7 @@ def preview_dataset(base_dataset_dir: str):
 
         'previous_labelers': {},
         'labelers_changed': False,
-    })
+    })    
 
     # Gets the latest selected directory
     base_dataset_dir = st.session_state.curr_dir
@@ -215,12 +203,12 @@ def preview_dataset(base_dataset_dir: str):
         data_root = os.path.abspath(dataset_name)
         # Attempt to read data_root as a datamaker dataset
         instances = datamaker_dataset(data_root)
-
+        
         # if it is not a datamaker dataset
         if instances is None:
             # Attempt to read as a normal perception dataset
             ds = Dataset(data_root)
-            if not ds.dataset_valid:
+            if not ds.dataset_valid:                
                 st.warning("The provided Dataset folder \"" + data_root + "\" is not considered valid")
 
                 st.markdown("# Please open a dataset folder:")
@@ -232,14 +220,9 @@ def preview_dataset(base_dataset_dir: str):
                 st.sidebar.markdown("# Current dataset:")
                 st.sidebar.write(folder_name)
 
-            # SB HERE
-            dataset_len = ds.length()
+            display_number_frames(ds.length())
 
-
-            dataset_len = sum(os.path.isdir(i) for i in os.listdir(data_root))
-            display_number_frames(dataset_len)
-
-            available_labelers = ds.get_available_labelers(data_root)
+            available_labelers = ds.get_available_labelers()
             labelers = create_sidebar_labeler_menu(available_labelers)
 
             # zoom_image is negative if the application isn't in zoom mode
@@ -259,32 +242,32 @@ def preview_dataset(base_dataset_dir: str):
             display_number_frames(datamaker.get_dataset_length_with_instances(instances))
 
             # zoom_image is negative if the application isn't in zoom mode
-            index = int(st.session_state.zoom_image)
+            index = int(st.session_state.zoom_image)            
             if index >= 0:
                 instance_key = datamaker.get_instance_by_capture_idx(instances, index)
-
+                
                 if (instance_key is None):
                     index = 0
                     instance_key = datamaker.get_instance_by_capture_idx(instances, index)
 
                 offset = datamaker.get_dataset_length_with_instances(instances, instance_key)
                 ds = instances[instance_key]
-                ann_def = ds.ann_def
+                ann_def = ds.ann_def                                                      
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
                 zoom(index, offset, ds, labelers)
             else:
-                index = st.session_state.start_at
+                index = st.session_state.start_at                
                 num_rows = 5
-                instance_key = datamaker.get_instance_by_capture_idx(instances, index)
-
+                instance_key = datamaker.get_instance_by_capture_idx(instances, index)                           
+                
                 if (instance_key is None):
                     st.session_state.start_at = 0
                     index = 0
                     instance_key = datamaker.get_instance_by_capture_idx(instances, index)
 
                 ds = instances[instance_key]
-                ann_def = ds.ann_def
+                ann_def = ds.ann_def                                
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
                 labelers = create_sidebar_labeler_menu(available_labelers)
                 grid_view_instances(num_rows, instances, labelers)
@@ -398,7 +381,7 @@ def grid_view(num_rows: int, ds: Dataset, labelers: Dict[str, bool]):
     containers = create_grid_containers(num_rows, num_cols, start_at, dataset_size)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        image = ds.get_solo_image_with_labelers(i, labelers, max_size=get_resolution_from_num_cols(num_cols))
+        image = ds.get_image_with_labelers(i, labelers, max_size=get_resolution_from_num_cols(num_cols))
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 
@@ -431,9 +414,9 @@ def grid_view_instances(
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
         instance_key = datamaker.get_instance_by_capture_idx(instances, i)
         ds = instances[instance_key]
-        ann_def = ds.ann_def
+        ann_def = ds.ann_def        
         cap = ds.cap
-        data_root = ds.data_root
+        data_root = ds.data_root                
         image = ds.get_image_with_labelers(i - datamaker.get_dataset_length_with_instances(instances, instance_key), labelers, max_size=(6 - num_cols) * 150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
@@ -446,7 +429,7 @@ def zoom(index: int,
 
     :param index: Index of the image
     :type index: int
-    :param offset: Is how much the index needs to be offset, this is only needed to
+    :param offset: Is how much the index needs to be offset, this is only needed to 
                    handle multiple instances (Datamaker datasets)
     :type offset: int
     :param ds: Current Dataset
@@ -480,25 +463,48 @@ def zoom(index: int,
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 
     index = index - offset
-    image = ds.get_solo_image_with_labelers(index, labelers, max_size=2000)
+    image = ds.get_image_with_labelers(index, labelers, max_size=2000)
 
     st.image(image, use_column_width=True)
     layout = st.beta_columns(2)
     layout[0].title("Captures Metadata")
 
-    step = index % ds.solo.steps_per_sequence
-    path_to_captures = f"{ds.solo.sequence_path}/step{step}.frame_data.json"
+    captures_dir = None
+    for directory in os.walk(ds.data_root):
+        name = str(directory[0]).replace('\\', '/').split('/')[-1]
+        if name.startswith("Dataset") and \
+                "." not in name[1:] and \
+                os.path.abspath(ds.data_root) != os.path.abspath(directory[0]):
+            captures_dir = os.path.abspath(directory[0])
+            break
+
+    path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_000.json")
+    json_file = json.load(open(path_to_captures, "r", encoding="utf8"))
+    num_captures_per_file = len(json_file["captures"])
+
+    file_num = index // num_captures_per_file
+    postfix = ('000' + str(file_num))
+    postfix = postfix[len(postfix) - 3:]
+    path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_" + postfix + ".json")
     with layout[0]:
         json_file = json.load(open(path_to_captures, "r", encoding="utf8"))
-        capture = json_file['captures']
+        capture = json_file['captures'][index % num_captures_per_file]
         st.write(capture)
 
     layout[1].title("Metrics Metadata")
-    labeler_annotations = json_file['captures'][0]['annotations']
+    metrics = []
+    for i in os.listdir(captures_dir):
+        path_to_metrics = os.path.join(captures_dir, i)
+        if os.path.isfile(path_to_metrics) and 'metrics_' in i and 'definitions' not in i:
+            json_file = json.load(open(path_to_metrics, encoding="utf8"))
+            metrics.extend(json_file['metrics'])
     with layout[1]:
-        for i in labeler_annotations:
-            st.markdown("## " + i['id'])
-            st.write(i)
+        for metric in metrics:
+            if metric['sequence_id'] == capture['sequence_id'] and metric['step'] == capture['step']:
+                for metric_def in ds.get_metrics_records():
+                    if metric_def['id'] == metric['metric_definition']:
+                        st.markdown("## " + metric_def['name'])
+                st.write(metric)
 
 
 def preview_app(args):

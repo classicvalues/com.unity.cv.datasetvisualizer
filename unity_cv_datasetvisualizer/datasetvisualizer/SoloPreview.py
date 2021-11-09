@@ -233,10 +233,7 @@ def preview_dataset(base_dataset_dir: str):
                 st.sidebar.write(folder_name)
 
             # SB HERE
-            dataset_len = ds.length()
-
-
-            dataset_len = sum(os.path.isdir(i) for i in os.listdir(data_root))
+            dataset_len = ds.ann_def["total_frames"]
             display_number_frames(dataset_len)
 
             available_labelers = ds.get_available_labelers(data_root)
@@ -399,7 +396,9 @@ def grid_view(num_rows: int, ds: Dataset, labelers: Dict[str, bool]):
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
         image = ds.get_solo_image_with_labelers(i, labelers, max_size=get_resolution_from_num_cols(num_cols))
-        containers[i - start_at].image(image, caption=str(i), use_column_width=True)
+        sequence = (int)(i / ds.solo.steps_per_sequence)
+        step = i % ds.solo.steps_per_sequence
+        containers[i - start_at].image(image, caption="sequence"+str(sequence)+"."+"step"+str(step), use_column_width=True)
 
 
 def get_resolution_from_num_cols(num_cols):

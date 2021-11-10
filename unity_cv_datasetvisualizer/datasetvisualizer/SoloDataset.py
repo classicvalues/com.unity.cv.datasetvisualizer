@@ -17,6 +17,7 @@ from UnityVisionHub.tools.consumers.protos.solo_pb2 import (
     InstanceSegmentationAnnotation,
     SemanticSegmentationAnnotation,
     RGBCamera,
+    KeypointAnnotation
 )
 
 
@@ -68,7 +69,7 @@ class Dataset:
         if Dataset.check_folder_valid(data_root):
             try:
                 self.data_root = data_root
-                self.ann_def = self.get_annotation_definitions()
+                self.get_annotation_definitions()
                 # self.metric_def = MetricDefinitions(data_root)
                 # self.cap = Captures(data_root)
 
@@ -110,15 +111,28 @@ class Dataset:
 
     def get_annotation_definitions(self):
         f = open(os.path.join(self.data_root, "metadata" + "." + "json"), "r")
-        metadata = json.load(f)
-        self.ann_def = metadata
-        return metadata
+        self.metadata = json.load(f)
+
+        f = open(os.path.join(self.data_root, "annotation_definitions.json"), "r")
+        self.annotaion_definitions = json.load(f)
+        return self.metadata
 
     def get_available_labelers(self, data_dir: str):
-        return self.ann_def["annotators"]
+        return self.metadata["annotators"]
+
 
     def length(self):
-        return self.ann_def["total_frames"]
+        return self.metadata["total_frames"]
+
+
+    def get_keypoint_template(self, templateId: str):
+        for i in self.annotaion_definitions['annotation_definitions']:
+            if i['@type'] == 'type.unity.com/unity.solo.KeypointAnnotationDefinition':
+                template = i['template']
+                if template['template_id'] == templateId:
+                    return template;
+
+        return None
 
     #
     # def get_annotation_id(self, name: str) -> Optional[str]:
@@ -155,6 +169,10 @@ class Dataset:
             return InstanceSegmentationAnnotation()
         if annotation == 'bounding box':
             return BoundingBox2DAnnotation()
+        if annotation == 'bounding box 3D':
+            return BoundingBox3DAnnotation()
+        if annotation == 'keypoint':
+            return KeypointAnnotation()
         return None
 
     def __get_annotation_from_sensor__(self, sensor, annotation):
@@ -172,8 +190,6 @@ class Dataset:
             return MessageToDict(a)
 
         return None
-
-
 
 
     # @staticmethod
@@ -205,6 +221,23 @@ class Dataset:
         if 'bounding box' in labelers_to_use and labelers_to_use['bounding box']:
             bbox_data = self.__get_annotation_from_sensor__(sensor, 'bounding box')
             image = v.draw_image_with_boxes(image, bbox_data)
+
+        if 'keypoint' in labelers_to_use and labelers_to_use['keypoint']:
+            keypoint_data = self.__get_annotation_from_sensor__(sensor, 'keypoint')
+            b = keypoint_data['templateId']
+            template = self.get_keypoint_template(b)
+            #kp_captures = self.cap.filter(def_id=keypoints_definition_id)
+            #kp_captures = kp_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
+            #annotations = kp_captures.loc[index, "annotation.values"]
+            #templates = self.ann_def.table.to_dict('records')[self.get_annotation_index('keypoints')]['spec']
+
+            #templates = self.annotaion_definitions.
+
+            v.draw_image_with_keypoints(image, keypoint_data, template)
+
+        if 'bounding box 3D' in labelers_to_use and labelers_to_use['bounding box 3D']:
+            bbox_3d_data = self.__get_annotation_from_sensor__(sensor, 'bounding box 3D')
+            image = v.draw_image_with_box_3d(image, sensor, bbox_3d_data, None)
 
         image.thumbnail((max_size, max_size))
 

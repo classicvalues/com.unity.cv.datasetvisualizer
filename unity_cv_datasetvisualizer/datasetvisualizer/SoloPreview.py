@@ -120,8 +120,8 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
     else:
         st.session_state.bbox3d_existed_last_time = False
 
-    if 'keypoints' in available_labelers:
-        labelers['keypoints'] = st.sidebar.checkbox("Key Points") and st.session_state.keypoints_existed_last_time
+    if 'keypoint' in available_labelers:
+        labelers['keypoint'] = st.sidebar.checkbox("Key Points") and st.session_state.keypoints_existed_last_time
         st.session_state.keypoints_existed_last_time = True
     else:
         st.session_state.keypoints_existed_last_time = False

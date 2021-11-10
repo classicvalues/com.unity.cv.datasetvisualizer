@@ -90,24 +90,24 @@ class Dataset:
             self.data_root = None
             self.dataset_valid = False
 
-    def get_solo_annotations(self, data_dir: str):
-        f = open(data_dir + "/data/go_solo_0/sequence.0/step0.frame_data.json", "r")
-        y = json.dumps(json.load(f))
-
-        frame = Parse(y, Frame(), ignore_unknown_fields=True)
-        bounding_box_2d_annotation = BoundingBox2DAnnotation()
-        bounding_box_3d_annotation = BoundingBox3DAnnotation()
-        instance_segmentation_annotation = InstanceSegmentationAnnotation()
-        camera_sensor_capture = RGBCamera()
-        for annotation in camera_sensor_capture.annotations:
-            if annotation.Is(bounding_box_3d_annotation.DESCRIPTOR):
-                annotation.Unpack(bounding_box_3d_annotation)
-            elif annotation.Is(bounding_box_2d_annotation.DESCRIPTOR):
-                annotation.Unpack(bounding_box_2d_annotation)
-            elif annotation.Is(instance_segmentation_annotation.DESCRIPTOR):
-                annotation.Unpack(instance_segmentation_annotation)
-            else:
-                ParseError("Failed to parse message. Please provide @type")
+    # def get_solo_annotations(self, data_dir: str):
+    #     f = open(data_dir + "/data/go_solo_0/sequence.0/step0.frame_data.json", "r")
+    #     y = json.dumps(json.load(f))
+    # 
+    #     frame = Parse(y, Frame(), ignore_unknown_fields=True)
+    #     bounding_box_2d_annotation = BoundingBox2DAnnotation()
+    #     bounding_box_3d_annotation = BoundingBox3DAnnotation()
+    #     instance_segmentation_annotation = InstanceSegmentationAnnotation()
+    #     camera_sensor_capture = RGBCamera()
+    #     for annotation in camera_sensor_capture.annotations:
+    #         if annotation.Is(bounding_box_3d_annotation.DESCRIPTOR):
+    #             annotation.Unpack(bounding_box_3d_annotation)
+    #         elif annotation.Is(bounding_box_2d_annotation.DESCRIPTOR):
+    #             annotation.Unpack(bounding_box_2d_annotation)
+    #         elif annotation.Is(instance_segmentation_annotation.DESCRIPTOR):
+    #             annotation.Unpack(instance_segmentation_annotation)
+    #         else:
+    #             ParseError("Failed to parse message. Please provide @type")
 
     def get_annotation_definitions(self):
         f = open(os.path.join(self.data_root, "metadata" + "." + "json"), "r")

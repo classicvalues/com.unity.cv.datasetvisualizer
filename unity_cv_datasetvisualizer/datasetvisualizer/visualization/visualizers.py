@@ -28,7 +28,7 @@ def draw_image_with_boxes(
         end = (start[0] + (int)(dim[0]), start[1] + (int)(dim[1]))
         np_img = cv2.cv2.rectangle(np_img, start, end, (255, 255, 0), 2)
 
-    return PIL.Image.fromarray(np_img)
+    return Image.fromarray(np_img)
 
 
 def draw_image_with_segmentation(
@@ -59,7 +59,7 @@ def draw_image_with_segmentation(
     rgba[..., 0:4][black_areas.T] = (0, 0, 0, 0)
     rgba[..., -1][other_areas.T] = int(0.6 * 255)
 
-    foreground = PIL.Image.fromarray(rgba)
+    foreground = Image.fromarray(rgba)
     image = image.copy()
     image.paste(foreground, (0, 0), foreground)
     return image
@@ -80,7 +80,7 @@ def draw_image_with_keypoints(
 def plot_keypoints(image, annotations, template, visual_width=6):
     draw = ImageDraw.Draw(image)
 
-    for figure in annotations['keypoints']:
+    for figure in annotations['values']:
         draw_keypoints_for_figure(image, figure, draw, template, visual_width)
 
     return image
@@ -242,7 +242,7 @@ def to_db_insights_bbox3d(boxes):
 
 #TODO Implement colors
 def draw_image_with_box_3d(image, sensor, values, colors):
-    i = sensor.intrinsic
+    i = sensor.matrix
     matrix = [
         [i[0],i[1],i[2]],
         [i[3],i[4],i[5]],

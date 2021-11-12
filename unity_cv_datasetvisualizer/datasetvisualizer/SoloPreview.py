@@ -88,6 +88,22 @@ def create_session_state_data(attribute_values: Dict[str, any]):
             st.session_state[key] = attribute_values[key]
 
 
+def create_sidebar_entry(label, available_labelers, label_type, labelers):
+    states = {}
+
+    for l in available_labelers:
+        if l['type'] != label_type:
+            continue
+        states['name'] = l['name']
+        states['state'] = True
+
+    if len(states) > 0:
+        labelers[label_type] = st.sidebar.checkbox(label)and st.session_state[f'{label_type}_existed_last_time']
+        st.session_state[f'{label_type}_existed_last_time'] = True
+    else:
+        st.session_state[f'{label_type}_existed_last_time'] = False
+
+
 def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool]:
     """
     Creates a streamlit sidebar menu that displays checkboxes and radio buttons to select which labelers to display
@@ -106,41 +122,44 @@ def create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, bool
 
     st.sidebar.markdown("# Visualize Labels")
     labelers = {}
-    if 'bounding box' in available_labelers:
-        labelers['bounding box'] = st.sidebar.checkbox(
-            "2D Bounding Boxes") and st.session_state.bbox2d_existed_last_time
-        st.session_state.bbox2d_existed_last_time = True
-    else:
-        st.session_state.bbox2d_existed_last_time = False
 
-    if 'bounding box 3D' in available_labelers:
-        labelers['bounding box 3D'] = st.sidebar.checkbox(
-            "3D Bounding Boxes") and st.session_state.bbox3d_existed_last_time
-        st.session_state.bbox3d_existed_last_time = True
-    else:
-        st.session_state.bbox3d_existed_last_time = False
+    bbox_count = 0;
+    semantic_count = 0;
+    instance_count = 0;
+    bbox3d_count = 0;
+    keypoints_count = 0;
 
-    if 'keypoint' in available_labelers:
-        labelers['keypoint'] = st.sidebar.checkbox("Key Points") and st.session_state.keypoints_existed_last_time
-        st.session_state.keypoints_existed_last_time = True
-    else:
-        st.session_state.keypoints_existed_last_time = False
+    for labeler in available_labelers:
+        if labeler['type'] == "type.unity.com/unity.solo.BoundingBoxAnnotationDefinition":
+            bbox_count = bbox_count + 1
+        if labeler['type'] == "type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition":
+            bbox3d_count = bbox3d_count + 1
+        if labeler['type'] == "type.unity.com/unity.solo.KeypointAnnotationDefinition":
+            keypoints_count = keypoints_count + 1
+        if labeler['type'] == "type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition":
+            instance_count = instance_count + 1
+        if labeler['type'] == "type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition":
+            semantic_count = semantic_count + 1
 
-    if 'instance segmentation' in available_labelers and 'semantic segmentation' in available_labelers:
+    create_sidebar_entry("2D Bounding Boxes", available_labelers, 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition', labelers)
+    create_sidebar_entry("3D Bounding Boxes", available_labelers, 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition', labelers)
+    create_sidebar_entry("Keypoints", available_labelers, 'type.unity.com/unity.solo.KeypointAnnotationDefinition', labelers)
+
+    if instance_count > 0 and semantic_count > 0:
         if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
             selected_segmentation = st.sidebar.radio("Select the segmentation type:",
                                                      ['Semantic Segmentation', 'Instance Segmentation'],
                                                      index=0)
             if selected_segmentation == 'Semantic Segmentation':
-                labelers['semantic segmentation'] = True
+                labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = True
             elif selected_segmentation == 'Instance Segmentation':
-                labelers['instance segmentation'] = True
+                labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = True
         st.session_state.semantic_existed_last_time = True
-    elif 'semantic segmentation' in available_labelers:
-        labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation")
+    elif semantic_count > 0:
+        labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = st.sidebar.checkbox("Semantic Segmentation")
         st.session_state.semantic_existed_last_time = False
-    elif 'instance segmentation' in available_labelers:
-        labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation")
+    elif instance_count > 0:
+        labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = st.sidebar.checkbox("Instance Segmentation")
         st.session_state.semantic_existed_last_time = False
     else:
         st.session_state.semantic_existed_last_time = False
@@ -233,7 +252,7 @@ def preview_dataset(base_dataset_dir: str):
                 st.sidebar.write(folder_name)
 
             # SB HERE
-            dataset_len = ds.ann_def["total_frames"]
+            dataset_len = ds.metadata["totalFrames"]
             display_number_frames(dataset_len)
 
             available_labelers = ds.get_available_labelers(data_root)

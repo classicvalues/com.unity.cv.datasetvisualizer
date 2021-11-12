@@ -122,14 +122,14 @@ class Dataset:
 
 
     def length(self):
-        return self.metadata["total_frames"]
+        return self.metadata["totalFrames"]
 
 
     def get_keypoint_template(self, templateId: str):
-        for i in self.annotaion_definitions['annotation_definitions']:
+        for i in self.annotaion_definitions['annotationDefinitions']:
             if i['@type'] == 'type.unity.com/unity.solo.KeypointAnnotationDefinition':
                 template = i['template']
-                if template['template_id'] == templateId:
+                if template['templateId'] == templateId:
                     return template;
 
         return None
@@ -162,22 +162,22 @@ class Dataset:
     #             return idx
     #     return -1
 
-    def __to_annotation__(self, annotation):
-        if annotation == 'semantic segmentation':
+    def _to_annotation(self, annotation):
+        if annotation == 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition':
             return SemanticSegmentationAnnotation()
-        if annotation == 'instance segmentation':
+        if annotation == 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition':
             return InstanceSegmentationAnnotation()
-        if annotation == 'bounding box':
+        if annotation == 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition':
             return BoundingBox2DAnnotation()
-        if annotation == 'bounding box 3D':
+        if annotation == 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition':
             return BoundingBox3DAnnotation()
-        if annotation == 'keypoint':
+        if annotation == 'type.unity.com/unity.solo.KeypointAnnotationDefinition':
             return KeypointAnnotation()
         return None
 
-    def __get_annotation_from_sensor__(self, sensor, annotation):
+    def _get_annotation_from_sensor(self, sensor, annotation):
         annotations = sensor.annotations
-        ann_type = self.__to_annotation__(annotation)
+        ann_type = self._to_annotation(annotation)
 
         found = False;
         for a in annotations:
@@ -218,12 +218,15 @@ class Dataset:
         filename = os.path.join(self.solo.sequence_path, sensor.filename)
         image = Image.open(filename)
 
-        if 'bounding box' in labelers_to_use and labelers_to_use['bounding box']:
-            bbox_data = self.__get_annotation_from_sensor__(sensor, 'bounding box')
+        if labelers_to_use == None:
+            labelers_to_use = []
+
+        if 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.BoundingBoxAnnotationDefinition']:
+            bbox_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition')
             image = v.draw_image_with_boxes(image, bbox_data)
 
-        if 'keypoint' in labelers_to_use and labelers_to_use['keypoint']:
-            keypoint_data = self.__get_annotation_from_sensor__(sensor, 'keypoint')
+        if 'type.unity.com/unity.solo.KeypointAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.KeypointAnnotationDefinition']:
+            keypoint_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.KeypointAnnotationDefinition')
             b = keypoint_data['templateId']
             template = self.get_keypoint_template(b)
             #kp_captures = self.cap.filter(def_id=keypoints_definition_id)
@@ -235,14 +238,14 @@ class Dataset:
 
             v.draw_image_with_keypoints(image, keypoint_data, template)
 
-        if 'bounding box 3D' in labelers_to_use and labelers_to_use['bounding box 3D']:
-            bbox_3d_data = self.__get_annotation_from_sensor__(sensor, 'bounding box 3D')
+        if 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition']:
+            bbox_3d_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition')
             image = v.draw_image_with_box_3d(image, sensor, bbox_3d_data, None)
 
         image.thumbnail((max_size, max_size))
 
-        if 'semantic segmentation' in labelers_to_use and labelers_to_use['semantic segmentation']:
-            seg_data = self.__get_annotation_from_sensor__(sensor, 'semantic segmentation')
+        if 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']:
+            seg_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition')
             seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
             seg = Image.open(seg_filename)
             seg.thumbnail((max_size, max_size))
@@ -251,8 +254,8 @@ class Dataset:
                 image, seg
             )
 
-        if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
-            seg_data = self.__get_annotation_from_sensor__(sensor, 'instance segmentation')
+        if 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']:
+            seg_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition')
             seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
             seg = Image.open(seg_filename)
             seg.thumbnail((max_size, max_size))

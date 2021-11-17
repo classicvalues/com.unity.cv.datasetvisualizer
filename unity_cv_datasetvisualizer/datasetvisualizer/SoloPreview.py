@@ -158,27 +158,29 @@ def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) ->
     create_sidebar_entry("2D Bounding Boxes", annotator_dic, available_labelers, 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition', labelers)
     create_sidebar_entry("3D Bounding Boxes", annotator_dic, available_labelers, 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition', labelers)
     create_sidebar_entry("Keypoints", annotator_dic, available_labelers, 'type.unity.com/unity.solo.KeypointAnnotationDefinition', labelers)
+    create_sidebar_entry("Instance Segmentation", annotator_dic, available_labelers, 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition', labelers)
+    create_sidebar_entry("Semantic Segmentation", annotator_dic, available_labelers, 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition', labelers)
+    # if instance_count > 0 and semantic_count > 0:
+    #     if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
+    #         selected_segmentation = st.sidebar.radio("Select the segmentation type:",
+    #                                                  ['Semantic Segmentation', 'Instance Segmentation'],
+    #                                                  index=0)
+    #         if selected_segmentation == 'Semantic Segmentation':
+    #             labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = True
+    #         elif selected_segmentation == 'Instance Segmentation':
+    #             labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = True
+    #     st.session_state.semantic_existed_last_time = True
 
-    if instance_count > 0 and semantic_count > 0:
-        if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
-            selected_segmentation = st.sidebar.radio("Select the segmentation type:",
-                                                     ['Semantic Segmentation', 'Instance Segmentation'],
-                                                     index=0)
-            if selected_segmentation == 'Semantic Segmentation':
-                labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = True
-            elif selected_segmentation == 'Instance Segmentation':
-                labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = True
-        st.session_state.semantic_existed_last_time = True
-    elif semantic_count > 0:
-        labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = st.sidebar.checkbox(
-            "Semantic Segmentation")
-        st.session_state.semantic_existed_last_time = False
-    elif instance_count > 0:
-        labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = st.sidebar.checkbox(
-            "Instance Segmentation")
-        st.session_state.semantic_existed_last_time = False
-    else:
-        st.session_state.semantic_existed_last_time = False
+    # elif semantic_count > 0:
+    #     labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = st.sidebar.checkbox(
+    #         "Semantic Segmentation")
+    #     st.session_state.semantic_existed_last_time = False
+    # elif instance_count > 0:
+    #     labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = st.sidebar.checkbox(
+    #         "Instance Segmentation")
+    #     st.session_state.semantic_existed_last_time = False
+    # else:
+    #     st.session_state.semantic_existed_last_time = False
     if st.session_state.previous_labelers != labelers:
         st.session_state.labelers_changed = True
     else:

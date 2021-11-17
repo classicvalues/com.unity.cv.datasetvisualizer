@@ -117,7 +117,7 @@ class Dataset:
         self.annotaion_definitions = json.load(f)
         return self.metadata
 
-    def get_available_labelers(self, data_dir: str):
+    def get_available_labelers(self):
         return self.metadata["annotators"]
 
 
@@ -175,13 +175,27 @@ class Dataset:
             return KeypointAnnotation()
         return None
 
-    def _get_annotation_from_sensor(self, sensor, annotation):
+
+    def get_annotator_dictionary(self):
+        available_labelers = self.get_available_labelers()
+        annotator_dic = {}
+        for labeler in available_labelers:
+            annotatorName = self.AnnotatorNameState(labeler['name'], False)
+            if labeler['type'] not in annotator_dic:
+                annotator_dic[labeler['type']] = [annotatorName]
+            else:
+                annotator_dic[labeler['type']].append(annotatorName)
+        return annotator_dic
+
+    def _get_annotation_from_sensor(self, sensor, annotator, annotation):
         annotations = sensor.annotations
         ann_type = self._to_annotation(annotation)
+        # annotator_dic = self.get_annotator_dictionary()
 
         found = False;
         for a in annotations:
-            if a.Is(ann_type.DESCRIPTOR):
+            if a.Is(ann_type.DESCRIPTOR) and annotator.state and a.value.find(str.encode(annotator.name)) >= 0:
+            # if a.Is(ann_type.DESCRIPTOR) and id in ann_type_names_dic[annotation]:
                 found = True;
                 a.Unpack(ann_type)
                 break
@@ -198,17 +212,18 @@ class Dataset:
     #         filenames[i] = int(os.path.basename(filenames[i])[4:-4])
     #     return filenames
 
+    # create Lightgreen class
+    class AnnotatorNameState:
+        def __init__(self, name:str, state:bool):
+            self.name = name
+            self.state = state
+
     def get_solo_image_with_labelers(
             self,
             index: int,
             labelers_to_use: Dict[str, bool],
+            annotator_dic: Dict[str, AnnotatorNameState],
             max_size: int = 500) -> Image:
-
-        #filename = os.path.join(self.data_root, "step 0."+labelers_to_use+".png")
-        #if 'instance segmentation' in labelers_to_use and labelers_to_use['instance segmentation']:
-#        filename = os.path.join(self.data_root, "sequence.1", "step0.instance_segmentation.png")
-#        image = Image.open(filename)
-#        return image
 
         self.solo.jump_to(index)
 
@@ -222,47 +237,57 @@ class Dataset:
             labelers_to_use = []
 
         if 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.BoundingBoxAnnotationDefinition']:
-            bbox_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition')
-            image = v.draw_image_with_boxes(image, bbox_data)
+            for annotator in annotator_dic['type.unity.com/unity.solo.BoundingBoxAnnotationDefinition']:
+                if annotator.state:
+                    bbox_data = self._get_annotation_from_sensor(sensor, annotator, 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition')
+                    image = v.draw_image_with_boxes(image, bbox_data)
 
         if 'type.unity.com/unity.solo.KeypointAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.KeypointAnnotationDefinition']:
-            keypoint_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.KeypointAnnotationDefinition')
-            b = keypoint_data['templateId']
-            template = self.get_keypoint_template(b)
-            #kp_captures = self.cap.filter(def_id=keypoints_definition_id)
-            #kp_captures = kp_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
-            #annotations = kp_captures.loc[index, "annotation.values"]
-            #templates = self.ann_def.table.to_dict('records')[self.get_annotation_index('keypoints')]['spec']
+            for annotator in annotator_dic['type.unity.com/unity.solo.KeypointAnnotationDefinition']:
+                if annotator.state:
+                    keypoint_data = self._get_annotation_from_sensor(sensor, annotator, 'type.unity.com/unity.solo.KeypointAnnotationDefinition')
+                    b = keypoint_data['templateId']
+                    template = self.get_keypoint_template(b)
+                #kp_captures = self.cap.filter(def_id=keypoints_definition_id)
+                #kp_captures = kp_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
+                #annotations = kp_captures.loc[index, "annotation.values"]
+                #templates = self.ann_def.table.to_dict('records')[self.get_annotation_index('keypoints')]['spec']
 
-            #templates = self.annotaion_definitions.
+                #templates = self.annotaion_definitions.
 
-            v.draw_image_with_keypoints(image, keypoint_data, template)
+                    image = v.draw_image_with_keypoints(image, keypoint_data, template)
 
         if 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition']:
-            bbox_3d_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition')
-            image = v.draw_image_with_box_3d(image, sensor, bbox_3d_data, None)
+            for annotator in annotator_dic['type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition']:
+                if annotator.state:
+                    bbox_3d_data = self._get_annotation_from_sensor(sensor, annotator,'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition')
+                    image = v.draw_image_with_box_3d(image, sensor, bbox_3d_data, None)
 
-        image.thumbnail((max_size, max_size))
+                image.thumbnail((max_size, max_size))
 
         if 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']:
-            seg_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition')
-            seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
-            seg = Image.open(seg_filename)
-            seg.thumbnail((max_size, max_size))
+            for annotator in annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']:
+                if annotator.state:
+                    seg_data = self._get_annotation_from_sensor(sensor, annotator, 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition')
+                    seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
+                    seg = Image.open(seg_filename)
+                    seg.thumbnail((max_size, max_size))
 
-            image = v.draw_image_with_segmentation(
-                image, seg
-            )
+                    image = v.draw_image_with_segmentation(
+                        image, seg
+                    )
 
         if 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition' in labelers_to_use and labelers_to_use['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']:
-            seg_data = self._get_annotation_from_sensor(sensor, 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition')
-            seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
-            seg = Image.open(seg_filename)
-            seg.thumbnail((max_size, max_size))
+            for annotator in annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']:
+                if annotator.state:
+                    seg_data = self._get_annotation_from_sensor(sensor, annotator, 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition')
+                    seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
+                    seg = Image.open(seg_filename)
+                    seg.thumbnail((max_size, max_size))
 
-            image = v.draw_image_with_segmentation(
-                image, seg
-            )
+                    image = v.draw_image_with_segmentation(
+                        image, seg
+                    )
 
         return image
 

@@ -515,8 +515,9 @@ def zoom(index: int,
 
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 
+    annotator_dic = ds.get_annotator_dictionary()
     index = index - offset
-    image = ds.get_solo_image_with_labelers(index, labelers, max_size=2000)
+    image = ds.get_solo_image_with_labelers(index, labelers, annotator_dic, max_size=2000)
 
     st.image(image, use_column_width=True)
     layout = st.beta_columns(2)

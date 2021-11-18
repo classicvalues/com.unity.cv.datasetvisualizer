@@ -109,8 +109,7 @@ def create_sidebar_entry(label, annotator_dic, available_labelers, label_type, l
             annotator.state = labelers[label_type]
         if labelers[label_type] and st.session_state[f'{label_type}_existed_last_time'] and len(annotator_list) > 1:
             for annotator in annotator_list:
-                # if annotator.state:
-                annotator.state = st.sidebar.checkbox(annotator.name) and st.session_state[f'{annotator.name}_existed_last_time']
+                annotator.state = st.sidebar.checkbox(annotator.name, value=True)
                 st.session_state[f'{annotator.name}_existed_last_time'] = True
 
 

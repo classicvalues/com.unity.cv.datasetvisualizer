@@ -108,9 +108,11 @@ def create_sidebar_entry(label, annotator_dic, available_labelers, label_type, l
             annotator = annotator_list[0]
             annotator.state = labelers[label_type]
         if labelers[label_type] and st.session_state[f'{label_type}_existed_last_time'] and len(annotator_list) > 1:
+            # this is a really bad way to do this, but it's the only thing I can figure out to use to get this donw
+            c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 = st.sidebar.beta_columns(10)
             for annotator in annotator_list:
                 # if annotator.state:
-                annotator.state = st.sidebar.checkbox(annotator.name) and st.session_state[f'{annotator.name}_existed_last_time']
+                annotator.state = c2.checkbox(annotator.name) and st.session_state[f'{annotator.name}_existed_last_time']
                 st.session_state[f'{annotator.name}_existed_last_time'] = True
 
 

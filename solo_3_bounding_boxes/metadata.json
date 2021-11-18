@@ -1,0 +1,32 @@
+{
+  "unityVersion": "2020.3.19f1",
+  "perceptionVersion": "0.8.0-preview.4",
+  "renderPipeline": "URP",
+  "simulationStartTime": "11/18/2021 12:03:29 PM",
+  "scenarioRandomSeed": 5.39662E+08,
+  "scenarioActiveRandomizers": [],
+  "totalFrames": 20,
+  "totalSequences": 5,
+  "sensors": [
+    "camera"
+  ],
+  "metricCollectors": [
+    "scenario_iteration",
+    "random-seed"
+  ],
+  "simulationEndTime": "11/18/2021 12:03:33 PM",
+  "annotators": [
+    {
+      "name": "bbox_box",
+      "type": "type.unity.com/unity.solo.BoundingBoxAnnotationDefinition"
+    },
+    {
+      "name": "bbox_crate",
+      "type": "type.unity.com/unity.solo.BoundingBoxAnnotationDefinition"
+    },
+    {
+      "name": "bbox_cube",
+      "type": "type.unity.com/unity.solo.BoundingBoxAnnotationDefinition"
+    }
+  ]
+}

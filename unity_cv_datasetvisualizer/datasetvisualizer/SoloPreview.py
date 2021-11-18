@@ -109,8 +109,7 @@ def create_sidebar_entry(label, annotator_dic, available_labelers, label_type, l
             annotator.state = labelers[label_type]
         if labelers[label_type] and st.session_state[f'{label_type}_existed_last_time'] and len(annotator_list) > 1:
             for annotator in annotator_list:
-                # if annotator.state:
-                annotator.state = st.sidebar.checkbox(annotator.name) and st.session_state[f'{annotator.name}_existed_last_time']
+                annotator.state = st.sidebar.checkbox(annotator.name, value=True)
                 st.session_state[f'{annotator.name}_existed_last_time'] = True
 
 
@@ -516,8 +515,9 @@ def zoom(index: int,
 
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 
+    annotator_dic = ds.get_annotator_dictionary()
     index = index - offset
-    image = ds.get_solo_image_with_labelers(index, labelers, max_size=2000)
+    image = ds.get_solo_image_with_labelers(index, labelers, annotator_dic, max_size=2000)
 
     st.image(image, use_column_width=True)
     layout = st.beta_columns(2)

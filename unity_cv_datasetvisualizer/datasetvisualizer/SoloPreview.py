@@ -282,7 +282,7 @@ def preview_dataset(base_dataset_dir: str):
             # zoom_image is negative if the application isn't in zoom mode
             index = int(st.session_state.zoom_image)
             if index >= 0:
-                zoom(index, 0, ds, labelers)
+                zoom(index, 0, ds, labelers, annotator_dic)
             else:
                 num_rows = 5
                 grid_view(num_rows, ds, labelers, annotator_dic)
@@ -308,8 +308,9 @@ def preview_dataset(base_dataset_dir: str):
                 ds = instances[instance_key]
                 ann_def = ds.ann_def
                 available_labelers = [a["name"] for a in ann_def.table.to_dict('records')]
-                labelers = create_sidebar_labeler_menu(available_labelers)
-                zoom(index, offset, ds, labelers)
+                annotator_dic = ds.get_annotator_dictionary()
+                labelers = create_sidebar_labeler_menu(available_labelers, annotator_dic)
+                zoom(index, offset, ds, labelers, annotator_dic)
             else:
                 index = st.session_state.start_at
                 num_rows = 5
@@ -483,7 +484,8 @@ def grid_view_instances(
 def zoom(index: int,
          offset: int,
          ds: Dataset,
-         labelers: Dict[str, bool]):
+         labelers: Dict[str, bool],
+         annotator_dic):
     """ Creates streamlit components for Zoom in view
 
     :param index: Index of the image
@@ -521,7 +523,6 @@ def zoom(index: int,
 
     components.html("""<hr style="height:2px;border:none;color:#AAA;background-color:#AAA;" /> """, height=30)
 
-    annotator_dic = ds.get_annotator_dictionary()
     index = index - offset
     image = ds.get_solo_image_with_labelers(index, labelers, annotator_dic, max_size=2000)
 

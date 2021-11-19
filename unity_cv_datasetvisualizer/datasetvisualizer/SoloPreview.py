@@ -97,8 +97,6 @@ def create_sidebar_entry(label, annotator_dic, available_labelers, label_type, l
         states['name'] = l['name']
         states['state'] = True
 
-
-
     if len(states) > 0:
         labelers[label_type] = st.sidebar.checkbox(label) and st.session_state[f'{label_type}_existed_last_time']
         st.session_state[f'{label_type}_existed_last_time'] = True
@@ -156,32 +154,35 @@ def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) ->
         if labeler['type'] == "type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition":
             semantic_count = semantic_count + 1
 
-    create_sidebar_entry("2D Bounding Boxes", annotator_dic, available_labelers, 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition', labelers)
-    create_sidebar_entry("3D Bounding Boxes", annotator_dic, available_labelers, 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition', labelers)
-    create_sidebar_entry("Keypoints", annotator_dic, available_labelers, 'type.unity.com/unity.solo.KeypointAnnotationDefinition', labelers)
-    create_sidebar_entry("Instance Segmentation", annotator_dic, available_labelers, 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition', labelers)
-    create_sidebar_entry("Semantic Segmentation", annotator_dic, available_labelers, 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition', labelers)
-    # if instance_count > 0 and semantic_count > 0:
-    #     if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
-    #         selected_segmentation = st.sidebar.radio("Select the segmentation type:",
-    #                                                  ['Semantic Segmentation', 'Instance Segmentation'],
-    #                                                  index=0)
-    #         if selected_segmentation == 'Semantic Segmentation':
-    #             labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = True
-    #         elif selected_segmentation == 'Instance Segmentation':
-    #             labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = True
-    #     st.session_state.semantic_existed_last_time = True
+    create_sidebar_entry("2D Bounding Boxes", annotator_dic, available_labelers,
+                         'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition', labelers)
+    create_sidebar_entry("3D Bounding Boxes", annotator_dic, available_labelers,
+                         'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition', labelers)
+    create_sidebar_entry("Keypoints", annotator_dic, available_labelers,
+                         'type.unity.com/unity.solo.KeypointAnnotationDefinition', labelers)
+    if instance_count > 0 and semantic_count > 0:
+        if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
+            segmentation_list = [*annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'],
+                                 *annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']]
+            segmentation_names = [seg.name for seg in segmentation_list]
+            semantic_seg_list = annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']
+            instance_seg_list = annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']
 
-    # elif semantic_count > 0:
-    #     labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = st.sidebar.checkbox(
-    #         "Semantic Segmentation")
-    #     st.session_state.semantic_existed_last_time = False
-    # elif instance_count > 0:
-    #     labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = st.sidebar.checkbox(
-    #         "Instance Segmentation")
-    #     st.session_state.semantic_existed_last_time = False
-    # else:
-    #     st.session_state.semantic_existed_last_time = False
+            semantic_seg_names = [seg.name + " (Semantic Segmentation)" for seg in semantic_seg_list]
+            instance_seg_names = [seg.name + " (Instance Segmentation)" for seg in instance_seg_list]
+            c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 = st.sidebar.beta_columns(10)
+            selected_segmentation = c2.radio("", [*semantic_seg_names, *instance_seg_names])
+            for annotator_segmentation in segmentation_list:
+                if annotator_segmentation.name == selected_segmentation[0:-24]:
+                    annotator_segmentation.state = True
+                    st.session_state[f'{annotator_segmentation.name}_existed_last_time'] = True
+
+            if selected_segmentation in semantic_seg_names:
+                labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = True
+            elif selected_segmentation in instance_seg_names:
+                labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = True
+        st.session_state.semantic_existed_last_time = True
+
     if st.session_state.previous_labelers != labelers:
         st.session_state.labelers_changed = True
     else:
@@ -434,10 +435,12 @@ def grid_view(num_rows: int, ds: Dataset, labelers: Dict[str, bool], annotator_d
     containers = create_grid_containers(num_rows, num_cols, start_at, dataset_size)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        image = ds.get_solo_image_with_labelers(i, labelers, annotator_dic, max_size=get_resolution_from_num_cols(num_cols))
+        image = ds.get_solo_image_with_labelers(i, labelers, annotator_dic,
+                                                max_size=get_resolution_from_num_cols(num_cols))
         sequence = (int)(i / ds.solo.steps_per_sequence)
         step = i % ds.solo.steps_per_sequence
-        containers[i - start_at].image(image, caption="sequence"+str(sequence)+"."+"step"+str(step), use_column_width=True)
+        containers[i - start_at].image(image, caption="sequence" + str(sequence) + "." + "step" + str(step),
+                                       use_column_width=True)
 
 
 def get_resolution_from_num_cols(num_cols):
@@ -472,7 +475,8 @@ def grid_view_instances(
         ann_def = ds.ann_def
         cap = ds.cap
         data_root = ds.data_root
-        image = ds.get_image_with_labelers(i - datamaker.get_dataset_length_with_instances(instances, instance_key), labelers, max_size=(6 - num_cols) * 150)
+        image = ds.get_image_with_labelers(i - datamaker.get_dataset_length_with_instances(instances, instance_key),
+                                           labelers, max_size=(6 - num_cols) * 150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 
 

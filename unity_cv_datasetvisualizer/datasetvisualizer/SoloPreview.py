@@ -168,12 +168,12 @@ def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) ->
             semantic_seg_list = annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']
             instance_seg_list = annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']
 
-            semantic_seg_names = [seg.name + " (Semantic Segmentation)" for seg in semantic_seg_list]
-            instance_seg_names = [seg.name + " (Instance Segmentation)" for seg in instance_seg_list]
+            semantic_seg_names = [seg.name for seg in semantic_seg_list]
+            instance_seg_names = [seg.name for seg in instance_seg_list]
             c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 = st.sidebar.beta_columns(10)
-            selected_segmentation = c2.radio("", [*semantic_seg_names, *instance_seg_names])
+            selected_segmentation = c2.radio("", segmentation_names)
             for annotator_segmentation in segmentation_list:
-                if annotator_segmentation.name == selected_segmentation[0:-24]:
+                if annotator_segmentation.name == selected_segmentation:
                     annotator_segmentation.state = True
                     st.session_state[f'{annotator_segmentation.name}_existed_last_time'] = True
 

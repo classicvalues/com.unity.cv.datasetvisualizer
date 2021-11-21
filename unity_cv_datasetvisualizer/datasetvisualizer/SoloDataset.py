@@ -7,6 +7,8 @@ from datasetinsights.datasets.unity_perception.captures import Captures
 
 import visualization.visualizers as v
 import json
+from os import listdir
+from os.path import isfile, join
 
 from google.protobuf.json_format import MessageToDict, Parse, ParseError
 from UnityVisionHub.tools.consumers.solo.parser import Solo
@@ -24,29 +26,25 @@ from UnityVisionHub.tools.consumers.protos.solo_pb2 import (
 class Dataset:
     @staticmethod
     def check_folder_valid(base_dataset_dir: str):
-        found_solo_metadata = False
+        found_solo_meta = False
+        found_solo_annot = False
+        found_solo_metric = False
+        found_solo_sensor = False
         try:
-            meta_dir = os.path.join(base_dataset_dir, "metadata" + "." + "json")
-            if os.path.isfile(meta_dir):
-                found_solo_metadata = True
-
-            return found_solo_metadata
-        except PermissionError:
-            return False
-
-    @staticmethod
-    def check_sequence_folder_valid(base_dataset_dir: str):
-        found_dataset = False
-        found_rgb = False
-        try:
-            children_dirs = [os.path.basename(f.path.replace("\\", "/")) for f in os.scandir(base_dataset_dir) if
-                             f.is_dir()]
-            for children_dir in children_dirs:
-                if "camera" in children_dir:
-                    found_rgb = True
-                elif "frame_data" in children_dir:
-                    found_dataset = True
-            return found_dataset and found_rgb
+            meta_file = "metadata.json"
+            annot_file = "annotation_definitions.json"
+            metric_file = "metric_definitions.json"
+            sensor_file = "sensor_definitions.json"
+            files = [f for f in listdir(base_dataset_dir) if isfile(join(base_dataset_dir, f))]
+            if meta_file in files:
+                found_solo_meta = True
+            if annot_file in files:
+                found_solo_annot = True
+            if metric_file in files:
+                found_solo_metric = True
+            if sensor_file in files:
+                found_solo_sensor = True
+            return found_solo_meta and found_solo_annot and found_solo_metric and found_solo_sensor
         except PermissionError:
             return False
 

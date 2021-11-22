@@ -53,24 +53,17 @@ class Dataset:
             try:
                 self.data_root = data_root
                 self.get_annotation_definitions()
-                # self.metric_def = MetricDefinitions(data_root)
-                # self.cap = Captures(data_root)
-
                 self.solo = Solo(data_root, start=0)
-
                 self.dataset_valid = True
             except Exception as e:
                 print(e)
-                # self.ann_def = None
-                # self.metric_def = None
-                # self.cap = None
                 self.data_root = None
+                self.solo = None
                 self.dataset_valid = False
         else:
-            # self.ann_def = None
-            # self.metric_def = None
-            # self.cap = None
             self.data_root = None
+            self.solo = None
+
             self.dataset_valid = False
 
     def get_annotation_definitions(self):

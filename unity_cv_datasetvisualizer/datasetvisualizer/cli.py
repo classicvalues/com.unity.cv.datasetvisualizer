@@ -2,9 +2,6 @@ import argparse
 import os
 
 import streamlit.bootstrap
-# import datasetvisualizer.LegacyDataset.Dataset
-# import SoloDataset.Dataset
-# from datasetvisualizer.SoloDataset import Dataset
 
 cli = argparse.ArgumentParser()
 cli.add_argument('--data', type=str,

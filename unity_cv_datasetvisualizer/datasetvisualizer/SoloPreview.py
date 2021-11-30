@@ -1,33 +1,16 @@
-import argparse
 import json
 import os
 import sys
 import subprocess
 from typing import List, Tuple, Optional, Dict
 import re
-
 import streamlit as st
-
 import streamlit.components.v1 as components
-import itertools
-
 from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
 from datasetinsights.datasets.unity_perception.captures import Captures
-
 import helpers.custom_components_setup as cc
 from datasetvisualizer.SoloDataset import Dataset
-
 import helpers.datamaker_dataset_helper as datamaker
-
-from google.protobuf.json_format import Parse, ParseError
-
-from UnityVisionHub.tools.consumers.protos.solo_pb2 import (
-    BoundingBox2DAnnotation,
-    BoundingBox3DAnnotation,
-    Frame,
-    InstanceSegmentationAnnotation,
-    RGBCamera,
-)
 
 
 def datamaker_dataset(path: str) -> Optional[Dict[int, Dataset]]:

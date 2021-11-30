@@ -1,18 +1,13 @@
 ﻿import os
-from typing import Dict, Optional
-
+from typing import Dict
 from PIL import Image
-from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
-from datasetinsights.datasets.unity_perception.captures import Captures
-
 import visualization.visualizers as v
 import json
 from os import listdir
 from os.path import isfile, join
-
 from google.protobuf.json_format import MessageToDict, Parse, ParseError
-from UnityVisionHub.tools.consumers.solo.parser import Solo
-from UnityVisionHub.tools.consumers.protos.solo_pb2 import (
+from unity_vision.consumers.solo.parser import Solo
+from unity_vision.protos.solo_pb2 import (
     BoundingBox2DAnnotation,
     BoundingBox3DAnnotation,
     Frame,
@@ -22,29 +17,35 @@ from UnityVisionHub.tools.consumers.protos.solo_pb2 import (
     KeypointAnnotation
 )
 
+SEMANTIC_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'
+INSTANCE_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'
+BOUNDING_BOX_TYPE = 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition'
+BOUNDING_BOX_3D_TYPE = 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition'
+KEYPOINT_TYPE = 'type.unity.com/unity.solo.KeypointAnnotationDefinition'
+
 
 class Dataset:
     @staticmethod
     def check_folder_valid(base_dataset_dir: str):
         found_solo_meta = False
-        found_solo_annot = False
+        found_solo_annotate = False
         found_solo_metric = False
         found_solo_sensor = False
         try:
             meta_file = "metadata.json"
-            annot_file = "annotation_definitions.json"
+            annotate_file = "annotation_definitions.json"
             metric_file = "metric_definitions.json"
             sensor_file = "sensor_definitions.json"
             files = [f for f in listdir(base_dataset_dir) if isfile(join(base_dataset_dir, f))]
             if meta_file in files:
                 found_solo_meta = True
-            if annot_file in files:
-                found_solo_annot = True
+            if annotate_file in files:
+                found_solo_annotate = True
             if metric_file in files:
                 found_solo_metric = True
             if sensor_file in files:
                 found_solo_sensor = True
-            return found_solo_meta and found_solo_annot and found_solo_metric and found_solo_sensor
+            return found_solo_meta and found_solo_annotate and found_solo_metric and found_solo_sensor
         except PermissionError:
             return False
 
@@ -82,7 +83,7 @@ class Dataset:
 
     def get_keypoint_template(self, templateId: str):
         for i in self.annotaion_definitions['annotationDefinitions']:
-            if i['@type'] == 'type.unity.com/unity.solo.KeypointAnnotationDefinition':
+            if i['@type'] == KEYPOINT_TYPE:
                 template = i['template']
                 if template['templateId'] == templateId:
                     return template;
@@ -90,15 +91,15 @@ class Dataset:
         return None
 
     def _to_annotation(self, annotation):
-        if annotation == 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition':
+        if annotation == SEMANTIC_SEGMENTATION_TYPE:
             return SemanticSegmentationAnnotation()
-        if annotation == 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition':
+        if annotation == INSTANCE_SEGMENTATION_TYPE:
             return InstanceSegmentationAnnotation()
-        if annotation == 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition':
+        if annotation == BOUNDING_BOX_TYPE:
             return BoundingBox2DAnnotation()
-        if annotation == 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition':
+        if annotation == BOUNDING_BOX_3D_TYPE:
             return BoundingBox3DAnnotation()
-        if annotation == 'type.unity.com/unity.solo.KeypointAnnotationDefinition':
+        if annotation == KEYPOINT_TYPE:
             return KeypointAnnotation()
         return None
 
@@ -149,55 +150,50 @@ class Dataset:
         filename = os.path.join(self.solo.sequence_path, sensor.filename)
         image = Image.open(filename)
 
-        if labelers_to_use == None:
+        if labelers_to_use is None:
             labelers_to_use = []
 
-        if 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition' in labelers_to_use and labelers_to_use[
-            'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition']:
-            for annotator in annotator_dic['type.unity.com/unity.solo.BoundingBoxAnnotationDefinition']:
+        if BOUNDING_BOX_TYPE in labelers_to_use and labelers_to_use[BOUNDING_BOX_TYPE]:
+            for annotator in annotator_dic[BOUNDING_BOX_TYPE]:
                 if annotator.state:
                     bbox_data = self._get_annotation_from_sensor(sensor, annotator,
-                                                                 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition')
+                                                                 BOUNDING_BOX_TYPE)
                     image = v.draw_image_with_boxes(image, bbox_data)
 
-        if 'type.unity.com/unity.solo.KeypointAnnotationDefinition' in labelers_to_use and labelers_to_use[
-            'type.unity.com/unity.solo.KeypointAnnotationDefinition']:
-            for annotator in annotator_dic['type.unity.com/unity.solo.KeypointAnnotationDefinition']:
+        if KEYPOINT_TYPE in labelers_to_use and labelers_to_use[KEYPOINT_TYPE]:
+            for annotator in annotator_dic[KEYPOINT_TYPE]:
                 if annotator.state:
                     keypoint_data = self._get_annotation_from_sensor(sensor, annotator,
-                                                                     'type.unity.com/unity.solo.KeypointAnnotationDefinition')
+                                                                     KEYPOINT_TYPE)
                     b = keypoint_data['templateId']
                     template = self.get_keypoint_template(b)
                     image = v.draw_image_with_keypoints(image, keypoint_data, template)
 
-        if 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition' in labelers_to_use and labelers_to_use[
-            'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition']:
-            for annotator in annotator_dic['type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition']:
+        if BOUNDING_BOX_3D_TYPE in labelers_to_use and labelers_to_use[BOUNDING_BOX_3D_TYPE]:
+            for annotator in annotator_dic[BOUNDING_BOX_3D_TYPE]:
                 if annotator.state:
                     bbox_3d_data = self._get_annotation_from_sensor(sensor, annotator,
-                                                                    'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition')
+                                                                    BOUNDING_BOX_3D_TYPE)
                     image = v.draw_image_with_box_3d(image, sensor, bbox_3d_data, None)
 
                     image.thumbnail((max_size, max_size))
 
-        if 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition' in labelers_to_use and labelers_to_use[
-            'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']:
-            for annotator in annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']:
+        if SEMANTIC_SEGMENTATION_TYPE in labelers_to_use and labelers_to_use[SEMANTIC_SEGMENTATION_TYPE]:
+            for annotator in annotator_dic[SEMANTIC_SEGMENTATION_TYPE]:
                 if annotator.state:
                     seg_data = self._get_annotation_from_sensor(sensor, annotator,
-                                                                'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition')
+                                                                SEMANTIC_SEGMENTATION_TYPE)
                     seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
                     seg = Image.open(seg_filename)
                     image = v.draw_image_with_segmentation(
                         image, seg
                     )
 
-        if 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition' in labelers_to_use and labelers_to_use[
-            'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']:
-            for annotator in annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']:
+        if INSTANCE_SEGMENTATION_TYPE in labelers_to_use and labelers_to_use[INSTANCE_SEGMENTATION_TYPE]:
+            for annotator in annotator_dic[INSTANCE_SEGMENTATION_TYPE]:
                 if annotator.state:
                     seg_data = self._get_annotation_from_sensor(sensor, annotator,
-                                                                'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition')
+                                                                INSTANCE_SEGMENTATION_TYPE)
                     seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
                     seg = Image.open(seg_filename)
                     image = v.draw_image_with_segmentation(

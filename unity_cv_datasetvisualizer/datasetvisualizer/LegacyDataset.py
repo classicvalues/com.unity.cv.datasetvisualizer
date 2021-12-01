@@ -22,9 +22,9 @@ class Dataset:
                     found_dataset = True
                 elif children_dir.startswith("RGB"):
                     found_rgb = True
-                elif children_dir == "Logs":
-                    found_logs = True
-            return found_dataset and found_rgb and found_logs
+                # elif children_dir == "Logs":
+                #     found_logs = True
+            return found_dataset and found_rgb
         except PermissionError:
             return False
 
@@ -51,7 +51,6 @@ class Dataset:
             self.dataset_valid = False
 
     def get_metrics_records(self):
-        print("===================================")
         print("metric_def: ", self.metric_def)
         return self.metric_def.table.to_dict('records')
 

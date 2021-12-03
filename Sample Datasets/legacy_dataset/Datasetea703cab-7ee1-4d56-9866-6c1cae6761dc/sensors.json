@@ -1,0 +1,10 @@
+{
+  "version": "0.0.1",
+  "sensors": [
+    {
+      "id": "camera",
+      "modality": "camera",
+      "description": "The main camera"
+    }
+  ]
+}

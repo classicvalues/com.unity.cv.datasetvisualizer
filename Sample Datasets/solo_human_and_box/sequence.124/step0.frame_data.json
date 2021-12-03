@@ -1,0 +1,667 @@
+{
+  "frame": 126,
+  "sequence": 124,
+  "step": 0,
+  "captures": [
+    {
+      "@type": "type.unity.com/unity.solo.RGBCamera",
+      "id": "camera",
+      "description": "The main RGB camera",
+      "position": [
+        1.929,
+        1.123,
+        -3.057
+      ],
+      "rotation": [
+        0.11266163,
+        -0.260020733,
+        0.0305620581,
+        0.958521068
+      ],
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "acceleration": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "filename": "step0.camera.png",
+      "imageFormat": "PNG",
+      "dimension": [
+        654.0,
+        511.0
+      ],
+      "projection": "Perspective",
+      "matrix": [
+        1.35356033,
+        0.0,
+        0.0,
+        0.0,
+        1.73234534,
+        0.0,
+        0.0,
+        0.0,
+        -1.0006001
+      ],
+      "annotations": [
+        {
+          "@type": "type.unity.com/unity.solo.KeypointAnnotation",
+          "id": "8b3ef246-daa7-4dd5-a0e8-a943f6e7f8c2",
+          "sensorId": "camera",
+          "description": "8b3ef246-daa7-4dd5-a0e8-a943f6e7f8c2",
+          "templateId": "4a7b253a-334e-460c-bc81-3f4e2c4871c0",
+          "values": [
+            {
+              "instanceId": 1,
+              "labelId": 5,
+              "pose": "unset",
+              "keypoints": [
+                {
+                  "index": 0,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 1,
+                  "location": [
+                    313.713531,
+                    196.97934
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 2,
+                  "location": [
+                    300.424622,
+                    206.898712
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 3,
+                  "location": [
+                    274.389282,
+                    204.8783
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 4,
+                  "location": [
+                    253.4161,
+                    203.286774
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 5,
+                  "location": [
+                    330.9854,
+                    209.216187
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 6,
+                  "location": [
+                    361.115021,
+                    211.449
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 7,
+                  "location": [
+                    388.928375,
+                    213.5538
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 8,
+                  "location": [
+                    302.492249,
+                    262.0197
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 9,
+                  "location": [
+                    298.1934,
+                    305.164185
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 10,
+                  "location": [
+                    304.5015,
+                    343.836
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 11,
+                  "location": [
+                    321.227173,
+                    264.809021
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 12,
+                  "location": [
+                    321.640747,
+                    307.3581
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 13,
+                  "location": [
+                    324.7465,
+                    349.9418
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 14,
+                  "location": [
+                    301.421,
+                    176.779968
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 15,
+                  "location": [
+                    310.5263,
+                    177.104584
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 16,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 17,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "@type": "type.unity.com/unity.solo.BoundingBox2DAnnotation",
+          "id": "bounding box",
+          "sensorId": "camera",
+          "description": "Produces 2D bounding box annotations for all visible objects that bear a label defined in this labeler's associated label configuration.",
+          "values": [
+            {
+              "instanceId": 3,
+              "labelId": 1,
+              "labelName": "Crate",
+              "origin": [
+                98.0,
+                205.0
+              ],
+              "dimension": [
+                151.0,
+                128.0
+              ]
+            },
+            {
+              "instanceId": 1,
+              "labelId": 5,
+              "labelName": "Character",
+              "origin": [
+                235.0,
+                150.0
+              ],
+              "dimension": [
+                178.0,
+                226.0
+              ]
+            },
+            {
+              "instanceId": 2,
+              "labelId": 1,
+              "labelName": "Crate",
+              "origin": [
+                425.0,
+                267.0
+              ],
+              "dimension": [
+                188.0,
+                174.0
+              ]
+            }
+          ]
+        },
+        {
+          "@type": "type.unity.com/unity.solo.KeypointAnnotation",
+          "id": "F66DFD55-FE53-4AA7-8934-B1226D9C9175",
+          "sensorId": "camera",
+          "description": "F66DFD55-FE53-4AA7-8934-B1226D9C9175",
+          "templateId": "4a089ea6-2f8e-4d0e-8915-2dfdf95cf743",
+          "values": [
+            {
+              "instanceId": 1,
+              "labelId": 5,
+              "pose": "unset",
+              "keypoints": [
+                {
+                  "index": 0,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 1,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 2,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 3,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 4,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 5,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 6,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 7,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                }
+              ]
+            },
+            {
+              "instanceId": 2,
+              "labelId": 1,
+              "pose": "unset",
+              "keypoints": [
+                {
+                  "index": 0,
+                  "location": [
+                    613.119568,
+                    296.539246
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 1,
+                  "location": [
+                    518.8268,
+                    315.249969
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 2,
+                  "location": [
+                    595.279541,
+                    409.758728
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 3,
+                  "location": [
+                    505.445435,
+                    440.6117
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 4,
+                  "location": [
+                    513.93866,
+                    266.766846
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 5,
+                  "location": [
+                    430.866974,
+                    278.346771
+                  ],
+                  "state": 2
+                },
+                {
+                  "index": 6,
+                  "location": [
+                    504.531616,
+                    359.639862
+                  ],
+                  "state": 1
+                },
+                {
+                  "index": 7,
+                  "location": [
+                    425.150421,
+                    379.285583
+                  ],
+                  "state": 2
+                }
+              ]
+            },
+            {
+              "instanceId": 3,
+              "labelId": 1,
+              "pose": "unset",
+              "keypoints": [
+                {
+                  "index": 0,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 1,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 2,
+                  "location": [
+                    186.023956,
+                    287.116821
+                  ],
+                  "state": 1
+                },
+                {
+                  "index": 3,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 4,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 5,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 6,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                },
+                {
+                  "index": 7,
+                  "location": [
+                    0.0,
+                    0.0
+                  ],
+                  "state": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "@type": "type.unity.com/unity.solo.BoundingBox3DAnnotation",
+          "id": "bounding box 3D",
+          "sensorId": "camera",
+          "description": "Produces 3D bounding box ground truth data for all visible objects that bear a label defined in this labeler's associated label configuration.",
+          "values": [
+            {
+              "instanceId": 3,
+              "labelId": 1,
+              "labelName": "Crate",
+              "translation": [
+                -1.5434798,
+                -0.061360918,
+                4.585796
+              ],
+              "size": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "rotation": [
+                -0.11266163,
+                0.260020733,
+                -0.0305620581,
+                0.958521068
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "acceleration": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "instanceId": 2,
+              "labelId": 1,
+              "labelName": "Crate",
+              "translation": [
+                1.59413409,
+                -0.750773966,
+                3.84993672
+              ],
+              "size": [
+                1.00000024,
+                1.0,
+                1.00000024
+              ],
+              "rotation": [
+                -0.0242153741,
+                0.971559465,
+                -0.114194132,
+                0.206023648
+              ],
+              "velocity": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "acceleration": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "@type": "type.unity.com/unity.solo.InstanceSegmentationAnnotation",
+          "id": "instance segmentation",
+          "sensorId": "camera",
+          "description": "instance segmentation",
+          "imageFormat": "PNG",
+          "dimension": [
+            654.0,
+            511.0
+          ],
+          "filename": "step0.camera.instance segmentation.png",
+          "instances": [
+            {
+              "instanceId": 3,
+              "labelId": 1,
+              "labelName": "Crate",
+              "color": [
+                149,
+                255,
+                0,
+                255
+              ]
+            },
+            {
+              "instanceId": 1,
+              "labelId": 5,
+              "labelName": "Character",
+              "color": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "instanceId": 2,
+              "labelId": 1,
+              "labelName": "Crate",
+              "color": [
+                0,
+                74,
+                255,
+                255
+              ]
+            }
+          ]
+        },
+        {
+          "@type": "type.unity.com/unity.solo.SemanticSegmentationAnnotation",
+          "id": "semantic segmentation",
+          "sensorId": "camera",
+          "description": "Generates a semantic segmentation image for each captured frame. Each object is rendered to the semantic segmentation image using the color associated with it based on this labeler's associated semantic segmentation label configuration. Semantic segmentation images are saved to the dataset in PNG format. Please note that only one SemanticSegmentationLabeler can render at once across all cameras.",
+          "imageFormat": "PNG",
+          "dimension": [
+            654.0,
+            511.0
+          ],
+          "filename": "step0.camera.semantic segmentation.png",
+          "instances": [
+            {
+              "labelName": "Box",
+              "pixelValue": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "labelName": "Cube",
+              "pixelValue": [
+                0,
+                6,
+                255,
+                255
+              ]
+            },
+            {
+              "labelName": "Crate",
+              "pixelValue": [
+                0,
+                255,
+                43,
+                255
+              ]
+            },
+            {
+              "labelName": "Terrain",
+              "pixelValue": [
+                209,
+                0,
+                169,
+                255
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "@type": "type.unity.com/unity.solo.GenericMetric",
+      "id": "scenario_iteration",
+      "sensorId": null,
+      "annotationId": null,
+      "description": "Iteration information for dataset sequences",
+      "value": 124
+    },
+    {
+      "@type": "type.unity.com/unity.solo.GenericMetric",
+      "id": "random-seed",
+      "sensorId": null,
+      "annotationId": null,
+      "description": "The random seed used to initialize the random state of the simulation. Only triggered once per simulation.",
+      "value": 539662031
+    }
+  ]
+}

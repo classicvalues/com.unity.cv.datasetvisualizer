@@ -127,7 +127,7 @@ class Dataset:
             label_mappings = {
                 m["label_id"]: m["label_name"] for m in init_definition["spec"]
             }
-            image = v.draw_image_with_boxes(
+            image = v.draw_image_with_legacy_boxes(
                 image,
                 index,
                 bb_captures,

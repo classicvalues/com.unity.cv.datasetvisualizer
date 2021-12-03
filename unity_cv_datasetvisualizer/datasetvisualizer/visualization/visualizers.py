@@ -13,6 +13,18 @@ from pyquaternion import Quaternion
 
 from PIL import Image, ImageColor, ImageDraw
 
+def draw_image_with_legacy_boxes(
+    image,
+    index,
+    catalog,
+    label_mappings,
+):
+    cap = catalog.iloc[index]
+    ann = cap["annotation.values"]
+    capture = image
+    image = capture.convert("RGB")  # Remove alpha channel
+    bboxes = read_bounding_box_2d(ann, label_mappings)
+    return plot_bboxes(image, bboxes, label_mappings)
 
 def draw_image_with_boxes(
     image,

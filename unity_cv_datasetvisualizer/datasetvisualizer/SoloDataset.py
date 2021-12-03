@@ -185,6 +185,7 @@ class Dataset:
                                                                 SEMANTIC_SEGMENTATION_TYPE)
                     seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
                     seg = Image.open(seg_filename)
+                    seg.thumbnail((max_size, max_size))
                     image = v.draw_image_with_segmentation(
                         image, seg
                     )
@@ -192,12 +193,13 @@ class Dataset:
         if INSTANCE_SEGMENTATION_TYPE in labelers_to_use and labelers_to_use[INSTANCE_SEGMENTATION_TYPE]:
             for annotator in annotator_dic[INSTANCE_SEGMENTATION_TYPE]:
                 if annotator.state:
-                    seg_data = self._get_annotation_from_sensor(sensor, annotator,
+                    inst_data = self._get_annotation_from_sensor(sensor, annotator,
                                                                 INSTANCE_SEGMENTATION_TYPE)
-                    seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
-                    seg = Image.open(seg_filename)
+                    inst_filename = os.path.join(self.solo.sequence_path, inst_data['filename'])
+                    inst = Image.open(inst_filename)
+                    inst.thumbnail((max_size, max_size))
                     image = v.draw_image_with_segmentation(
-                        image, seg
+                        image, inst
                     )
 
         return image

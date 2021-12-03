@@ -1,0 +1,965 @@
+{
+  "version": "0.0.1",
+  "metrics": [
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "0",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        0
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "0",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8604
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 22525
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "0",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "0",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "1",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        1
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "1",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8603
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 22720
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "1",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "1",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "2",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        2
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "2",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 7820
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 22904
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "2",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "2",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "3",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        3
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "3",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8603
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23090
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "3",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "3",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "4",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        4
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "4",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8603
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23272
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "4",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "4",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "5",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        5
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "5",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8603
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23448
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "5",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "5",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "6",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        6
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "6",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 7910
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23618
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "6",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "6",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "7",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        7
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "7",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8595
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23784
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "7",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "7",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "8",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        8
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "8",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8604
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23945
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "8",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "8",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "9",
+      "step": 0,
+      "metric_definition": "scenario_iteration",
+      "values": [
+        9
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "9",
+      "step": 0,
+      "metric_definition": "RenderedObjectInfo",
+      "values": [
+        {
+          "label_id": 1,
+          "instance_id": 3,
+          "instance_color": {
+            "r": 149,
+            "g": 255,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 16802
+        },
+        {
+          "label_id": 5,
+          "instance_id": 1,
+          "instance_color": {
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          },
+          "visible_pixels": 8604
+        },
+        {
+          "label_id": 1,
+          "instance_id": 2,
+          "instance_color": {
+            "r": 0,
+            "g": 74,
+            "b": 255,
+            "a": 255
+          },
+          "visible_pixels": 23945
+        }
+      ]
+    },
+    {
+      "capture_id": null,
+      "annotation_id": null,
+      "sequence_id": "9",
+      "step": 0,
+      "metric_definition": "random-seed",
+      "values": [
+        539662031
+      ]
+    },
+    {
+      "capture_id": "camera",
+      "annotation_id": null,
+      "sequence_id": "9",
+      "step": 0,
+      "metric_definition": "ObjectCount",
+      "values": [
+        {
+          "label_id": 1,
+          "label_name": "Crate",
+          "count": 2
+        },
+        {
+          "label_id": 2,
+          "label_name": "Cube",
+          "count": 0
+        },
+        {
+          "label_id": 3,
+          "label_name": "Box",
+          "count": 0
+        },
+        {
+          "label_id": 4,
+          "label_name": "Terrain",
+          "count": 0
+        },
+        {
+          "label_id": 5,
+          "label_name": "Character",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

@@ -90,7 +90,7 @@ class Dataset:
     @staticmethod
     def custom_compare_filenames(filenames):
         for i in range(len(filenames)):
-            filenames[i] = int(os.path.basename(filenames[i])[4:-4])
+            filenames[i] = int(os.path.basename(filenames[i])[7:-4])
         return filenames
 
     def get_image_with_labelers(
@@ -127,7 +127,7 @@ class Dataset:
             label_mappings = {
                 m["label_id"]: m["label_name"] for m in init_definition["spec"]
             }
-            image = v.draw_image_with_legacy_boxes(
+            image = v.draw_legacy_image_with_boxes(
                 image,
                 index,
                 bb_captures,
@@ -140,7 +140,7 @@ class Dataset:
             kp_captures = kp_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
             annotations = kp_captures.loc[index, "annotation.values"]
             templates = self.ann_def.table.to_dict('records')[self.get_annotation_index('keypoints')]['spec']
-            v.draw_image_with_keypoints(image, annotations, templates)
+            v.draw_legacy_image_with_keypoints(image, annotations, templates)
 
         if 'bounding box 3D' in labelers_to_use and labelers_to_use['bounding box 3D']:
             bounding_box_3d_definition_id = self.get_annotation_id('bounding box 3D')
@@ -148,7 +148,7 @@ class Dataset:
             box_captures = box_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
             annotations = box_captures.loc[index, "annotation.values"]
             sensor = box_captures.loc[index, "sensor"]
-            image = v.draw_image_with_box_3d(image, sensor, annotations, None)
+            image = v.draw_legacy_image_with_box_3d(image, sensor, annotations, None)
 
         # bounding boxes and keypoints are depend on pixel coordinates so for now the thumbnail optimization applies only to
         # segmentation

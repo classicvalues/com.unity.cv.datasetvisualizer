@@ -13,7 +13,7 @@ from pyquaternion import Quaternion
 
 from PIL import Image, ImageColor, ImageDraw
 
-def draw_image_with_legacy_boxes(
+def draw_legacy_image_with_boxes(
     image,
     index,
     catalog,
@@ -82,14 +82,18 @@ def find_metadata_annotation_index(dataset, name):
         if annotation["name"] == name:
             return idx
 
-
-def draw_image_with_keypoints(
+def draw_legacy_image_with_keypoints(
     image, annotations, templates
 ):
     return plot_keypoints(image, annotations, templates)
 
+def draw_image_with_keypoints(
+    image, annotations, templates
+):
+    return plot_keypoints_with_color(image, annotations, templates)
 
-def plot_keypoints(image, annotations, template, visual_width=6):
+
+def plot_keypoints_with_color(image, annotations, template, visual_width=6):
     draw = ImageDraw.Draw(image)
 
     for figure in annotations['values']:
@@ -265,4 +269,15 @@ def draw_image_with_box_3d(image, sensor, values, colors):
     boxes = to_db_insights_bbox3d(values)
     img_with_boxes = plot_bboxes3d(image, boxes, projection, None,
                                    orthographic=(sensor.projection == "Orthographic"))
+    return img_with_boxes
+
+def draw_legacy_image_with_box_3d(image, sensor, values, colors):
+    if 'camera_intrinsic' in sensor:
+        projection = np.array(sensor["camera_intrinsic"])
+    else:
+        projection = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+    boxes = read_bounding_box_3d(values)
+    img_with_boxes = plot_bboxes3d(image, boxes, projection, None,
+                                   orthographic=(sensor["projection"] == "orthographic"))
     return img_with_boxes

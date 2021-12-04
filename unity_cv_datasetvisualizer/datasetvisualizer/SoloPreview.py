@@ -404,7 +404,7 @@ def grid_view_instances(
         ann_def = ds.ann_def
         cap = ds.cap
         data_root = ds.data_root
-        image = ds.get_image_with_labelers(i - datamaker.get_dataset_length_with_instances(instances, instance_key),
+        image = ds.get_solo_image_with_labelers(i - datamaker.get_dataset_length_with_instances(instances, instance_key),
                                            labelers, max_size=(6 - num_cols) * 150)
         containers[i - start_at].image(image, caption=str(i), use_column_width=True)
 

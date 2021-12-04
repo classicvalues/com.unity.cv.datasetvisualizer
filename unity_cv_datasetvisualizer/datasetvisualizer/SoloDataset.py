@@ -176,8 +176,6 @@ class Dataset:
                                                                     BOUNDING_BOX_3D_TYPE)
                     image = v.draw_image_with_box_3d(image, sensor, bbox_3d_data, None)
 
-                    image.thumbnail((max_size, max_size))
-
         if SEMANTIC_SEGMENTATION_TYPE in labelers_to_use and labelers_to_use[SEMANTIC_SEGMENTATION_TYPE]:
             for annotator in annotator_dic[SEMANTIC_SEGMENTATION_TYPE]:
                 if annotator.state:
@@ -185,7 +183,6 @@ class Dataset:
                                                                 SEMANTIC_SEGMENTATION_TYPE)
                     seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
                     seg = Image.open(seg_filename)
-                    seg.thumbnail((max_size, max_size))
                     image = v.draw_image_with_segmentation(
                         image, seg
                     )
@@ -197,7 +194,6 @@ class Dataset:
                                                                 INSTANCE_SEGMENTATION_TYPE)
                     inst_filename = os.path.join(self.solo.sequence_path, inst_data['filename'])
                     inst = Image.open(inst_filename)
-                    inst.thumbnail((max_size, max_size))
                     image = v.draw_image_with_segmentation(
                         image, inst
                     )

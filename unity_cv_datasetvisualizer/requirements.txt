@@ -13,4 +13,4 @@ opencv-python>=4.5
 pyquaternion>=0.9.9
 datasetinsights==1.1.1
 PySide2==5.15.2
-git+ssh://git@github.com:Unity-Technologies/Unity-Vision-Hub.git@solo-viz-work
+git+https://github.com/Unity-Technologies/unity-vision.git@solo-viz-work

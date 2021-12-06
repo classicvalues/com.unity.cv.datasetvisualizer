@@ -1,17 +1,11 @@
-﻿from pathlib import Path
-
-import cv2.cv2
+﻿import cv2.cv2
 import numpy as np
-
-from datasetinsights.datasets.unity_perception import AnnotationDefinitions
-from datasetinsights.datasets.unity_perception.captures import Captures
+from PIL import Image, ImageDraw
 from datasetinsights.datasets.synthetic import read_bounding_box_2d, read_bounding_box_3d
-from datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d, plot_keypoints
 from datasetinsights.io.bbox import BBox3D
-
+from datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d, plot_keypoints
 from pyquaternion import Quaternion
 
-from PIL import Image, ImageColor, ImageDraw
 
 def draw_legacy_image_with_boxes(
     image,

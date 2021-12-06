@@ -1,21 +1,19 @@
-﻿import os
-from typing import Dict
-from PIL import Image
-import visualization.visualizers as v
-import json
+﻿import json
+import os
 from os import listdir
 from os.path import isfile, join
-from google.protobuf.json_format import MessageToDict, Parse, ParseError
+from typing import Dict
+from PIL import Image
+from google.protobuf.json_format import MessageToDict
 from unity_vision.consumers.solo.parser import Solo
 from unity_vision.protos.solo_pb2 import (
     BoundingBox2DAnnotation,
     BoundingBox3DAnnotation,
-    Frame,
     InstanceSegmentationAnnotation,
     SemanticSegmentationAnnotation,
-    RGBCamera,
     KeypointAnnotation
 )
+import visualization.visualizers as v
 
 SEMANTIC_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'
 INSTANCE_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'

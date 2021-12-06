@@ -1,24 +1,14 @@
-from datasetvisualizer.SoloDataset import Dataset as SoloDataset
-from datasetvisualizer.LegacyDataset import Dataset as LegacyDataset
-from datasetvisualizer.SoloPreview import preview_dataset as solo_preview_dataset
-from datasetvisualizer.LegacyPreview import preview_dataset as legacy_preview_dataset
-import streamlit as st
-from google.protobuf.json_format import Parse, ParseError
 import argparse
 import os
-from typing import List, Tuple, Optional, Dict
 import subprocess
-import argparse
-import json
-import os
 import sys
-import subprocess
-from typing import List, Tuple, Optional, Dict
-import re
+from typing import Dict
 import streamlit as st
+from datasetvisualizer.LegacyDataset import Dataset as LegacyDataset
+from datasetvisualizer.LegacyPreview import preview_dataset as legacy_preview_dataset
+from datasetvisualizer.SoloDataset import Dataset as SoloDataset
+from datasetvisualizer.SoloPreview import preview_dataset as solo_preview_dataset
 
-import streamlit.components.v1 as components
-import itertools
 
 def create_session_state_data(attribute_values: Dict[str, any]):
     """ Takes a dictionary of attributes to values to create the streamlit session_state object.
@@ -74,13 +64,12 @@ def create_select_dataset_page(base_dataset_dir: str):
 
     if dataset_name is not None and dataset_name.strip() != "":
         data_root = os.path.abspath(dataset_name)
-        # Attempt to read as a solo perception dataset
-        if SoloDataset.check_folder_valid(data_root):
-            # filename = os.path.join(dirname, "SoloPreview.py")
-            solo_preview_dataset(data_root, folder_name)
-        elif LegacyDataset.check_folder_valid(data_root):
-            # filename = os.path.join(dirname, "LegacyPreview.py")
+        # Attempt to read as a legacy format perception dataset
+        if LegacyDataset.check_folder_valid(data_root):
             legacy_preview_dataset(data_root, folder_name)
+        # Attempt to read as a solo format perception dataset
+        elif SoloDataset.check_folder_valid(data_root):
+            solo_preview_dataset(data_root, folder_name)
 
     else:
         st.markdown("# Please select a valid dataset folder:")

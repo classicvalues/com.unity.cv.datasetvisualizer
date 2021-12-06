@@ -1,22 +1,16 @@
-import argparse
 import json
 import os
-import sys
-import subprocess
-from typing import List, Tuple, Optional, Dict
 import re
-
+import subprocess
+import sys
+from typing import List, Tuple, Optional, Dict
 import streamlit as st
-
 import streamlit.components.v1 as components
-
 from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
 from datasetinsights.datasets.unity_perception.captures import Captures
-
 import helpers.custom_components_setup as cc
-from datasetvisualizer.LegacyDataset import Dataset
-
 import helpers.datamaker_dataset_helper as datamaker
+from datasetvisualizer.LegacyDataset import Dataset
 
 
 def datamaker_dataset(path: str) -> Optional[Dict[int, Dataset]]:

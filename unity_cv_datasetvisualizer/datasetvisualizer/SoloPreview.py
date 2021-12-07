@@ -143,7 +143,7 @@ def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) ->
                          'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition', labelers)
     create_sidebar_entry("Keypoints", annotator_dic, available_labelers,
                          'type.unity.com/unity.solo.KeypointAnnotationDefinition', labelers)
-    if instance_count > 0 and semantic_count > 0:
+    if instance_count > 0 or semantic_count > 0:
         if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
             segmentation_list = [*annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'],
                                  *annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']]

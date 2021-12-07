@@ -1,0 +1,34 @@
+{
+  "annotationDefinitions": [
+    {
+      "@type": "type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition",
+      "id": "111111 instance segmentation",
+      "description": "Produces an instance segmentation image for each frame. The image will render the pixels of each labeled object in a distinct color.",
+      "spec": [
+        {
+          "label_id": 1,
+          "label_name": "Box"
+        },
+        {
+          "label_id": 2,
+          "label_name": "Terrain"
+        },
+        {
+          "label_id": 3,
+          "label_name": "Character"
+        }
+      ]
+    },
+    {
+      "@type": "type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition",
+      "id": "2222222 instance segmentation",
+      "description": "Produces an instance segmentation image for each frame. The image will render the pixels of each labeled object in a distinct color.",
+      "spec": [
+        {
+          "label_id": 1,
+          "label_name": "Cube"
+        }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,11 @@ import helpers.custom_components_setup as cc
 from datasetvisualizer.SoloDataset import Dataset
 import helpers.datamaker_dataset_helper as datamaker
 
+SEMANTIC_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'
+INSTANCE_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'
+BOUNDING_BOX_TYPE = 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition'
+BOUNDING_BOX_3D_TYPE = 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition'
+KEYPOINT_TYPE = 'type.unity.com/unity.solo.KeypointAnnotationDefinition'
 
 def datamaker_dataset(path: str) -> Optional[Dict[int, Dataset]]:
     """ Reads the given path as a datamaker dataset
@@ -126,30 +131,29 @@ def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) ->
     keypoints_count = 0;
 
     for labeler in available_labelers:
-        if labeler['type'] == "type.unity.com/unity.solo.BoundingBoxAnnotationDefinition":
+        if labeler['type'] == BOUNDING_BOX_TYPE:
             bbox_count = bbox_count + 1
-        if labeler['type'] == "type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition":
+        if labeler['type'] == BOUNDING_BOX_3D_TYPE:
             bbox3d_count = bbox3d_count + 1
-        if labeler['type'] == "type.unity.com/unity.solo.KeypointAnnotationDefinition":
+        if labeler['type'] == KEYPOINT_TYPE:
             keypoints_count = keypoints_count + 1
-        if labeler['type'] == "type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition":
+        if labeler['type'] == INSTANCE_SEGMENTATION_TYPE:
             instance_count = instance_count + 1
-        if labeler['type'] == "type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition":
+        if labeler['type'] == SEMANTIC_SEGMENTATION_TYPE:
             semantic_count = semantic_count + 1
 
     create_sidebar_entry("2D Bounding Boxes", annotator_dic, available_labelers,
-                         'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition', labelers)
+                         BOUNDING_BOX_TYPE, labelers)
     create_sidebar_entry("3D Bounding Boxes", annotator_dic, available_labelers,
-                         'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition', labelers)
+                         BOUNDING_BOX_3D_TYPE, labelers)
     create_sidebar_entry("Keypoints", annotator_dic, available_labelers,
-                         'type.unity.com/unity.solo.KeypointAnnotationDefinition', labelers)
+                         KEYPOINT_TYPE, labelers)
     if instance_count > 0 or semantic_count > 0:
         if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
-            segmentation_list = [*annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'],
-                                 *annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']]
-            segmentation_names = [seg.name for seg in segmentation_list]
-            semantic_seg_list = annotator_dic['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition']
-            instance_seg_list = annotator_dic['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition']
+            semantic_seg_list = annotator_dic.get(SEMANTIC_SEGMENTATION_TYPE, [])
+            instance_seg_list = annotator_dic.get(INSTANCE_SEGMENTATION_TYPE, [])
+            segmentation_list = semantic_seg_list + instance_seg_list
+            segmentation_names = [seg.name for seg in segmentation_list if seg is not None]
 
             semantic_seg_names = [seg.name for seg in semantic_seg_list]
             instance_seg_names = [seg.name for seg in instance_seg_list]
@@ -161,9 +165,9 @@ def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) ->
                     st.session_state[f'{annotator_segmentation.name}_existed_last_time'] = True
 
             if selected_segmentation in semantic_seg_names:
-                labelers['type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'] = True
+                labelers[SEMANTIC_SEGMENTATION_TYPE] = True
             elif selected_segmentation in instance_seg_names:
-                labelers['type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'] = True
+                labelers[INSTANCE_SEGMENTATION_TYPE] = True
         st.session_state.semantic_existed_last_time = True
 
     if st.session_state.previous_labelers != labelers:

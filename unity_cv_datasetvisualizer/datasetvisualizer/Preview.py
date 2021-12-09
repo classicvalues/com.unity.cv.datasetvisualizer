@@ -64,12 +64,12 @@ def create_select_dataset_page(base_dataset_dir: str):
 
     if dataset_name is not None and dataset_name.strip() != "":
         data_root = os.path.abspath(dataset_name)
-        # Attempt to read as a legacy format perception dataset
-        if LegacyDataset.check_folder_valid(data_root):
-            legacy_preview_dataset(data_root, folder_name)
         # Attempt to read as a solo format perception dataset
-        elif SoloDataset.check_folder_valid(data_root):
+        if SoloDataset.check_folder_valid(data_root):
             solo_preview_dataset(data_root, folder_name)
+        # Attempt to read as a legacy format perception dataset
+        else:
+            legacy_preview_dataset(data_root, folder_name)
 
     else:
         st.markdown("# Please select a valid dataset folder:")

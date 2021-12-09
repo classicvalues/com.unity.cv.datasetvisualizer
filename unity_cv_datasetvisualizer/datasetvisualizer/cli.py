@@ -11,10 +11,9 @@ cli.add_argument('--data', type=str,
 def preview(args):
     """Previews the dataset in a streamlit app."""
     dirname = os.path.dirname(__file__)
-    filename = os.path.join(dirname, "preview.py")
+    filename = os.path.join(dirname, "Preview.py")
     args = [args.data]
     streamlit.bootstrap.run(filename, "", args, None)
-
 
 def main():
     preview(cli.parse_args())

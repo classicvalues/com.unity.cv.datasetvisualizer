@@ -1,8 +1,7 @@
-﻿import cv2.cv2
-import numpy as np
+﻿import numpy as np
 from PIL import Image, ImageDraw
 from datasetinsights.datasets.synthetic import read_bounding_box_2d, read_bounding_box_3d
-from datasetinsights.io.bbox import BBox3D
+from datasetinsights.io.bbox import BBox3D, BBox2D
 from datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d, plot_keypoints
 from pyquaternion import Quaternion
 
@@ -20,26 +19,20 @@ def draw_legacy_image_with_boxes(
     bboxes = read_bounding_box_2d(ann, label_mappings)
     return plot_bboxes(image, bboxes, label_mappings)
 
-def draw_image_with_boxes(
-    image,
-    boxes
+
+def draw_solo_image_with_boxes(
+        image,
+        bbox_data,
+        label_mappings,
 ):
     img = image.convert("RGB")  # Remove alpha channel
-    np_img = np.array(img)
-
-    for b in boxes['values']:
-        origin = b['origin']
-        dim = b['dimension']
-        start = ((int)(origin[0]), (int)(origin[1]))
-        end = (start[0] + (int)(dim[0]), start[1] + (int)(dim[1]))
-        np_img = cv2.cv2.rectangle(np_img, start, end, (255, 255, 0), 2)
-
-    return Image.fromarray(np_img)
+    bboxes = to_db_insights_bbox2d(bbox_data)
+    return plot_bboxes(img, bboxes, label_mappings)
 
 
 def draw_image_with_segmentation(
-    image: Image,
-    segmentation: Image,
+        image: Image,
+        segmentation: Image,
 ):
     """
     Draws an image in streamlit with labels and bounding boxes.
@@ -238,7 +231,7 @@ def to_db_insights_bbox3d(boxes):
         r = b['rotation']
         rotation = Quaternion(r[3], r[0], r[1], r[2])
         box = BBox3D(
-            translation=(trans[0],trans[1],trans[2]),
+            translation=(trans[0], trans[1], trans[2]),
             size=(size[0], size[1], size[2]),
             label=b['labelId'],
             sample_token=0,
@@ -250,13 +243,29 @@ def to_db_insights_bbox3d(boxes):
     return bboxes
 
 
-#TODO Implement colors
+def to_db_insights_bbox2d(boxes):
+    bboxes = []
+    for b in boxes['values']:
+        box = BBox2D(
+            label=b['labelId'],
+            x=b['origin'][0],
+            y=b['origin'][1],
+            w=b['dimension'][0],
+            h=b['dimension'][1],
+            score=1,
+        )
+        bboxes.append(box)
+
+    return bboxes
+
+
+# TODO Implement colors
 def draw_image_with_box_3d(image, sensor, values, colors):
     i = sensor.matrix
     matrix = [
-        [i[0],i[1],i[2]],
-        [i[3],i[4],i[5]],
-        [i[6],i[7],i[8]]
+        [i[0], i[1], i[2]],
+        [i[3], i[4], i[5]],
+        [i[6], i[7], i[8]]
     ]
     projection = np.array(matrix)
 
@@ -264,6 +273,7 @@ def draw_image_with_box_3d(image, sensor, values, colors):
     img_with_boxes = plot_bboxes3d(image, boxes, projection, None,
                                    orthographic=(sensor.projection == "Orthographic"))
     return img_with_boxes
+
 
 def draw_legacy_image_with_box_3d(image, sensor, values, colors):
     if 'camera_intrinsic' in sensor:

@@ -156,7 +156,10 @@ class Dataset:
                 if annotator.state:
                     bbox_data = self._get_annotation_from_sensor(sensor, annotator,
                                                                  BOUNDING_BOX_TYPE)
-                    image = v.draw_image_with_boxes(image, bbox_data)
+                    label_mappings = {
+                        m["labelId"]: m["labelName"] for m in bbox_data['values']
+                    }
+                    image = v.draw_solo_image_with_boxes(image, bbox_data, label_mappings)
 
         if KEYPOINT_TYPE in labelers_to_use and labelers_to_use[KEYPOINT_TYPE]:
             for annotator in annotator_dic[KEYPOINT_TYPE]:

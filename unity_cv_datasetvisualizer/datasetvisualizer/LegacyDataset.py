@@ -85,7 +85,9 @@ class Dataset:
     @staticmethod
     def custom_compare_filenames(filenames):
         for i in range(len(filenames)):
-            filenames[i] = int(os.path.basename(filenames[i])[7:-4])
+            fileName = os.path.basename(filenames[i]).split("_")[1]
+            fileNameWithoutExtension = fileName.split(".")[0]
+            filenames[i] = int(fileNameWithoutExtension)
         return filenames
 
     def get_image_with_labelers(

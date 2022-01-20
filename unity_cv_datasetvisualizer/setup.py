@@ -19,7 +19,7 @@ setuptools.setup(
         "Operating System :: MacOS",
         "Operating System :: Microsoft :: Windows :: Windows 10"
     ],
-    packages=find_packages(),
+    packages=setuptools.find_packages(),
     include_package_data=True,
     python_requires=">=3.7, !=3.9.*",
     install_requires=[

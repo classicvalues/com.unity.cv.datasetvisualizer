@@ -1,9 +1,9 @@
-from setuptools import setup
+import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-setup(
+setuptools.setup(
     name="unity-cv-datasetvisualizer",
     version="0.1.2",
     author="Unity Technologies",
@@ -19,7 +19,7 @@ setup(
         "Operating System :: MacOS",
         "Operating System :: Microsoft :: Windows :: Windows 10"
     ],
-    packages=["datasetvisualizer", "datasetvisualizer/helpers", "datasetvisualizer/visualization"],
+    packages=find_packages(),
     include_package_data=True,
     python_requires=">=3.7, !=3.9.*",
     install_requires=[

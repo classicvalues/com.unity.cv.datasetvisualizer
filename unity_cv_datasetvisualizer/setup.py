@@ -29,5 +29,5 @@ setuptools.setup(
         "datasetinsights==1.1.1",
         "PySide2==5.15.2",
     ],
-    entry_points={"console_scripts": ["datasetvisualizer=datasetvisualizer.cli:main"]},
+    entry_points={"console_scripts": ["datasetvisualizer=unity_cv_datasetvisualizer/datasetvisualizer.cli:main"]},
 )

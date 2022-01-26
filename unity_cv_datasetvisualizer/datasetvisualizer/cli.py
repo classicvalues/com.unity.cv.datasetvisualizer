@@ -3,11 +3,6 @@ import os
 
 import streamlit.bootstrap
 
-cli = argparse.ArgumentParser()
-cli.add_argument('--data', type=str,
-                 help='path to dataset', default="")
-
-
 def preview(args):
     """Previews the dataset in a streamlit app."""
     dirname = os.path.dirname(__file__)
@@ -16,6 +11,9 @@ def preview(args):
     streamlit.bootstrap.run(filename, "", args, None)
 
 def main():
+    cli = argparse.ArgumentParser()
+    cli.add_argument('--data', type=str,
+                 help='path to dataset', default="")
     preview(cli.parse_args())
 
 

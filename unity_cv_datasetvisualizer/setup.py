@@ -28,6 +28,7 @@ setuptools.setup(
         "pyquaternion>=0.9.9",
         "datasetinsights==1.1.1",
         "PySide2==5.15.2",
+        "unity_vision>=0.1.3"
     ],
     entry_points={"console_scripts": ["datasetvisualizer=datasetvisualizer.cli:main"]},
 )

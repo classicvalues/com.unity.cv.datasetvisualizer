@@ -19,7 +19,7 @@ setuptools.setup(
         "Operating System :: MacOS",
         "Operating System :: Microsoft :: Windows :: Windows 10"
     ],
-    packages=["datasetvisualizer", "datasetvisualizer/helpers", "datasetvisualizer/visualization"],
+    packages=setuptools.find_packages(include=['datasetvisualizer', 'datasetvisualizer.*']),
     include_package_data=True,
     python_requires=">=3.7, !=3.9.*",
     install_requires=[

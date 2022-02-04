@@ -12,6 +12,7 @@ publish-wheel:
     - echo -n " " >> .pypirc
     - echo $IT_ARTIFACTORY_PASSWORD >> .pypirc
     - sudo cp .pypirc $HOME/unity_cv_datasetvisualizer
+    - ls -R
     - python3 setup.py sdist bdist_wheel upload -r local
   triggers:
     tags:

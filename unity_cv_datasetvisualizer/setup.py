@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="unity-cv-datasetvisualizer",
-    version="0.1.10",
+    version="0.1.11",
     author="Unity Technologies",
     description="This Python based tool allows you to visualize datasets created using Unity Computer Vision tools.",
     long_description=long_description,
@@ -19,7 +19,7 @@ setuptools.setup(
         "Operating System :: MacOS",
         "Operating System :: Microsoft :: Windows :: Windows 10"
     ],
-    packages=["unity_cv_datasetvisualizer/datasetvisualizer", "unity_cv_datasetvisualizer/datasetvisualizer/helpers", "unity_cv_datasetvisualizer/datasetvisualizer/visualization"],
+    packages=["datasetvisualizer", "datasetvisualizer/helpers", "datasetvisualizer/visualization"],
     include_package_data=True,
     python_requires=">=3.7, !=3.9.*",
     install_requires=[

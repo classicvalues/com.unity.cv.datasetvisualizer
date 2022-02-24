@@ -12,7 +12,6 @@ publish-wheel:
     - echo -n "password:" >> .pypirc
     - echo -n " " >> .pypirc
     - echo $IT_ARTIFACTORY_PASSWORD >> .pypirc
-#    - sudo cp .pypirc $HOME/unity_cv_datasetvisualizer
     - sudo cp .pypirc $HOME
     - |
       sudo cp .pypirc unity_cv_datasetvisualizer

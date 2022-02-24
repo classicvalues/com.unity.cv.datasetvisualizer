@@ -5,7 +5,6 @@ publish-wheel:
     image: cds-ops/ubuntu-18.04-python3.8:stable
     flavor: b1.large
   commands:
-    - cp unity_cv_datasetvisualizer/.pypirc .
     - echo -n "username:" >> .pypirc
     - echo -n " " >> .pypirc
     - echo $IT_ARTIFACTORY_USER >> .pypirc
@@ -14,7 +13,7 @@ publish-wheel:
     - echo $IT_ARTIFACTORY_PASSWORD >> .pypirc
 #    - sudo cp .pypirc $HOME/unity_cv_datasetvisualizer
     - sudo cp .pypirc $HOME
-    - python3 unity_cv_datasetvisualizer/setup.py sdist bdist_wheel upload -r local
+    - python3 setup.py sdist bdist_wheel upload -r local
   triggers:
     tags:
       only:

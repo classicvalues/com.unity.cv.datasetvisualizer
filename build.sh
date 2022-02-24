@@ -1,5 +1,0 @@
-﻿docker build \
-  --build-arg JFROG_ARTIFACTORY_READ_USER=${JFROG_ARTIFACTORY_READ_USER} \
-  --build-arg JFROG_ARTIFACTORY_READ_TOKEN=${JFROG_ARTIFACTORY_READ_TOKEN} \
-  -t ${image} \
-  .

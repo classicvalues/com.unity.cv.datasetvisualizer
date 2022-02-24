@@ -17,8 +17,6 @@ publish-wheel:
       sudo cp .pypirc unity_cv_datasetvisualizer
       cd unity_cv_datasetvisualizer
       python3 setup.py sdist bdist_wheel upload -r local
-  dependencies:
-    - .yamato/test.yml#run-tests
   triggers:
     tags:
       only:

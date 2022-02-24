@@ -12,7 +12,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer",
     classifiers=[
-        "Programming Language :: Python :: 3",
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         "License :: OSI Approved :: Apache Software License",

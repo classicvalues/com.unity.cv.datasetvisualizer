@@ -1,4 +1,5 @@
-﻿import json
+﻿import glob
+import json
 import os
 from os import listdir
 from os.path import isfile, join
@@ -133,6 +134,13 @@ class Dataset:
             self.name = name
             self.state = state
 
+    def get_sequence_path(self):
+        filename_pattern = f"{self.solo.sequence_path}"
+        files = glob.glob(filename_pattern)
+        if len(files) != 1:
+            raise Exception(f"Metadata file not found for sequence {sequence}")
+        return files[0]
+
     def get_solo_image_with_labelers(
             self,
             index: int,
@@ -140,12 +148,10 @@ class Dataset:
             annotator_dic: Dict[str, AnnotatorNameState],
             max_size: int = 500) -> Image:
 
-        self.solo.jump_to(index)
+        self.solo.__load_frame__(index)
 
         sensor = self.solo.sensors()[0]['message']
-        part_a = self.solo.sequence_path
-        part_b = sensor.filename
-        filename = os.path.join(self.solo.sequence_path, sensor.filename)
+        filename = os.path.join(self.get_sequence_path(), sensor.filename)
         image = Image.open(filename)
 
         if labelers_to_use is None:
@@ -182,7 +188,7 @@ class Dataset:
                 if annotator.state:
                     seg_data = self._get_annotation_from_sensor(sensor, annotator,
                                                                 SEMANTIC_SEGMENTATION_TYPE)
-                    seg_filename = os.path.join(self.solo.sequence_path, seg_data['filename'])
+                    seg_filename = os.path.join(self.get_sequence_path(), seg_data['filename'])
                     seg = Image.open(seg_filename)
                     image = v.draw_image_with_segmentation(
                         image, seg
@@ -193,7 +199,7 @@ class Dataset:
                 if annotator.state:
                     inst_data = self._get_annotation_from_sensor(sensor, annotator,
                                                                 INSTANCE_SEGMENTATION_TYPE)
-                    inst_filename = os.path.join(self.solo.sequence_path, inst_data['filename'])
+                    inst_filename = os.path.join(self.get_sequence_path(), inst_data['filename'])
                     inst = Image.open(inst_filename)
                     image = v.draw_image_with_segmentation(
                         image, inst

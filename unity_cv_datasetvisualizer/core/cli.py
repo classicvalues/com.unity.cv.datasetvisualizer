@@ -15,10 +15,10 @@ def preview(dataset_path):
     preview_py_file_path = Path(os.path.dirname(__file__)) / "Preview.py"
 
     config = {
-        "theme.primaryColor": "#7792E3",
-        "theme.backgroundColor": "#273346",
-        "theme.secondaryBackgroundColor": "#B9F1C0",
-        "theme.textColor": "#FFFFFF",
+        "theme.primaryColor": "#794504",
+        "theme.backgroundColor": "#FBFBFB",
+        "theme.secondaryBackgroundColor": "#F7F2EE",
+        "theme.textColor": "#262629",
         "theme.font": "sans serif"
     }
 
@@ -31,7 +31,7 @@ def preview(dataset_path):
 def main(arg):
     cli = argparse.ArgumentParser(description="Visualize annotations of synthetic datasets generated using Unity's Perception package.")
     cli.add_argument("-d", "--data", type=str, help='Path to root of dataset', default=None)
-    cli.add_argument("-s", "--skip-dataset", help='Run visualizer without selecting a dataset', action='store_true')
+    cli.add_argument("-s", "--skip-dataset", help='Run visualizer without selecting a dataset through the CLI', action='store_true')
     args = cli.parse_args(arg)
 
     data_folder = args.data or None

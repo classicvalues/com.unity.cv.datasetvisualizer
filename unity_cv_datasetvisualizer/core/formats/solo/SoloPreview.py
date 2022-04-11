@@ -6,7 +6,7 @@ import streamlit as st
 from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
 from datasetinsights.datasets.unity_perception.captures import Captures
 
-from helpers.ui import UI
+from helpers.ui import AppState
 from .SoloDataset import BOUNDING_BOX_TYPE, BOUNDING_BOX_3D_TYPE, KEYPOINT_TYPE, SEMANTIC_SEGMENTATION_TYPE, \
     INSTANCE_SEGMENTATION_TYPE
 from .SoloDataset import SoloDataset
@@ -122,16 +122,16 @@ def preview_dataset(data_root):
 
     dataset_len = ds.metadata["totalFrames"]
     with st.sidebar:
-        UI.display_horizontal_rule()
-        UI.display_number_frames(dataset_len)
-        UI.display_horizontal_rule()
+        AppState.display_horizontal_rule()
+        AppState.display_number_frames(dataset_len)
+        AppState.display_horizontal_rule()
 
     available_labelers = ds.get_available_labelers()
     annotator_dic = ds.get_annotator_dictionary()
     labelers = create_sidebar_labeler_menu(available_labelers, annotator_dic)
 
     # zoom_image is negative if the application isn't in zoom mode
-    index = int(st.session_state.zoom_image)
+    index = int(AppState.get_zoom_image())
     if index >= 0:
         zoom(index, 0, ds, labelers, annotator_dic)
     else:
@@ -144,20 +144,20 @@ def _create_grid_view_controls(dataset_size: int) -> Tuple[int, int]:
 
     with left:
         new_start_at = st.number_input("Start at Sequence Number", 0, dataset_size-1)
-        if new_start_at != UI.get_starting_frame() and not st.session_state.just_opened_grid:
-            UI.set_starting_frame(new_start_at)
+        if new_start_at != AppState.get_starting_frame() and not st.session_state.just_opened_grid:
+            AppState.set_starting_frame(new_start_at)
 
         st.session_state.just_opened_grid = False
-        start_at = int(UI.get_starting_frame())
+        start_at = int(AppState.get_starting_frame())
 
     with right:
-        num_cols = st.number_input(label="Sequences Per Row", min_value=1, max_value=5, step=1,
-                                   value=int(UI.get_num_cols()))
-        if num_cols != (UI.get_num_cols()):
-            UI.set_num_cols(num_cols)
+        num_cols = st.number_input(label="Sequences Per Row", min_value=1, max_value=10, step=1,
+                                   value=int(AppState.get_num_cols()))
+        if num_cols != (AppState.get_num_cols()):
+            AppState.set_num_cols(num_cols)
             st.experimental_rerun()
 
-    UI.display_horizontal_rule()
+    AppState.display_horizontal_rule()
 
     return num_cols, start_at
 
@@ -219,7 +219,7 @@ def grid_view(num_rows: int, ds: SoloDataset, labelers: Dict[str, bool], annotat
         with containers[i - start_at]:
             st.image(image, caption=f"sequence{sequence}.step{step}", use_column_width=True)
             if st.button("Open", key=f"i_{i}"):
-                UI.set_zoom_image(i)
+                AppState.set_zoom_image(i)
                 st.session_state.just_opened_zoom = True
                 st.experimental_rerun()
 
@@ -266,7 +266,7 @@ def zoom(index: int,
         new_index = st.number_input("Sequence Number", 0, dataset_size - 1, value=index)
         if not new_index == index and not st.session_state.just_opened_zoom and not st.session_state.labelers_changed:
             st.session_state.zoom_image = new_index
-            UI.set_starting_frame(index)
+            AppState.set_starting_frame(index)
             st.experimental_rerun()
 
     st.session_state.start_at = index
@@ -275,7 +275,7 @@ def zoom(index: int,
 
     index = index - offset
 
-    UI.display_horizontal_rule()
+    AppState.display_horizontal_rule()
 
     frame = st.container()
     step = index % ds.solo.steps_per_sequence

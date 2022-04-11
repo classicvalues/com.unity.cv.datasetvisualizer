@@ -31,11 +31,13 @@ button[title="View fullscreen"] {
     align-items: center;
 }
 .uui-badge p {
-    background: #5fb83c;
+    background: #40a219;
     margin: 8px 0 0 0;
     padding: 0.2em 1.1em;
     color: white;
     border-radius: 8px;
+    font-weight: bold;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 }
 
 .uui-scrollable-text {

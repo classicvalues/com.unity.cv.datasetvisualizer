@@ -27,7 +27,7 @@ class Components:
     @staticmethod
     def draw_homepage():
         st.markdown('# Unity CV Dataset Visualizer')
-        st.image(UI.get_docs_path("showcase-5-labelers.gif", as_str=True))
+        st.image(AppState.get_docs_path("showcase-5-labelers.gif", as_str=True))
         st.markdown(
             "<p style=\"max-width: 600px;\">"
             "Unity Computer Vision team's Dataset Visualizer provides an easy way to quickly visualize annotations "
@@ -46,7 +46,23 @@ class Components:
         )
 
 
-class UI:
+class AppState:
+
+    @staticmethod
+    def get_base_dataset_directory():
+        return st.session_state.curr_dir
+
+    @staticmethod
+    def set_base_dataset_directory(value: str):
+        st.session_state.curr_dir = value
+
+    @staticmethod
+    def get_selected_dataset_directory():
+        return st.session_state.selected_dir
+
+    @staticmethod
+    def set_selected_dataset_directory(value: str):
+        st.session_state.selected_dir = value
 
     @staticmethod
     def get_starting_frame():
@@ -138,7 +154,7 @@ class UI:
 
     @staticmethod
     def create_default_state(dataset_dir=''):
-        UI.create_session_state_data({
+        AppState.create_session_state_data({
             'zoom_image': '-1',
             'start_at': '0',
             'num_cols': '3',

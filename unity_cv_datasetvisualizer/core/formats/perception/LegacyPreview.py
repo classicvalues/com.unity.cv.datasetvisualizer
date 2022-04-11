@@ -1,16 +1,12 @@
 import json
 import os
 import re
-import subprocess
-import sys
-import re
-from typing import List, Tuple, Optional, Dict
+from typing import List, Tuple, Dict
+
 import streamlit as st
 import streamlit.components.v1 as components
-from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
-from datasetinsights.datasets.unity_perception.captures import Captures
-from helpers import ui, unity_component_library as cc
-from helpers.ui import UI
+
+from helpers.ui import AppState
 from .LegacyDataset import LegacyDataset
 
 
@@ -19,15 +15,15 @@ def preview_dataset(data_root):
     ds = LegacyDataset(data_root)
 
     with st.sidebar:
-        UI.display_horizontal_rule()
-        UI.display_number_frames(ds.length())
-        UI.display_horizontal_rule()
+        AppState.display_horizontal_rule()
+        AppState.display_number_frames(ds.length())
+        AppState.display_horizontal_rule()
 
     available_labelers = ds.get_available_labelers()
     labelers = _create_sidebar_labeler_menu(available_labelers)
 
     # zoom_image is negative if the application isn't in zoom mode
-    index = int(st.session_state.zoom_image)
+    index = int(AppState.get_zoom_image())
     if index >= 0:
         zoom(index, 0, ds, labelers)
     else:
@@ -113,23 +109,23 @@ def create_grid_view_controls(num_rows: int, dataset_size: int) -> Tuple[int, in
 
     with left:
         new_start_at = st.number_input(
-            label="Start at Frame Number", value=int(st.session_state.start_at),
+            label="Start at Frame Number", value=int(AppState.get_starting_frame()),
             min_value=0, max_value=dataset_size - 1
         )
-        if not new_start_at == st.session_state.start_at and not st.session_state.just_opened_grid:
-            st.session_state.start_at = new_start_at
+        if not new_start_at == AppState.get_starting_frame() and not AppState.get_in_grid_mode():
+            AppState.set_starting_frame(new_start_at)
 
-        st.session_state.just_opened_grid = False
+        AppState.set_in_grid_mode(False)
         start_at = int(st.session_state.start_at)
 
     with right:
-        num_cols = st.number_input(label="Frames Per Row: ", min_value=1, max_value=5,
-                                   value=int(st.session_state.num_cols))
-        if not num_cols == st.session_state.num_cols:
-            st.session_state.num_cols = num_cols
+        num_cols = st.number_input(label="Frames Per Row: ", min_value=1, max_value=10,
+                                   value=int(AppState.get_num_cols()))
+        if not num_cols == AppState.get_num_cols():
+            AppState.set_num_cols(num_cols)
             st.experimental_rerun()
 
-    UI.display_horizontal_rule()
+    AppState.display_horizontal_rule()
 
     return num_cols, start_at
 
@@ -160,17 +156,10 @@ def create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset_
                 height=35)
         expand_image = containers[i - start_at].button(label="Open", key="exp" + str(i))
         if expand_image:
-            st.session_state.zoom_image = i
-            st.session_state.just_opened_zoom = True
+            AppState.set_zoom_image(i)
+            AppState.set_in_zoom_mode(True)
             st.experimental_rerun()
     return containers
-
-
-def get_resolution_from_num_cols(num_cols):
-    if num_cols == 5:
-        return 300
-    else:
-        return (6 - num_cols) * 200
 
 
 def grid_view(num_rows: int, ds: LegacyDataset, labelers: Dict[str, bool]):
@@ -191,7 +180,7 @@ def grid_view(num_rows: int, ds: LegacyDataset, labelers: Dict[str, bool]):
     containers = create_grid_containers(num_rows, num_cols, start_at, dataset_size)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        image = ds.get_image_with_labelers(i, labelers, max_size=get_resolution_from_num_cols(num_cols))
+        image = ds.get_image_with_labelers(i, labelers, max_size=900)
         this_container = containers[i - start_at]
 
         with this_container:
@@ -214,29 +203,29 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
     """
     dataset_size = ds.length()
 
-    st.session_state.start_at = index
-    st.session_state.zoom_image = index
+    AppState.set_starting_frame(index)
+    AppState.set_zoom_image(index)
 
     left, _, right = st.columns([1/3, 1/3, 1/3])
 
     with left:
         new_index = st.number_input(label="Frame Number", min_value=0, value=index, max_value=(dataset_size + offset))
-        if not new_index == index and not UI.get_in_zoom_mode() and not UI.get_labelers_changed():
-            UI.set_zoom_image(new_index)
-            UI.set_starting_frame(index)
+        if not new_index == index and not AppState.get_in_zoom_mode() and not AppState.get_labelers_changed():
+            AppState.set_zoom_image(new_index)
+            AppState.set_starting_frame(index)
             st.experimental_rerun()
 
     with right:
         if st.button('Back'):
-            UI.set_zoom_image(-1)
-            UI.set_in_grid_mode(True)
+            AppState.set_zoom_image(-1)
+            AppState.set_in_grid_mode(True)
             st.experimental_rerun()
 
-    UI.set_starting_frame(index)
-    UI.set_zoom_image(index)
-    UI.set_in_zoom_mode(False)
+    AppState.set_starting_frame(index)
+    AppState.set_zoom_image(index)
+    AppState.set_in_zoom_mode(False)
 
-    UI.display_horizontal_rule()
+    AppState.display_horizontal_rule()
 
     index = index - offset
     image = ds.get_image_with_labelers(index, labelers, max_size=2000)
@@ -268,7 +257,10 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
             metrics.extend(captures_json_file['metrics'])
 
     filename_match = re.search("(rgb_\\d+)", capture["filename"])
-    rgb_filename = filename_match.group(1) if len(filename_match.groups()) > 0 else f"Image #{index}"
+    rgb_filename = f"Image #{index}"
+
+    if filename_match is not None and len(filename_match.groups()) > 0:
+        rgb_filename = filename_match.group(1)
 
     st.image(image, caption=rgb_filename, use_column_width=True)
 
@@ -287,4 +279,4 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
                         st.markdown(f"#### {metric_def['name']}")
                 st.write(metric)
 
-    UI.display_horizontal_rule()
+    AppState.display_horizontal_rule()

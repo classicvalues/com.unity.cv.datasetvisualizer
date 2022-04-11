@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
+
+* {
+    font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    word-break: break-word;
+}
+
+.element-container .row-widget.stButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Remove blurring on header */
+header {
+    backdrop-filter: none !important;
+}
+
+button[title="View fullscreen"] {
+    display: none;
+}
+
+.element-container hr {
+    margin: 0;
+}
+
+.uui-badge {
+    height: 3em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.uui-badge p {
+    background: #5fb83c;
+    margin: 8px 0 0 0;
+    padding: 0.2em 1.1em;
+    color: white;
+    border-radius: 8px;
+}
+
+.uui-scrollable-text {
+    background: white;
+    padding: 0.5em;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+    margin-bottom: 1em;
+    overflow: scroll;
+}
+
+.uui-scrollable-text span {
+    word-break: normal;
+    padding: 0 0.5em;
+}
+
+.uui-labeled label {
+    font-size: 14px;
+    color: rgb(49, 51, 63);
+    margin-bottom: 7px;
+    height: auto;
+    min-height: 1.5rem;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+}

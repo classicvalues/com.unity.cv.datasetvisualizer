@@ -5,9 +5,12 @@ COMPONENT_DEBUG_MODE = True
 
 """
         -- COMPONENT DECLARATIONS --
-    We define a Streamlit component via reference to a pre-built directory containing the web code for it. 
+    RELEASE
+        We define a Streamlit component via reference to a pre-built directory containing the web code for it.
+    
+    DEVELOPMENT
+        We can run the React project of the component and reference it via the port it is running on.
 """
-
 components_configuration = {
     "item_selector": {
         "path": "itemselector",
@@ -21,6 +24,10 @@ components_configuration = {
         "path": "pageselector",
         "port": 3003
     },
+    "diver": {
+        "path": "diver",
+        "port": 3004
+    }
 }
 
 
@@ -37,7 +44,8 @@ def get_component(name):
     else:
         return components.declare_component(
             name,
-            path=os.path.join(os.path.abspath(__file__), "..", "built_components", component_info['path'], "build")
+            path=os.path.join(os.path.abspath(__file__), "..", "..", "built_components", component_info['path'],
+                              "build")
         )
 
 
@@ -45,6 +53,7 @@ def get_component(name):
 _item_selector = get_component("item_selector")
 _item_selector_zoom = get_component("item_selector_zoom")
 _page_selector = get_component("page_selector")
+_diver = get_component("diver")
 
 """
         -- WRAPPER FUNCTIONS --
@@ -66,3 +75,7 @@ def item_selector_zoom(index, dataset_size, key='item-selector-zoom'):
 
 def page_selector(start_at, increment_amount, key='page-selector'):
     return _page_selector(startAt=start_at, incrementAmt=increment_amount, key=key, default=0)
+
+
+def diver(marker: str, key: str='diver'):
+    return _diver(marker=marker, key=key)

@@ -1,0 +1,12 @@
+.diver {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.diver:hover img {
+    box-shadow: rgb(30 33 37 / 80%) 0px 4px 12px;
+}
+.diver img {
+    box-shadow: rgb(48 58 68 / 40%) 0px 4px 12px;
+}

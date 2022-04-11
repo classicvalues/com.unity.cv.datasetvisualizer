@@ -1,9 +1,9 @@
-import setuptools
+from setuptools import find_packages, setup
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="unity-cv-datasetvisualizer",
     version="0.0.4",
     author="Unity Technologies",
@@ -19,16 +19,17 @@ setuptools.setup(
         "Operating System :: MacOS",
         "Operating System :: Microsoft :: Windows :: Windows 10"
     ],
-    packages=["datasetvisualizer", "datasetvisualizer/helpers", "datasetvisualizer/visualization"],
+    packages=find_packages(exclude='unity_vision/*'),
     include_package_data=True,
     python_requires=">=3.7, !=3.9.*",
     install_requires=[
         "Pillow>=8.1.0",
-        "streamlit>=0.84.1",
+        "streamlit>=1.7.0",
         "pyquaternion>=0.9.9",
         "datasetinsights>=1.1.1",
         "PySide2>=5.15.2",
-        "unity_vision==0.1.7"
+        "simple_colors",
+        "unity_vision"
     ],
-    entry_points={"console_scripts": ["datasetvisualizer=datasetvisualizer.cli:main"]},
+    entry_points={"console_scripts": ["datasetvisualizer=core.cli:entry"]},
 )

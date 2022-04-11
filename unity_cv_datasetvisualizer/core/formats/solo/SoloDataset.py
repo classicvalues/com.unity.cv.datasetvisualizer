@@ -1,11 +1,13 @@
 ﻿import glob
 import json
 import os
+import re
 from os import listdir
 from os.path import isfile, join
 from typing import Dict
 from PIL import Image
 from google.protobuf.json_format import MessageToDict
+import core.visualization.visualizers as v
 from unity_vision.consumers.solo.parser import Solo
 from unity_vision.protos.solo_pb2 import (
     BoundingBox2DAnnotation,
@@ -14,7 +16,6 @@ from unity_vision.protos.solo_pb2 import (
     SemanticSegmentationAnnotation,
     KeypointAnnotation
 )
-import visualization.visualizers as v
 
 SEMANTIC_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'
 INSTANCE_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'
@@ -23,18 +24,22 @@ BOUNDING_BOX_3D_TYPE = 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinit
 KEYPOINT_TYPE = 'type.unity.com/unity.solo.KeypointAnnotationDefinition'
 
 
-class Dataset:
+class SoloDataset:
+
     @staticmethod
-    def check_folder_valid(base_dataset_dir: str):
+    def is_solo_dataset(base_dataset_dir: str):
+
         found_solo_meta = False
         found_solo_annotate = False
         found_solo_metric = False
         found_solo_sensor = False
+
         try:
             meta_file = "metadata.json"
             annotate_file = "annotation_definitions.json"
             metric_file = "metric_definitions.json"
             sensor_file = "sensor_definitions.json"
+
             files = [f for f in listdir(base_dataset_dir) if isfile(join(base_dataset_dir, f))]
             if meta_file in files:
                 found_solo_meta = True
@@ -44,12 +49,45 @@ class Dataset:
                 found_solo_metric = True
             if sensor_file in files:
                 found_solo_sensor = True
+
             return found_solo_meta and found_solo_annotate and found_solo_metric and found_solo_sensor
         except PermissionError:
             return False
+        except TypeError:
+            return False
+
+    @staticmethod
+    def check_if_ucvd_dataset(path: str):
+
+        def _try_parse_ucvd_instance(instance_path: str, instance_map: Dict[int, SoloDataset]):
+
+            print(os.scandir(instance_path))
+
+            for instance in [g.path for g in os.scandir(instance_path) if g.is_dir()]:
+                if re.match(".*instance_[0-9]*", instance):
+                    instance_num = int(instance[instance.rfind("instance_") + len("instance_"):])
+                    for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
+                        if re.match(".*attempt_[0-9]*", attempt):
+                            ds = SoloDataset(attempt)
+                            if ds.dataset_valid:
+                                instance_map[instance_num] = ds
+
+        instances = {}
+        try:
+            for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
+                _try_parse_ucvd_instance(app_param, instances)
+        except Exception:
+            # The user may be selecting an actual app-param folder instead of a folder containing app-params.
+            # This can happen if the user is on MacOS and there is only one app-param folder in the downloaded dataset.
+            try:
+                _try_parse_ucvd_instance(path, instances)
+            except Exception:
+                return None
+
+        return instances if len(instances) > 0 else None
 
     def __init__(self, data_root: str):
-        if Dataset.check_folder_valid(data_root):
+        if SoloDataset.is_solo_dataset(data_root):
             try:
                 self.data_root = data_root
                 self.get_annotation_definitions()
@@ -198,7 +236,7 @@ class Dataset:
             for annotator in annotator_dic[INSTANCE_SEGMENTATION_TYPE]:
                 if annotator.state:
                     inst_data = self._get_annotation_from_sensor(sensor, annotator,
-                                                                INSTANCE_SEGMENTATION_TYPE)
+                                                                 INSTANCE_SEGMENTATION_TYPE)
                     inst_filename = os.path.join(self.get_sequence_path(), inst_data['filename'])
                     inst = Image.open(inst_filename)
                     image = v.draw_image_with_segmentation(

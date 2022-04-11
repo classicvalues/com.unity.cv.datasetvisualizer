@@ -20,6 +20,11 @@ _page_selector = components.declare_component(
     url="http://localhost:3003",
 )
 
+_html_wrapper = components.declare_component(
+    "html_wrapper",
+    url="http://localhost:3004"
+)
+
 # Test the components during development
 if not _RELEASE:
     import streamlit as st

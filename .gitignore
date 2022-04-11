@@ -7,6 +7,12 @@
 *.xml
 **/.yarn/cache
 
+# release
+dist/
+unity_cv_datasetvisualizer.egg-info/
+unity_component_library/components/*/build/
+unity_vision/
+
 # node_modules for the multiple react projects for each custom component
 **/node_modules
 

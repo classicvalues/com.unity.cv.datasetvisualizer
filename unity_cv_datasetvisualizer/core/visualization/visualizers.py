@@ -69,10 +69,12 @@ def find_metadata_annotation_index(dataset, name):
         if annotation["name"] == name:
             return idx
 
+
 def draw_legacy_image_with_keypoints(
     image, annotations, templates
 ):
     return plot_keypoints(image, annotations, templates)
+
 
 def draw_image_with_keypoints(
     image, annotations, templates

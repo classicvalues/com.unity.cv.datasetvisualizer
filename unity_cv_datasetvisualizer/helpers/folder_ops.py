@@ -1,18 +1,20 @@
-﻿import sys
+﻿import platform
+import sys
 from PySide2 import QtCore
-from PySide2.QtWidgets import QApplication, QFileDialog, QWidget
-import platform
+from PySide2.QtWidgets import QApplication, QFileDialog
 
+# General setup
 if not QApplication.instance():
     app = QApplication(sys.argv)
 else:
     app = QApplication.instance()
 
+
 dialog = QFileDialog()
 dialog.setFileMode(QFileDialog.Directory)
 dialog.setWindowState(dialog.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
 
-if (platform.system() == "Windows"):
+if platform.system() == "Windows":
     dialog.setWindowFlags(dialog.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
     dialog.show()
 

@@ -3,17 +3,18 @@ from typing import Dict, Optional
 from PIL import Image
 from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
 from datasetinsights.datasets.unity_perception.captures import Captures
-import visualization.visualizers as v
+import core.visualization.visualizers as v
 
 
-class Dataset:
+class LegacyDataset:
+
     @staticmethod
-    def check_folder_valid(base_dataset_dir: str):
+    def is_folder_valid_dataset(base_dataset_dir: str):
         found_dataset = False
         found_rgb = False
+
         try:
-            children_dirs = [os.path.basename(f.path.replace("\\", "/")) for f in os.scandir(base_dataset_dir) if
-                             f.is_dir()]
+            children_dirs = [os.path.basename(f.path) for f in os.scandir(base_dataset_dir) if f.is_dir()]
             for children_dir in children_dirs:
                 if children_dir.startswith("Dataset"):
                     found_dataset = True
@@ -23,8 +24,14 @@ class Dataset:
         except PermissionError:
             return False
 
-    def __init__(self, data_root: str):        
-        if Dataset.check_folder_valid(data_root):
+    def __init__(self, data_root: str):
+        self.ann_def: Optional[AnnotationDefinitions] = None
+        self.metric_def: Optional[MetricDefinitions] = None
+        self.cap: Optional[Captures] = None
+        self.data_root: Optional[str] = None
+        self.dataset_valid: bool = False
+
+        if LegacyDataset.is_folder_valid_dataset(data_root):
             try:                
                 self.ann_def = AnnotationDefinitions(data_root)
                 self.metric_def = MetricDefinitions(data_root)
@@ -38,15 +45,8 @@ class Dataset:
                 self.cap = None
                 self.data_root = None
                 self.dataset_valid = False
-        else:            
-            self.ann_def = None
-            self.metric_def = None
-            self.cap = None
-            self.data_root = None
-            self.dataset_valid = False
 
     def get_metrics_records(self):
-        print("metric_def: ", self.metric_def)
         return self.metric_def.table.to_dict('records')
 
     def get_available_labelers(self):
@@ -110,7 +110,7 @@ class Dataset:
         :rtype: PIL.Image
         """
         captures = self.cap.filter(def_id=self.ann_def.table.to_dict('records')[0]["id"])
-        captures = captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
+        captures = captures.sort_values(by='filename', key=LegacyDataset.custom_compare_filenames).reset_index(drop=True)
         capture = captures.loc[index, "filename"]
         filename = os.path.join(self.data_root, capture)
         image = Image.open(filename)
@@ -118,7 +118,7 @@ class Dataset:
         if 'bounding box' in labelers_to_use and labelers_to_use['bounding box']:
             bounding_box_definition_id = self.get_annotation_id('bounding box')
             bb_captures = self.cap.filter(def_id=bounding_box_definition_id)
-            bb_captures = bb_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(
+            bb_captures = bb_captures.sort_values(by='filename', key=LegacyDataset.custom_compare_filenames).reset_index(
                 drop=True)
             init_definition = self.ann_def.get_definition(bounding_box_definition_id)
             label_mappings = {
@@ -134,7 +134,7 @@ class Dataset:
         if 'keypoints' in labelers_to_use and labelers_to_use['keypoints']:
             keypoints_definition_id = self.get_annotation_id('keypoints')
             kp_captures = self.cap.filter(def_id=keypoints_definition_id)
-            kp_captures = kp_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
+            kp_captures = kp_captures.sort_values(by='filename', key=LegacyDataset.custom_compare_filenames).reset_index(drop=True)
             annotations = kp_captures.loc[index, "annotation.values"]
             templates = self.ann_def.table.to_dict('records')[self.get_annotation_index('keypoints')]['spec']
             v.draw_legacy_image_with_keypoints(image, annotations, templates)
@@ -142,7 +142,7 @@ class Dataset:
         if 'bounding box 3D' in labelers_to_use and labelers_to_use['bounding box 3D']:
             bounding_box_3d_definition_id = self.get_annotation_id('bounding box 3D')
             box_captures = self.cap.filter(def_id=bounding_box_3d_definition_id)
-            box_captures = box_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
+            box_captures = box_captures.sort_values(by='filename', key=LegacyDataset.custom_compare_filenames).reset_index(drop=True)
             annotations = box_captures.loc[index, "annotation.values"]
             sensor = box_captures.loc[index, "sensor"]
             image = v.draw_legacy_image_with_box_3d(image, sensor, annotations, None)
@@ -156,7 +156,7 @@ class Dataset:
             semantic_segmentation_definition_id = self.get_annotation_id('semantic segmentation')
 
             seg_captures = self.cap.filter(def_id=semantic_segmentation_definition_id)
-            seg_captures = seg_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(drop=True)
+            seg_captures = seg_captures.sort_values(by='filename', key=LegacyDataset.custom_compare_filenames).reset_index(drop=True)
             seg_filename = os.path.join(self.data_root, seg_captures.loc[index, "annotation.filename"])
             seg = Image.open(seg_filename)
             seg.thumbnail((max_size, max_size))
@@ -169,7 +169,7 @@ class Dataset:
             instance_segmentation_definition_id = self.get_annotation_id('instance segmentation')
 
             inst_captures = self.cap.filter(def_id=instance_segmentation_definition_id)
-            inst_captures = inst_captures.sort_values(by='filename', key=Dataset.custom_compare_filenames).reset_index(
+            inst_captures = inst_captures.sort_values(by='filename', key=LegacyDataset.custom_compare_filenames).reset_index(
                 drop=True)
             inst_filename = os.path.join(self.data_root, inst_captures.loc[index, "annotation.filename"])
             inst = Image.open(inst_filename)

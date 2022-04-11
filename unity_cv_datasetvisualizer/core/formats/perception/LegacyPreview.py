@@ -227,7 +227,7 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
             st.experimental_rerun()
 
     with right:
-        if st.button('< Back'):
+        if st.button('Back'):
             UI.set_zoom_image(-1)
             UI.set_in_grid_mode(True)
             st.experimental_rerun()
@@ -271,6 +271,8 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
     rgb_filename = filename_match.group(1) if len(filename_match.groups()) > 0 else f"Image #{index}"
 
     st.image(image, caption=rgb_filename, use_column_width=True)
+
+    st.subheader("Frame Data")
 
     captures_layout = st.expander(label="Captures")
     with captures_layout:

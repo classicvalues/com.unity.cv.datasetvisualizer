@@ -138,14 +138,12 @@ def preview_dataset(data_root):
         num_rows = 5
         grid_view(num_rows, ds, labelers, annotator_dic)
 
-    UI.display_horizontal_rule()
-
 
 def _create_grid_view_controls(dataset_size: int) -> Tuple[int, int]:
     left, mid, right = st.columns([1 / 3, 1 / 3, 1 / 3])
 
     with left:
-        new_start_at = st.number_input("Start at Frame Number:", 0, dataset_size)
+        new_start_at = st.number_input("Start at Sequence Number", 0, dataset_size-1)
         if new_start_at != UI.get_starting_frame() and not st.session_state.just_opened_grid:
             UI.set_starting_frame(new_start_at)
 
@@ -153,19 +151,11 @@ def _create_grid_view_controls(dataset_size: int) -> Tuple[int, int]:
         start_at = int(UI.get_starting_frame())
 
     with right:
-        num_cols = st.number_input(label="Frames Per Row: ", min_value=1, max_value=5, step=1,
+        num_cols = st.number_input(label="Sequences Per Row", min_value=1, max_value=5, step=1,
                                    value=int(UI.get_num_cols()))
         if num_cols != (UI.get_num_cols()):
             UI.set_num_cols(num_cols)
             st.experimental_rerun()
-
-    with mid:
-        #vr = UI.get_dataset_view_range()
-        if UI.get_instance_count() > 0:
-            st.write(UI.get_instance_count())
-        # UI._display_horizontal_rule()
-        #st.markdown(f"Dataset")
-        # st.markdown(f'<div class="uui-view-range"><p>{lvr} of {hvr}</p></div>', unsafe_allow_html=True)
 
     UI.display_horizontal_rule()
 
@@ -273,8 +263,7 @@ def zoom(index: int,
             st.experimental_rerun()
 
     with top_header_l:
-        new_index = st.number_input("Go to Frame Number", 0, dataset_size - 1,
-                                    value=index)  # cc.item_selector_zoom(index, dataset_size + offset)
+        new_index = st.number_input("Sequence Number", 0, dataset_size - 1, value=index)
         if not new_index == index and not st.session_state.just_opened_zoom and not st.session_state.labelers_changed:
             st.session_state.zoom_image = new_index
             UI.set_starting_frame(index)
@@ -286,8 +275,9 @@ def zoom(index: int,
 
     index = index - offset
 
+    UI.display_horizontal_rule()
+
     frame = st.container()
-    frame.subheader("Frame Data")
     step = index % ds.solo.steps_per_sequence
     image = ds.get_solo_image_with_labelers(index, labelers, annotator_dic, max_size=2000)
     path_to_captures = glob.glob(f"{ds.solo.sequence_path}/step{step}.frame_data.json")[0]
@@ -297,10 +287,15 @@ def zoom(index: int,
         captures = json_file['captures']
         metrics = json_file['metrics']
 
-        st.text(f"Frame: {json_file['frame']} | Sequence: {json_file['sequence']} | Step: {json_file['step']}")
+        st.markdown(
+            f"<p align=\"center\">"
+            f"Sequence: {json_file['sequence']} | Step: {json_file['step']} | Frame: {json_file['frame']}"
+            f"</p>",
+            unsafe_allow_html=True
+        )
+        st.image(image, use_column_width=True)
 
-        l_i, r_i = st.columns([3/5, 2/5])
-        l_i.image(image, use_column_width=True)
+        frame.subheader("Frame Data")
 
         with st.expander("Captures", expanded=False):
             st.json(captures)

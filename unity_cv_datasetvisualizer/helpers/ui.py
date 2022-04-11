@@ -115,12 +115,12 @@ class UI:
         return st.session_state.curr_dir
 
     @staticmethod
-    def set_instance_count(instance_count: int):
+    def set_instances_count(instance_count: int):
         st.session_state.instance_counts = instance_count
 
     @staticmethod
-    def get_instance_count():
-        return st.session_state.instance_counts
+    def get_instances_count():
+        return st.session_state.instances_count
 
     @staticmethod
     def set_selected_instance(selected_instance: int):

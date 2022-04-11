@@ -280,7 +280,7 @@ def zoom(index: int,
     frame = st.container()
     step = index % ds.solo.steps_per_sequence
     image = ds.get_solo_image_with_labelers(index, labelers, annotator_dic, max_size=2000)
-    path_to_captures = glob.glob(f"{ds.solo.sequence_path}/step{step}.frame_data.json")[0]
+    path_to_captures = glob.glob(f"{ds.get_sequence_path()}/step{step}.frame_data.json")[0]
 
     with frame:
         json_file = json.load(open(path_to_captures, "r", encoding="utf8"))

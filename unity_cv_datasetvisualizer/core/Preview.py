@@ -1,4 +1,5 @@
 import os
+import sys
 
 import streamlit as st
 from PIL import Image
@@ -17,7 +18,6 @@ def preview_app(args):
     instance_list = is_ucvd_dataset(base_dataset_dir)
     chosen_instance = 0 if instance_list is None else min(AppState.get_selected_instance(), len(instance_list))
     selected_dataset_dir = base_dataset_dir if instance_list is None else instance_list[chosen_instance]
-    AppState.set_selected_dataset_directory(selected_dataset_dir)
 
     dataset_type = get_dataset_format(selected_dataset_dir)
 
@@ -49,8 +49,12 @@ def preview_app(args):
         _, r_d = st.columns(2)
         with r_d:
             if st.button("Select Dataset"):
-                AppState.show_select_folder_dialog()
-                return
+                new_folder = AppState.show_select_folder_dialog()
+
+                if new_folder is not None:
+                    AppState.set_base_dataset_directory(new_folder)
+                    st.experimental_rerun()
+                    return
 
     if base_dataset_dir is None or selected_dataset_dir is None:
         Components.draw_homepage()
@@ -82,5 +86,5 @@ if __name__ == "__main__":
 
         st.markdown(f"<style>{css_file_str}</style>", unsafe_allow_html=True)
 
-    # TODO: Support --data --> data again
-    preview_app({"data": None})
+    cli_path = sys.argv[1]
+    preview_app({"data": str(cli_path) if cli_path is not None else None})

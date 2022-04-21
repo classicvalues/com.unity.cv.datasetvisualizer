@@ -1,16 +1,20 @@
-# Unity Computer Vision Dataset Visualizer
+![](unity_cv_datasetvisualizer/docs/unity_logo.png)
 
-This Python based tool allows you to visualize datasets created using Unity Computer Vision tools.
+# Unity Computer Vision Dataset Visualizer
+A Python-based visualization tool that enables you to visually explore datasets, annotations, and metrics created using Unity's [Perception Package](https://github.com/Unity-Technologies/com.unity.perception). 
+
+![](unity_cv_datasetvisualizer/docs/showcase-5-labelers.gif)
+
 
 ## Requirements
 
 * Windows 10 or OSX
 * Chrome, Firefox, or Safari 14 and newer (Older versions of Safari are not supported)
-* Python 3.7 or 3.8. Note that this application is not compatible with Python 3.9.
+* Python 3.7 or 3.8. **Note that this application is not compatible with Python 3.9.**
 
 ## Installation
 
-We recommend using a virtual enviornment to install and run the app. One way to achieve this is using Conda.
+We recommend using a virtual environment to install and run the app. One way to achieve this is using Conda.
 
 **Step 1:** Create a virtual environment (skip to step 2 if you are setting up a virtual environment using other methods)
 
@@ -40,16 +44,34 @@ pip install unity-cv-datasetvisualizer
 
 ## Running the visualizer
 
-Run the command:
+To view helpful information in your terminal on how to use the dataset visualizer, simply run the following command: 
+`datasetvisualizer`
 
 ```bash
-datasetvisualizer
+usage: datasetvisualizer [-h] [-d DATA] [-s]
+
+Visualize annotations of synthetic datasets generated using Unity's Perception package.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d DATA, --data DATA  Path to root of dataset
+  -s, --skip-dataset    Run visualizer without selecting a dataset through the CLI
 ```
 
-Or if you want to specify a path to a dataset:
+To open the dataset visualizer (without specifying a path to a dataset), utilize the following command:
 
 ```bash
-datasetvisualizer --data="<path_to_dataset>"
+datasetvisualizer -s
+        OR
+datasetvisualizer --skip-dataset
+```
+
+To open a dataset at a particular path right from your terminal, use the command:
+
+```bash
+datasetvisualizer -d "<path_to_dataset>"
+        OR
+datasetvisualizer --data "<path_to_dataset>"
 ```
 
 This command may take a few seconds to execute. Once it is done, your browser will automatically open to `http://localhost:8501/` and display the application. If that does not happen, open a new browser tab and manually navigate to that address.

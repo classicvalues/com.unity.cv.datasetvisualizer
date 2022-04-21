@@ -205,7 +205,7 @@ class AppState:
         st.markdown(f"**Number of Frames**: {num_frames}")
 
     @staticmethod
-    def show_select_folder_dialog():
+    def show_select_folder_dialog() -> Optional[str]:
         """ Runs a subprocess that opens a file dialog to select a new directory, this will update st.session_state.curr_dir
         """
         current_dir = Path(os.path.join(os.path.dirname(os.path.realpath(__file__))))
@@ -216,8 +216,8 @@ class AppState:
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
 
-        if str(output.stdout).split("\'")[1] == "" or output.stdout is None:
-            return
+        if str(output.stdout).split("\'")[1] == "" or output.stdout is None or str(output.stdout) == 'b"':
+            return None
 
         stdout = str(os.path.abspath(str(output.stdout).split("\'")[1]))
 
@@ -225,7 +225,6 @@ class AppState:
             stdout = stdout[:-4]
         elif stdout[-2:] == '\\n':
             stdout = stdout[:-2]
-        proj_root = stdout.replace("\\", "/") + "/"
 
-        st.session_state.curr_dir = proj_root
-        st.experimental_rerun()
+        proj_root = stdout.replace("\\", "/") + "/"
+        return proj_root

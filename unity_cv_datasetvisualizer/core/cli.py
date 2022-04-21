@@ -46,7 +46,7 @@ def main(arg):
 
     final_data_path = Path(data_folder).resolve()
     if not os.path.isdir(final_data_path):
-        print("The provided dataset folder does not exist!")
+        print("\tError: The provided dataset folder does not seem to exist.")
         return
 
     preview(final_data_path)

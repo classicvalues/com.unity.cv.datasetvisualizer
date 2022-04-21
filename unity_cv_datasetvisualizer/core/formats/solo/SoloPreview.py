@@ -177,7 +177,7 @@ def _create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset
     :return: list of the containers in order from left to right, up to down
     :rtype: List[any]
     """
-    cols = st.columns(max(1, num_cols))
+    cols = st.columns(int(max(1, num_cols)))
     containers = [None] * (num_cols * num_rows)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):

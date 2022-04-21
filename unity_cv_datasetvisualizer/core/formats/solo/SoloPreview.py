@@ -3,8 +3,6 @@ import json
 from typing import List, Tuple, Dict
 
 import streamlit as st
-from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
-from datasetinsights.datasets.unity_perception.captures import Captures
 
 from helpers.ui import AppState
 from .SoloDataset import BOUNDING_BOX_TYPE, BOUNDING_BOX_3D_TYPE, KEYPOINT_TYPE, SEMANTIC_SEGMENTATION_TYPE, \

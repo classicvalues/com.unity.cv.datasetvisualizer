@@ -61,6 +61,7 @@ def preview_app(args):
         return
 
     if dataset_type is None:
+        Components.draw_homepage()
         st.sidebar.error(f"**Invalid Dataset:** Could not parse dataset from the selected directory..")
     elif dataset_type == DATASET_TYPE_SOLO:
         solo_preview_dataset(selected_dataset_dir)

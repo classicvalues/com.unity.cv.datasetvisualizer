@@ -22,9 +22,7 @@ def preview_app(args):
     dataset_type = get_dataset_format(selected_dataset_dir)
 
     with st.sidebar:
-        # Add logo
-        st.write(AppState.get_docs_path("unity_logo.png", as_str=True))
-        st.image(AppState.get_docs_path("unity_logo.png", as_str=True))
+        Components.img(AppState.get_docs_path("unity_logo.png"))
 
         # Display select dataset menu
         left_dt, right_dt = st.columns(2)
@@ -36,7 +34,7 @@ def preview_app(args):
                 Components.badge(dataset_type)
 
         if base_dataset_dir is None:
-            st.warning("No dataset selected yet.")
+            st.info("No dataset selected yet.")
         else:
             Components.scrollable_text(base_dataset_dir, label="Dataset")
 

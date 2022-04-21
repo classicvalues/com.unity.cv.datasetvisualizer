@@ -17,11 +17,11 @@ from unity_vision.protos.solo_pb2 import (
     KeypointAnnotation
 )
 
-SEMANTIC_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.SemanticSegmentationAnnotationDefinition'
-INSTANCE_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.InstanceSegmentationAnnotationDefinition'
-BOUNDING_BOX_TYPE = 'type.unity.com/unity.solo.BoundingBoxAnnotationDefinition'
-BOUNDING_BOX_3D_TYPE = 'type.unity.com/unity.solo.BoundingBox3DAnnotationDefinition'
-KEYPOINT_TYPE = 'type.unity.com/unity.solo.KeypointAnnotationDefinition'
+SEMANTIC_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.SemanticSegmentationAnnotation'
+INSTANCE_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.InstanceSegmentationAnnotation'
+BOUNDING_BOX_TYPE = 'type.unity.com/unity.solo.BoundingBoxAnnotation'
+BOUNDING_BOX_3D_TYPE = 'type.unity.com/unity.solo.BoundingBox3DAnnotation'
+KEYPOINT_TYPE = 'type.unity.com/unity.solo.KeypointAnnotation'
 
 
 class SoloDataset:

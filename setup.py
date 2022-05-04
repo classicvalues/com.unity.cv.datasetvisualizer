@@ -1,4 +1,4 @@
-from setuptools import find_packages, setup
+from setuptools import setup
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -13,11 +13,11 @@ setup(
     url="https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer",
     classifiers=[
         "Programming Language :: Python :: 3",
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: MacOS",
-        "Operating System :: Microsoft :: Windows :: Windows 10"
+        "Operating System :: Microsoft :: Windows :: Windows 10",
     ],
     packages=[
         "datasetvisualizer",
@@ -37,7 +37,7 @@ setup(
         "datasetinsights>=1.1.1",
         "PySide2>=5.15.2",
         "simple_colors",
-        "unity_vision"
+        "unity_vision",
     ],
     entry_points={
         "console_scripts": [

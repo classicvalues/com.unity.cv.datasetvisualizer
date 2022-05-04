@@ -26,7 +26,7 @@ We recommend using a virtual environment to install and run the app. One way to 
 
 * Install Conda if you do not already have it installed on your computer. We recommend [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 
-* Once Conda is installed: 
+* Once Conda is installed:
   * On Mac OS, open a new terminal window.
   * On Windows, you will need to open either Anaconda Prompt or Anaconda Powershell Prompt. These can be found in the Start menu.
 
@@ -44,13 +44,13 @@ Use the following command to install the visualizer.
 pip install unity-cv-datasetvisualizer
 ```
 
-> :information_source: On Windows, if you get an error about the system not being able to create a process when running the install command, make sure you have the latest version of Conda installed. Then create a new environment with a new name, and try the install command again. If the error persists, try leaving the Conda virtual environment using `conda deactivate` and running the command outside of any virtual environment. 
+> :information_source: On Windows, if you get an error about the system not being able to create a process when running the install command, make sure you have the latest version of Conda installed. Then create a new environment with a new name, and try the install command again. If the error persists, try leaving the Conda virtual environment using `conda deactivate` and running the command outside of any virtual environment.
 
 > :information_source: If you receive an error saying the unity-dataset-visualizer' distribution was not found, try closing your command line window, opening it again and activating the `dv_env` environment, and running the `datasetvisualizer` command again.
 
 ## Running the visualizer
 
-To view helpful information in your terminal on how to use the dataset visualizer, simply run the following command: 
+To view helpful information in your terminal on how to use the dataset visualizer, simply run the following command:
 `datasetvisualizer -h`
 
 ```bash

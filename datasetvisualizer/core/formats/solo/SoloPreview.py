@@ -1,43 +1,59 @@
 import glob
 import json
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
 
 import streamlit as st
 
+from datasetvisualizer.core.formats.solo.SoloDataset import (
+    BOUNDING_BOX_3D_TYPE,
+    BOUNDING_BOX_TYPE,
+    INSTANCE_SEGMENTATION_TYPE,
+    KEYPOINT_TYPE,
+    SEMANTIC_SEGMENTATION_TYPE,
+    SoloDataset,
+)
 from helpers.ui import AppState
-from datasetvisualizer.core.formats.solo.SoloDataset import BOUNDING_BOX_TYPE, BOUNDING_BOX_3D_TYPE, KEYPOINT_TYPE, SEMANTIC_SEGMENTATION_TYPE, \
-    INSTANCE_SEGMENTATION_TYPE
-from datasetvisualizer.core.formats.solo.SoloDataset import SoloDataset
 
 
-def create_sidebar_entry(label, annotator_dic, available_labelers, label_type, labelers):
+def create_sidebar_entry(
+    label, annotator_dic, available_labelers, label_type, labelers
+):
     states = {}
 
-    for l in available_labelers:
-        if l['type'] != label_type:
+    for cur_labeler in available_labelers:
+        if cur_labeler["type"] != label_type:
             continue
-        states['name'] = l['name']
-        states['state'] = True
+        states["name"] = cur_labeler["name"]
+        states["state"] = True
 
     if len(states) > 0:
-        labelers[label_type] = st.sidebar.checkbox(label) and st.session_state[f'{label_type}_existed_last_time']
-        st.session_state[f'{label_type}_existed_last_time'] = True
+        labelers[label_type] = (
+            st.sidebar.checkbox(label)
+            and st.session_state[f"{label_type}_existed_last_time"]
+        )
+        st.session_state[f"{label_type}_existed_last_time"] = True
 
         annotator_list = annotator_dic[label_type]
         if len(annotator_list) == 1:
             annotator = annotator_list[0]
             annotator.state = labelers[label_type]
-        if labelers[label_type] and st.session_state[f'{label_type}_existed_last_time'] and len(annotator_list) > 1:
+        if (
+            labelers[label_type]
+            and st.session_state[f"{label_type}_existed_last_time"]
+            and len(annotator_list) > 1
+        ):
             c1, c2 = st.sidebar.columns(2)
 
             for annotator in annotator_list:
                 annotator.state = c2.checkbox(annotator.name, value=True)
-                st.session_state[f'{annotator.name}_existed_last_time'] = True
+                st.session_state[f"{annotator.name}_existed_last_time"] = True
     else:
-        st.session_state[f'{label_type}_existed_last_time'] = False
+        st.session_state[f"{label_type}_existed_last_time"] = False
 
 
-def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) -> Dict[str, bool]:
+def create_sidebar_labeler_menu(
+    available_labelers: List[str], annotator_dic
+) -> Dict[str, bool]:
     """
     Creates a streamlit sidebar menu that displays checkboxes and radio buttons to select which labelers to display
 
@@ -63,37 +79,57 @@ def create_sidebar_labeler_menu(available_labelers: List[str], annotator_dic) ->
     keypoints_count = 0
 
     for labeler in available_labelers:
-        if labeler['type'] == BOUNDING_BOX_TYPE:
+        if labeler["type"] == BOUNDING_BOX_TYPE:
             bbox_count = bbox_count + 1
-        if labeler['type'] == BOUNDING_BOX_3D_TYPE:
+        if labeler["type"] == BOUNDING_BOX_3D_TYPE:
             bbox3d_count = bbox3d_count + 1
-        if labeler['type'] == KEYPOINT_TYPE:
+        if labeler["type"] == KEYPOINT_TYPE:
             keypoints_count = keypoints_count + 1
-        if labeler['type'] == INSTANCE_SEGMENTATION_TYPE:
+        if labeler["type"] == INSTANCE_SEGMENTATION_TYPE:
             instance_count = instance_count + 1
-        if labeler['type'] == SEMANTIC_SEGMENTATION_TYPE:
+        if labeler["type"] == SEMANTIC_SEGMENTATION_TYPE:
             semantic_count = semantic_count + 1
 
-    create_sidebar_entry("2D Bounding Boxes", annotator_dic, available_labelers,
-                         BOUNDING_BOX_TYPE, labelers)
-    create_sidebar_entry("3D Bounding Boxes", annotator_dic, available_labelers,
-                         BOUNDING_BOX_3D_TYPE, labelers)
-    create_sidebar_entry("Keypoints", annotator_dic, available_labelers,
-                         KEYPOINT_TYPE, labelers)
+    create_sidebar_entry(
+        "2D Bounding Boxes",
+        annotator_dic,
+        available_labelers,
+        BOUNDING_BOX_TYPE,
+        labelers,
+    )
+    create_sidebar_entry(
+        "3D Bounding Boxes",
+        annotator_dic,
+        available_labelers,
+        BOUNDING_BOX_3D_TYPE,
+        labelers,
+    )
+    create_sidebar_entry(
+        "Keypoints", annotator_dic, available_labelers, KEYPOINT_TYPE, labelers
+    )
     if instance_count > 0 or semantic_count > 0:
-        if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
+        if (
+            st.sidebar.checkbox("Segmentation", False)
+            and st.session_state.semantic_existed_last_time
+        ):
             semantic_seg_list = annotator_dic.get(SEMANTIC_SEGMENTATION_TYPE, [])
             instance_seg_list = annotator_dic.get(INSTANCE_SEGMENTATION_TYPE, [])
             segmentation_list = semantic_seg_list + instance_seg_list
-            segmentation_names = [seg.name for seg in segmentation_list if seg is not None]
+            segmentation_names = [
+                seg.name for seg in segmentation_list if seg is not None
+            ]
 
             semantic_seg_names = [seg.name for seg in semantic_seg_list]
             instance_seg_names = [seg.name for seg in instance_seg_list]
-            selected_segmentation = st.sidebar.radio("Selected Segmentation Id", segmentation_names)
+            selected_segmentation = st.sidebar.radio(
+                "Selected Segmentation Id", segmentation_names
+            )
             for annotator_segmentation in segmentation_list:
                 if annotator_segmentation.name == selected_segmentation:
                     annotator_segmentation.state = True
-                    st.session_state[f'{annotator_segmentation.name}_existed_last_time'] = True
+                    st.session_state[
+                        f"{annotator_segmentation.name}_existed_last_time"
+                    ] = True
 
             if selected_segmentation in semantic_seg_names:
                 labelers[SEMANTIC_SEGMENTATION_TYPE] = True
@@ -116,7 +152,9 @@ def preview_dataset(data_root):
     # This should probably never occur anyway as we check for validity before
     # unless our validity function incorrectly permits an invalid SOLO dataset
     if not ds.dataset_valid:
-        st.error(f"The provided folder does not seem to contain a valid SOLO dataset: {data_root}")
+        st.error(
+            f"The provided folder does not seem to contain a valid SOLO dataset: {data_root}"
+        )
         return
 
     dataset_len = ds.metadata["totalFrames"]
@@ -142,16 +180,24 @@ def _create_grid_view_controls(dataset_size: int) -> Tuple[int, int]:
     left, mid, right = st.columns([1 / 3, 1 / 3, 1 / 3])
 
     with left:
-        new_start_at = st.number_input("Start at Sequence Number", 0, dataset_size-1)
-        if new_start_at != AppState.get_starting_frame() and not st.session_state.just_opened_grid:
+        new_start_at = st.number_input("Start at Sequence Number", 0, dataset_size - 1)
+        if (
+            new_start_at != AppState.get_starting_frame()
+            and not st.session_state.just_opened_grid
+        ):
             AppState.set_starting_frame(new_start_at)
 
         st.session_state.just_opened_grid = False
         start_at = int(AppState.get_starting_frame())
 
     with right:
-        num_cols = st.number_input(label="Sequences Per Row", min_value=1, max_value=10, step=1,
-                                   value=int(AppState.get_num_cols()))
+        num_cols = st.number_input(
+            label="Sequences Per Row",
+            min_value=1,
+            max_value=10,
+            step=1,
+            value=int(AppState.get_num_cols()),
+        )
         if num_cols != (AppState.get_num_cols()):
             AppState.set_num_cols(num_cols)
             st.experimental_rerun()
@@ -161,8 +207,10 @@ def _create_grid_view_controls(dataset_size: int) -> Tuple[int, int]:
     return num_cols, start_at
 
 
-def _create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset_size: int) -> List[any]:
-    """ Creates the streamlit containers that will hold the images in a grid, this must happen before placing the images
+def _create_grid_containers(
+    num_rows: int, num_cols: int, start_at: int, dataset_size: int
+) -> List[any]:
+    """Creates the streamlit containers that will hold the images in a grid, this must happen before placing the images
     so that when clicking on "Expand frame" it doesn't need to reload every image before opening in zoom view
 
     :param num_rows: Number of rows
@@ -180,7 +228,9 @@ def _create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset
     containers = [None] * (num_cols * num_rows)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        containers[i - start_at] = cols[(i - (start_at % num_cols)) % num_cols].container()
+        containers[i - start_at] = cols[
+            (i - (start_at % num_cols)) % num_cols
+        ].container()
         # with container:
         #    cc.diver("", f"posp{i}")
 
@@ -193,7 +243,7 @@ def _create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset
 
 
 def grid_view(num_rows: int, ds: SoloDataset, labelers: Dict[str, bool], annotator_dic):
-    """ Creates the grid view streamlit components
+    """Creates the grid view streamlit components
 
     :param num_rows: Number of rows
     :type num_rows: int
@@ -211,13 +261,16 @@ def grid_view(num_rows: int, ds: SoloDataset, labelers: Dict[str, bool], annotat
     view_range = range(start_at, min(start_at + (num_cols * num_rows), dataset_size))
 
     for i in view_range:
-        image = ds.get_solo_image_with_labelers(i, labelers, annotator_dic,
-                                                max_size=get_resolution_from_num_cols(num_cols))
+        image = ds.get_solo_image_with_labelers(
+            i, labelers, annotator_dic, max_size=get_resolution_from_num_cols(num_cols)
+        )
         sequence = int(i / ds.solo.steps_per_sequence)
         step = i % ds.solo.steps_per_sequence
 
         with containers[i - start_at]:
-            st.image(image, caption=f"sequence{sequence}.step{step}", use_column_width=True)
+            st.image(
+                image, caption=f"sequence{sequence}.step{step}", use_column_width=True
+            )
             if st.button("Open", key=f"i_{i}"):
                 AppState.set_zoom_image(i)
                 st.session_state.just_opened_zoom = True
@@ -231,12 +284,10 @@ def get_resolution_from_num_cols(num_cols):
         return (6 - num_cols) * 200
 
 
-def zoom(index: int,
-         offset: int,
-         ds: SoloDataset,
-         labelers: Dict[str, bool],
-         annotator_dic):
-    """ Creates streamlit components for Zoom in view
+def zoom(
+    index: int, offset: int, ds: SoloDataset, labelers: Dict[str, bool], annotator_dic
+):
+    """Creates streamlit components for Zoom in view
 
     :param index: Index of the image
     :type index: int
@@ -254,17 +305,21 @@ def zoom(index: int,
     st.session_state.start_at = index
     st.session_state.zoom_image = index
 
-    top_header_l, _, top_header_r = st.columns([2/4, 1/4, 1/4])
+    top_header_l, _, top_header_r = st.columns([2 / 4, 1 / 4, 1 / 4])
 
     with top_header_r:
-        if st.button('Back'):
+        if st.button("Back"):
             st.session_state.zoom_image = -1
             st.session_state.just_opened_grid = True
             st.experimental_rerun()
 
     with top_header_l:
         new_index = st.number_input("Sequence Number", 0, dataset_size - 1, value=index)
-        if not new_index == index and not st.session_state.just_opened_zoom and not st.session_state.labelers_changed:
+        if (
+            not new_index == index
+            and not st.session_state.just_opened_zoom
+            and not st.session_state.labelers_changed
+        ):
             st.session_state.zoom_image = new_index
             AppState.set_starting_frame(index)
             st.experimental_rerun()
@@ -279,19 +334,23 @@ def zoom(index: int,
 
     frame = st.container()
     step = index % ds.solo.steps_per_sequence
-    image = ds.get_solo_image_with_labelers(index, labelers, annotator_dic, max_size=2000)
-    path_to_captures = glob.glob(f"{ds.get_sequence_path()}/step{step}.frame_data.json")[0]
+    image = ds.get_solo_image_with_labelers(
+        index, labelers, annotator_dic, max_size=2000
+    )
+    path_to_captures = glob.glob(
+        f"{ds.get_sequence_path()}/step{step}.frame_data.json"
+    )[0]
 
     with frame:
         json_file = json.load(open(path_to_captures, "r", encoding="utf8"))
-        captures = json_file['captures']
-        metrics = json_file['metrics']
+        captures = json_file["captures"]
+        metrics = json_file["metrics"]
 
         st.markdown(
-            f"<p align=\"center\">"
+            f'<p align="center">'
             f"Sequence: {json_file['sequence']} | Step: {json_file['step']} | Frame: {json_file['frame']}"
             f"</p>",
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
         st.image(image, use_column_width=True)
 

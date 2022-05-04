@@ -3,14 +3,18 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Dict, Optional, Union
+
 import streamlit as st
 from PIL import Image
 
 
 class Components:
-
     @staticmethod
-    def img(path: Union[str,Path], caption: Optional[str] = None, use_column_width: bool = True):
+    def img(
+        path: Union[str, Path],
+        caption: Optional[str] = None,
+        use_column_width: bool = True,
+    ):
         """
         Streamlit doesn't seem to handle Windows paths at all!
         """
@@ -26,27 +30,31 @@ class Components:
     def scrollable_text(text: str, label: str):
         st.write(
             f'<div class="uui-labeled">'
-            f'  <label>{label}</label>'
+            f"  <label>{label}</label>"
             f'  <div class="uui-scrollable-text">'
-            f'      <span>{text}</span>'
-            f'  </div>'
-            f'</div>',
-            unsafe_allow_html=True
+            f"      <span>{text}</span>"
+            f"  </div>"
+            f"</div>",
+            unsafe_allow_html=True,
         )
 
     @staticmethod
     def draw_homepage():
-        st.markdown('# Unity CV Dataset Visualizer')
-        Components.img(AppState.get_docs_path("showcase-5-labelers.gif"), caption="Visualization of various labelers", use_column_width=False)
+        st.markdown("# Unity CV Dataset Visualizer")
+        Components.img(
+            AppState.get_docs_path("showcase-5-labelers.gif"),
+            caption="Visualization of various labelers",
+            use_column_width=False,
+        )
         st.markdown(
-            "<p style=\"max-width: 600px;\">"
+            '<p style="max-width: 600px;">'
             "Unity Computer Vision team's Dataset Visualizer provides an easy way to quickly visualize annotations "
             "from synthetic data generated using the Perception Package. Even for large datasets, selectively sample "
             "frames and visualize 2D Bounding Boxes, 3D Bounding Boxes, Keypoints, Semantic Segmentation, and Instance "
             "Segmentation data for each frame. Additionally, dive into the capture and metric JSON data to see "
             "in-depth information on each frame!"
             "</p>",
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
         st.markdown("### How to Use")
         st.markdown(
@@ -57,7 +65,6 @@ class Components:
 
 
 class AppState:
-
     @staticmethod
     def get_base_dataset_directory():
         return st.session_state.curr_dir
@@ -116,7 +123,7 @@ class AppState:
 
     @staticmethod
     def get_dataset_view_range() -> [int, int]:
-        if 'dataset_size' not in st.session_state:
+        if "dataset_size" not in st.session_state:
             st.session_state.dataset_size = [0, 0]
         return st.session_state.dataset_size
 
@@ -163,30 +170,29 @@ class AppState:
         return file_path if not as_str else str(file_path)
 
     @staticmethod
-    def create_default_state(dataset_dir=''):
-        AppState.create_session_state_data({
-            'zoom_image': '-1',
-            'start_at': '0',
-            'num_cols': '3',
-            'curr_dir': dataset_dir,
-            'instances_count': 0,
-            'selected_instance': 0,
-
-            'just_opened_zoom': True,
-            'just_opened_grid': True,
-
-            'bbox2d_existed_last_time': False,
-            'bbox3d_existed_last_time': False,
-            'keypoints_existed_last_time': False,
-            'semantic_existed_last_time': False,
-
-            'previous_labelers': {},
-            'labelers_changed': False,
-        })
+    def create_default_state(dataset_dir=""):
+        AppState.create_session_state_data(
+            {
+                "zoom_image": "-1",
+                "start_at": "0",
+                "num_cols": "3",
+                "curr_dir": dataset_dir,
+                "instances_count": 0,
+                "selected_instance": 0,
+                "just_opened_zoom": True,
+                "just_opened_grid": True,
+                "bbox2d_existed_last_time": False,
+                "bbox3d_existed_last_time": False,
+                "keypoints_existed_last_time": False,
+                "semantic_existed_last_time": False,
+                "previous_labelers": {},
+                "labelers_changed": False,
+            }
+        )
 
     @staticmethod
     def create_session_state_data(attribute_values: Dict[str, any]):
-        """ Takes a dictionary of attributes to values to create the streamlit session_state object.
+        """Takes a dictionary of attributes to values to create the streamlit session_state object.
         The values are the default values
 
         :param attribute_values: dictionary of session_state parameter to default values
@@ -206,24 +212,32 @@ class AppState:
 
     @staticmethod
     def show_select_folder_dialog() -> Optional[str]:
-        """ Runs a subprocess that opens a file dialog to select a new directory, this will update st.session_state.curr_dir
+        """
+        Runs a subprocess that opens a file dialog to select a directory. Returns path to the directory or None if user
+        cancelled the operation.
         """
         current_dir = Path(os.path.join(os.path.dirname(os.path.realpath(__file__))))
         folder_ops_module_path = (current_dir / "folder_ops.py").resolve()
 
         output = subprocess.run(
             [sys.executable, str(folder_ops_module_path)],
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
         )
 
-        if str(output.stdout).split("\'")[1] == "" or output.stdout is None or str(output.stdout) == 'b"':
+        if (
+            str(output.stdout).split("'")[1] == ""
+            or output.stdout is None
+            or str(output.stdout) == 'b"'
+        ):
             return None
 
-        stdout = str(os.path.abspath(str(output.stdout).split("\'")[1]))
+        stdout = str(os.path.abspath(str(output.stdout).split("'")[1]))
 
         if stdout[-4:] == "\\r\\n":
             stdout = stdout[:-4]
-        elif stdout[-2:] == '\\n':
+        elif stdout[-2:] == "\\n":
             stdout = stdout[:-2]
 
         proj_root = stdout.replace("\\", "/") + "/"

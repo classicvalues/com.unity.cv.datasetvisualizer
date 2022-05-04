@@ -24,23 +24,40 @@ def preview(dataset_path):
         "theme.backgroundColor": "#FBFBFB",
         "theme.secondaryBackgroundColor": "#F7F2EE",
         "theme.textColor": "#262629",
-        "theme.font": "sans serif"
+        "theme.font": "sans serif",
     }
 
     for config_key in config.keys():
-        _config.set_option(config_key, config[config_key], where_defined="unity_override")
+        _config.set_option(
+            config_key, config[config_key], where_defined="unity_override"
+        )
 
     bootstrap.run(str(preview_py_file_path), "", [dataset_path], {})
 
 
 def main(arg):
     cli = argparse.ArgumentParser(
-        description="Visualize annotations of synthetic datasets generated using Unity's Perception package.")
-    cli.add_argument("-o", "--open-folder-selector", help='open native folder selection window to select path to the root of a dataset',
-                     action='store_true')
-    cli.add_argument("-s", "--skip-dataset", help='run visualizer without selecting a dataset through the CLI',
-                     action='store_true')
-    cli.add_argument("-d", "--data", type=str, help='text path to the root of a dataset', default=None)
+        description="Visualize annotations of synthetic datasets generated using Unity's Perception package."
+    )
+    cli.add_argument(
+        "-o",
+        "--open-folder-selector",
+        help="open native folder selection window to select path to the root of a dataset",
+        action="store_true",
+    )
+    cli.add_argument(
+        "-s",
+        "--skip-dataset",
+        help="run visualizer without selecting a dataset through the CLI",
+        action="store_true",
+    )
+    cli.add_argument(
+        "-d",
+        "--data",
+        type=str,
+        help="text path to the root of a dataset",
+        default=None,
+    )
     args = cli.parse_args(arg)
 
     data_folder = args.data or None

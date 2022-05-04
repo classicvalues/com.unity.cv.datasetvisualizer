@@ -1,8 +1,15 @@
 ﻿import numpy as np
+from datasetinsights.datasets.synthetic import (
+    read_bounding_box_2d,
+    read_bounding_box_3d,
+)
+from datasetinsights.io.bbox import BBox2D, BBox3D
+from datasetinsights.stats.visualization.plots import (
+    plot_bboxes,
+    plot_bboxes3d,
+    plot_keypoints,
+)
 from PIL import Image, ImageDraw
-from datasetinsights.datasets.synthetic import read_bounding_box_2d, read_bounding_box_3d
-from datasetinsights.io.bbox import BBox3D, BBox2D
-from datasetinsights.stats.visualization.plots import plot_bboxes, plot_bboxes3d, plot_keypoints
 from pyquaternion import Quaternion
 
 
@@ -21,9 +28,9 @@ def draw_legacy_image_with_boxes(
 
 
 def draw_solo_image_with_boxes(
-        image,
-        bbox_data,
-        label_mappings,
+    image,
+    bbox_data,
+    label_mappings,
 ):
     img = image.convert("RGB")  # Remove alpha channel
     bboxes = to_db_insights_bbox2d(bbox_data)
@@ -31,8 +38,8 @@ def draw_solo_image_with_boxes(
 
 
 def draw_image_with_segmentation(
-        image: Image,
-        segmentation: Image,
+    image: Image,
+    segmentation: Image,
 ):
     """
     Draws an image in streamlit with labels and bounding boxes.
@@ -70,22 +77,18 @@ def find_metadata_annotation_index(dataset, name):
             return idx
 
 
-def draw_legacy_image_with_keypoints(
-    image, annotations, templates
-):
+def draw_legacy_image_with_keypoints(image, annotations, templates):
     return plot_keypoints(image, annotations, templates)
 
 
-def draw_image_with_keypoints(
-    image, annotations, templates
-):
+def draw_image_with_keypoints(image, annotations, templates):
     return plot_keypoints_with_color(image, annotations, templates)
 
 
 def plot_keypoints_with_color(image, annotations, template, visual_width=6):
     draw = ImageDraw.Draw(image)
 
-    for figure in annotations['values']:
+    for figure in annotations["values"]:
         draw_keypoints_for_figure(image, figure, draw, template, visual_width)
 
     return image
@@ -93,26 +96,31 @@ def plot_keypoints_with_color(image, annotations, template, visual_width=6):
 
 def draw_keypoints_for_figure(image, figure, draw, template, visual_width=6):
     # load the spec
-    if 'skeleton' in template:
+    if "skeleton" in template:
         skeleton = template["skeleton"]
 
         for bone in skeleton:
             j1 = figure["keypoints"][bone["joint1"]]
             j2 = figure["keypoints"][bone["joint2"]]
 
-            if 'state' in j1 and j1['state'] == 2 and 'state' in j2 and j2['state'] == 2:
-                x1 = int(j1['location'][0])
-                y1 = int(j1['location'][1])
-                x2 = int(j2['location'][0])
-                y2 = int(j2['location'][1])
+            if (
+                "state" in j1
+                and j1["state"] == 2
+                and "state" in j2
+                and j2["state"] == 2
+            ):
+                x1 = int(j1["location"][0])
+                y1 = int(j1["location"][1])
+                x2 = int(j2["location"][0])
+                y2 = int(j2["location"][1])
 
                 color = _get_color_for_bone(bone)
                 draw.line((x1, y1, x2, y2), fill=color, width=visual_width)
 
     for k in figure["keypoints"]:
-        if 'state' in k and k['state'] == 2:
-            x = k['location'][0]
-            y = k['location'][1]
+        if "state" in k and k["state"] == 2:
+            x = k["location"][0]
+            y = k["location"][1]
 
             color = _get_color_for_keypoint(template, k)
 
@@ -131,8 +139,9 @@ def draw_keypoints_for_figure(image, figure, draw, template, visual_width=6):
 
     return image
 
+
 def _get_color_for_bone(bone):
-    """ Gets the color for the bone from the template. A bone is a visual
+    """Gets the color for the bone from the template. A bone is a visual
         connection between two keypoints in the keypoint list of the figure.
 
         bone
@@ -158,8 +167,9 @@ def _get_color_for_bone(bone):
     else:
         return 255, 0, 255, 255
 
+
 def _get_color_for_keypoint(template, keypoint):
-    """ Gets the color for the keypoint from the template. A keypoint is a
+    """Gets the color for the keypoint from the template. A keypoint is a
         location of interest inside of a figure. Keypoints are connected
         together with bones. The configuration of keypoint locations and bone
         connections are defined in a template file.
@@ -200,7 +210,7 @@ def _get_color_for_keypoint(template, keypoint):
     Returns: The color for the keypoint.
 
     """
-    if not 'index' in keypoint:
+    if "index" not in keypoint:
         return 0, 0, 255, 255
 
     node = template["keypoints"][keypoint["index"]]
@@ -210,8 +220,9 @@ def _get_color_for_keypoint(template, keypoint):
     else:
         return 0, 0, 255, 255
 
+
 def _get_color_from_color_node(color):
-    """ Gets the color from the color node in the template.
+    """Gets the color from the color node in the template.
 
     Args:
         color (tuple): The color's channel values expressed in a range from 0..1
@@ -225,17 +236,18 @@ def _get_color_from_color_node(color):
     a = color[3]
     return r, g, b, a
 
+
 def to_db_insights_bbox3d(boxes):
     bboxes = []
-    for b in boxes['values']:
-        trans = b['translation']
-        size = b['size']
-        r = b['rotation']
+    for b in boxes["values"]:
+        trans = b["translation"]
+        size = b["size"]
+        r = b["rotation"]
         rotation = Quaternion(r[3], r[0], r[1], r[2])
         box = BBox3D(
             translation=(trans[0], trans[1], trans[2]),
             size=(size[0], size[1], size[2]),
-            label=b['labelId'],
+            label=b["labelId"],
             sample_token=0,
             score=1,
             rotation=rotation,
@@ -247,13 +259,13 @@ def to_db_insights_bbox3d(boxes):
 
 def to_db_insights_bbox2d(boxes):
     bboxes = []
-    for b in boxes['values']:
+    for b in boxes["values"]:
         box = BBox2D(
-            label=b['labelId'],
-            x=b['origin'][0],
-            y=b['origin'][1],
-            w=b['dimension'][0],
-            h=b['dimension'][1],
+            label=b["labelId"],
+            x=b["origin"][0],
+            y=b["origin"][1],
+            w=b["dimension"][0],
+            h=b["dimension"][1],
             score=1,
         )
         bboxes.append(box)
@@ -264,26 +276,32 @@ def to_db_insights_bbox2d(boxes):
 # TODO Implement colors
 def draw_image_with_box_3d(image, sensor, values, colors):
     i = sensor.matrix
-    matrix = [
-        [i[0], i[1], i[2]],
-        [i[3], i[4], i[5]],
-        [i[6], i[7], i[8]]
-    ]
+    matrix = [[i[0], i[1], i[2]], [i[3], i[4], i[5]], [i[6], i[7], i[8]]]
     projection = np.array(matrix)
 
     boxes = to_db_insights_bbox3d(values)
-    img_with_boxes = plot_bboxes3d(image, boxes, projection, None,
-                                   orthographic=(sensor.projection == "Orthographic"))
+    img_with_boxes = plot_bboxes3d(
+        image,
+        boxes,
+        projection,
+        None,
+        orthographic=(sensor.projection == "Orthographic"),
+    )
     return img_with_boxes
 
 
 def draw_legacy_image_with_box_3d(image, sensor, values, colors):
-    if 'camera_intrinsic' in sensor:
+    if "camera_intrinsic" in sensor:
         projection = np.array(sensor["camera_intrinsic"])
     else:
         projection = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
     boxes = read_bounding_box_3d(values)
-    img_with_boxes = plot_bboxes3d(image, boxes, projection, None,
-                                   orthographic=(sensor["projection"] == "orthographic"))
+    img_with_boxes = plot_bboxes3d(
+        image,
+        boxes,
+        projection,
+        None,
+        orthographic=(sensor["projection"] == "orthographic"),
+    )
     return img_with_boxes

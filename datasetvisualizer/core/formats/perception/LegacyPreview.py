@@ -1,13 +1,13 @@
 import json
 import os
 import re
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
 
 import streamlit as st
 import streamlit.components.v1 as components
 
-from helpers.ui import AppState
 from datasetvisualizer.core.formats.perception.LegacyDataset import LegacyDataset
+from helpers.ui import AppState
 
 
 def preview_dataset(data_root):
@@ -49,41 +49,56 @@ def _create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, boo
 
     st.sidebar.markdown("### Visualize Labels")
     labelers = {}
-    if 'bounding box' in available_labelers:
-        labelers['bounding box'] = st.sidebar.checkbox(
-            "2D Bounding Boxes") and st.session_state.bbox2d_existed_last_time
+    if "bounding box" in available_labelers:
+        labelers["bounding box"] = (
+            st.sidebar.checkbox("2D Bounding Boxes")
+            and st.session_state.bbox2d_existed_last_time
+        )
         st.session_state.bbox2d_existed_last_time = True
     else:
         st.session_state.bbox2d_existed_last_time = False
 
-    if 'bounding box 3D' in available_labelers:
-        labelers['bounding box 3D'] = st.sidebar.checkbox(
-            "3D Bounding Boxes") and st.session_state.bbox3d_existed_last_time
+    if "bounding box 3D" in available_labelers:
+        labelers["bounding box 3D"] = (
+            st.sidebar.checkbox("3D Bounding Boxes")
+            and st.session_state.bbox3d_existed_last_time
+        )
         st.session_state.bbox3d_existed_last_time = True
     else:
         st.session_state.bbox3d_existed_last_time = False
 
-    if 'keypoints' in available_labelers:
-        labelers['keypoints'] = st.sidebar.checkbox("Keypoints") and st.session_state.keypoints_existed_last_time
+    if "keypoints" in available_labelers:
+        labelers["keypoints"] = (
+            st.sidebar.checkbox("Keypoints")
+            and st.session_state.keypoints_existed_last_time
+        )
         st.session_state.keypoints_existed_last_time = True
     else:
         st.session_state.keypoints_existed_last_time = False
 
-    if 'instance segmentation' in available_labelers and 'semantic segmentation' in available_labelers:
-        if st.sidebar.checkbox('Segmentation', False) and st.session_state.semantic_existed_last_time:
-            selected_segmentation = st.sidebar.radio("Select the segmentation type:",
-                                                     ['Semantic Segmentation', 'Instance Segmentation'],
-                                                     index=0)
-            if selected_segmentation == 'Semantic Segmentation':
-                labelers['semantic segmentation'] = True
-            elif selected_segmentation == 'Instance Segmentation':
-                labelers['instance segmentation'] = True
+    if (
+        "instance segmentation" in available_labelers
+        and "semantic segmentation" in available_labelers
+    ):
+        if (
+            st.sidebar.checkbox("Segmentation", False)
+            and st.session_state.semantic_existed_last_time
+        ):
+            selected_segmentation = st.sidebar.radio(
+                "Select the segmentation type:",
+                ["Semantic Segmentation", "Instance Segmentation"],
+                index=0,
+            )
+            if selected_segmentation == "Semantic Segmentation":
+                labelers["semantic segmentation"] = True
+            elif selected_segmentation == "Instance Segmentation":
+                labelers["instance segmentation"] = True
         st.session_state.semantic_existed_last_time = True
-    elif 'semantic segmentation' in available_labelers:
-        labelers['semantic segmentation'] = st.sidebar.checkbox("Semantic Segmentation")
+    elif "semantic segmentation" in available_labelers:
+        labelers["semantic segmentation"] = st.sidebar.checkbox("Semantic Segmentation")
         st.session_state.semantic_existed_last_time = False
-    elif 'instance segmentation' in available_labelers:
-        labelers['instance segmentation'] = st.sidebar.checkbox("Instance Segmentation")
+    elif "instance segmentation" in available_labelers:
+        labelers["instance segmentation"] = st.sidebar.checkbox("Instance Segmentation")
         st.session_state.semantic_existed_last_time = False
     else:
         st.session_state.semantic_existed_last_time = False
@@ -96,7 +111,7 @@ def _create_sidebar_labeler_menu(available_labelers: List[str]) -> Dict[str, boo
 
 
 def create_grid_view_controls(num_rows: int, dataset_size: int) -> Tuple[int, int]:
-    """ Creates the controls for grid view
+    """Creates the controls for grid view
 
     :param num_rows: number of rows to display
     :type num_rows: int
@@ -109,18 +124,27 @@ def create_grid_view_controls(num_rows: int, dataset_size: int) -> Tuple[int, in
 
     with left:
         new_start_at = st.number_input(
-            label="Start at Frame Number", value=int(AppState.get_starting_frame()),
-            min_value=0, max_value=dataset_size - 1
+            label="Start at Frame Number",
+            value=int(AppState.get_starting_frame()),
+            min_value=0,
+            max_value=dataset_size - 1,
         )
-        if not new_start_at == AppState.get_starting_frame() and not AppState.get_in_grid_mode():
+        if (
+            not new_start_at == AppState.get_starting_frame()
+            and not AppState.get_in_grid_mode()
+        ):
             AppState.set_starting_frame(new_start_at)
 
         AppState.set_in_grid_mode(False)
         start_at = int(st.session_state.start_at)
 
     with right:
-        num_cols = st.number_input(label="Frames Per Row: ", min_value=1, max_value=10,
-                                   value=int(AppState.get_num_cols()))
+        num_cols = st.number_input(
+            label="Frames Per Row: ",
+            min_value=1,
+            max_value=10,
+            value=int(AppState.get_num_cols()),
+        )
         if not num_cols == AppState.get_num_cols():
             AppState.set_num_cols(num_cols)
             st.experimental_rerun()
@@ -130,8 +154,10 @@ def create_grid_view_controls(num_rows: int, dataset_size: int) -> Tuple[int, in
     return num_cols, start_at
 
 
-def create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset_size: int) -> List[any]:
-    """ Creates the streamlit containers that will hold the images in a grid, this must happen before placing the images
+def create_grid_containers(
+    num_rows: int, num_cols: int, start_at: int, dataset_size: int
+) -> List[any]:
+    """Creates the streamlit containers that will hold the images in a grid, this must happen before placing the images
     so that when clicking on "Expand frame" it doesn't need to reload every image before opening in zoom view
 
     :param num_rows: Number of rows
@@ -148,12 +174,15 @@ def create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset_
     cols = st.columns(num_cols)
     containers = [None] * (num_cols * num_rows)
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        containers[i - start_at] = cols[(i - (start_at % num_cols)) % num_cols].container()
+        containers[i - start_at] = cols[
+            (i - (start_at % num_cols)) % num_cols
+        ].container()
         # container.write("Frame #" + str(i))
         with containers[i - start_at]:
             components.html(
                 """<p style="margin-top:35px;margin-bottom:0px;font-family:IBM Plex Sans, sans-serif"></p>""",
-                height=35)
+                height=35,
+            )
         expand_image = containers[i - start_at].button(label="Open", key="exp" + str(i))
         if expand_image:
             AppState.set_zoom_image(i)
@@ -163,7 +192,7 @@ def create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset_
 
 
 def grid_view(num_rows: int, ds: LegacyDataset, labelers: Dict[str, bool]):
-    """ Creates the grid view streamlit components
+    """Creates the grid view streamlit components
 
     :param num_rows: Number of rows
     :type num_rows: int
@@ -188,11 +217,11 @@ def grid_view(num_rows: int, ds: LegacyDataset, labelers: Dict[str, bool]):
 
 
 def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
-    """ Creates streamlit components for Zoom in view
+    """Creates streamlit components for Zoom in view
 
     :param index: Index of the image
     :type index: int
-    :param offset: Is how much the index needs to be offset, this is only needed to 
+    :param offset: Is how much the index needs to be offset, this is only needed to
                    handle multiple instances (UCVD datasets)
     :type offset: int
     :param ds: Current Dataset
@@ -206,17 +235,26 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
     AppState.set_starting_frame(index)
     AppState.set_zoom_image(index)
 
-    left, _, right = st.columns([1/3, 1/3, 1/3])
+    left, _, right = st.columns([1 / 3, 1 / 3, 1 / 3])
 
     with left:
-        new_index = st.number_input(label="Frame Number", min_value=0, value=index, max_value=(dataset_size + offset))
-        if not new_index == index and not AppState.get_in_zoom_mode() and not AppState.get_labelers_changed():
+        new_index = st.number_input(
+            label="Frame Number",
+            min_value=0,
+            value=index,
+            max_value=(dataset_size + offset),
+        )
+        if (
+            not new_index == index
+            and not AppState.get_in_zoom_mode()
+            and not AppState.get_labelers_changed()
+        ):
             AppState.set_zoom_image(new_index)
             AppState.set_starting_frame(index)
             st.experimental_rerun()
 
     with right:
-        if st.button('Back'):
+        if st.button("Back"):
             AppState.set_zoom_image(-1)
             AppState.set_in_grid_mode(True)
             st.experimental_rerun()
@@ -232,10 +270,12 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
 
     captures_dir = None
     for directory in os.walk(ds.data_root):
-        name = str(directory[0]).replace('\\', '/').split('/')[-1]
-        if name.startswith("Dataset") and \
-                "." not in name[1:] and \
-                os.path.abspath(ds.data_root) != os.path.abspath(directory[0]):
+        name = str(directory[0]).replace("\\", "/").split("/")[-1]
+        if (
+            name.startswith("Dataset")
+            and "." not in name[1:]
+            and os.path.abspath(ds.data_root) != os.path.abspath(directory[0])
+        ):
             captures_dir = os.path.abspath(directory[0])
             break
 
@@ -243,18 +283,24 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
     captures_json_file = json.load(open(path_to_captures, "r", encoding="utf8"))
     num_captures_per_file = len(captures_json_file["captures"])
     file_num = index // num_captures_per_file
-    postfix = ('000' + str(file_num))
-    postfix = postfix[len(postfix) - 3:]
-    path_to_captures = os.path.join(os.path.abspath(captures_dir), "captures_" + postfix + ".json")
+    postfix = "000" + str(file_num)
+    postfix = postfix[len(postfix) - 3 :]
+    path_to_captures = os.path.join(
+        os.path.abspath(captures_dir), "captures_" + postfix + ".json"
+    )
     captures_json_file = json.load(open(path_to_captures, "r", encoding="utf8"))
-    capture = captures_json_file['captures'][index % num_captures_per_file]
+    capture = captures_json_file["captures"][index % num_captures_per_file]
 
     metrics = []
     for i in os.listdir(captures_dir):
         path_to_metrics = os.path.join(captures_dir, i)
-        if os.path.isfile(path_to_metrics) and 'metrics_' in i and 'definitions' not in i:
+        if (
+            os.path.isfile(path_to_metrics)
+            and "metrics_" in i
+            and "definitions" not in i
+        ):
             captures_json_file = json.load(open(path_to_metrics, encoding="utf8"))
-            metrics.extend(captures_json_file['metrics'])
+            metrics.extend(captures_json_file["metrics"])
 
     filename_match = re.search("(rgb_\\d+)", capture["filename"])
     rgb_filename = f"Image #{index}"
@@ -273,9 +319,12 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
     metrics_layout = st.expander(label="Metrics")
     with metrics_layout:
         for metric in metrics:
-            if metric['sequence_id'] == capture['sequence_id'] and metric['step'] == capture['step']:
+            if (
+                metric["sequence_id"] == capture["sequence_id"]
+                and metric["step"] == capture["step"]
+            ):
                 for metric_def in ds.get_metrics_records():
-                    if metric_def['id'] == metric['metric_definition']:
+                    if metric_def["id"] == metric["metric_definition"]:
                         st.markdown(f"#### {metric_def['name']}")
                 st.write(metric)
 

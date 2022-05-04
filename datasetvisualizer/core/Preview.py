@@ -4,9 +4,16 @@ import sys
 import streamlit as st
 from PIL import Image
 
-from datasetvisualizer.core.formats.common import is_ucvd_dataset, get_dataset_format, DATASET_TYPE_SOLO, DATASET_TYPE_LEGACY
-from datasetvisualizer.core.formats.perception.LegacyPreview import preview_dataset as legacy_preview_dataset
-from datasetvisualizer.core.formats.solo.SoloPreview import preview_dataset as solo_preview_dataset
+from datasetvisualizer.core.formats.common import (
+    DATASET_TYPE_LEGACY,
+    DATASET_TYPE_SOLO,
+    get_dataset_format,
+    is_ucvd_dataset,
+)
+from datasetvisualizer.core.formats.perception.LegacyPreview import \
+    preview_dataset as legacy_preview_dataset
+from datasetvisualizer.core.formats.solo.SoloPreview import \
+    preview_dataset as solo_preview_dataset
 from datasetvisualizer.helpers.ui import AppState, Components
 
 
@@ -16,7 +23,11 @@ def preview_app(args):
 
     # Top-level wrapper for UCVD
     instance_list = is_ucvd_dataset(base_dataset_dir)
-    chosen_instance = 0 if instance_list is None else min(AppState.get_selected_instance(), len(instance_list))
+    chosen_instance = (
+        0
+        if instance_list is None
+        else min(AppState.get_selected_instance(), len(instance_list))
+    )
     selected_dataset_dir = base_dataset_dir
     if instance_list is not None and chosen_instance < len(instance_list):
         selected_dataset_dir = instance_list[chosen_instance]
@@ -64,7 +75,9 @@ def preview_app(args):
 
     if dataset_type is None:
         Components.draw_homepage()
-        st.sidebar.error(f"**Invalid Dataset:** Could not parse dataset from the selected directory..")
+        st.sidebar.error(
+            f"**Invalid Dataset:** Could not parse dataset from the selected directory.."
+        )
     elif dataset_type == DATASET_TYPE_SOLO:
         solo_preview_dataset(selected_dataset_dir)
     elif dataset_type == DATASET_TYPE_LEGACY:
@@ -75,16 +88,18 @@ if __name__ == "__main__":
     favicon = Image.open(AppState.get_docs_path("favicon.ico", as_str=True))
     st.set_page_config(
         page_title="Unity Dataset Visualizer",
-        layout="wide", page_icon=favicon,
+        layout="wide",
+        page_icon=favicon,
         initial_sidebar_state="expanded",
         menu_items={
             "About": "https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer",
             "Report a Bug": "https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer/issues/new",
-            "Get Help": "https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
-        }
+            "Get Help": "https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer/issues"
+            "?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc",
+        },
     )
 
-    with open(os.path.join(os.path.dirname(__file__), 'Global.css')) as css_file:
+    with open(os.path.join(os.path.dirname(__file__), "Global.css")) as css_file:
         css_file_str = css_file.read()
 
         st.markdown(f"<style>{css_file_str}</style>", unsafe_allow_html=True)

@@ -22,8 +22,3 @@ repos:
     rev: 3.8.3
     hooks:
     -   id: flake8
--   repo: https://github.com/timothycrosley/isort
-    rev: 4.3.21
-    hooks:
-    -   id: isort
-        args: ["-l", "88", "-m", "3", "-tc"]

@@ -10,10 +10,12 @@ from datasetvisualizer.core.formats.common import (
     get_dataset_format,
     is_ucvd_dataset,
 )
-from datasetvisualizer.core.formats.perception.LegacyPreview import \
-    preview_dataset as legacy_preview_dataset
-from datasetvisualizer.core.formats.solo.SoloPreview import \
-    preview_dataset as solo_preview_dataset
+from datasetvisualizer.core.formats.perception.LegacyPreview import (
+    preview_dataset as legacy_preview_dataset,
+)
+from datasetvisualizer.core.formats.solo.SoloPreview import (
+    preview_dataset as solo_preview_dataset,
+)
 from datasetvisualizer.helpers.ui import AppState, Components
 
 

@@ -1,14 +1,10 @@
-from unittest import TestCase, main as test_runner
+import sys
+from unittest import TestCase
 
 
 class InstallationTests(TestCase):
 
     def test_console_entrypoint(self):
-        print(help('modules'))
-
-        from unity_cv_datasetvisualizer.core.cli import entry
-        entry()
-
-
-if __name__ == '__main__':
-    test_runner()
+        from core.cli import entry
+        sys.argv = []
+        assert entry() is True

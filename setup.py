@@ -19,7 +19,15 @@ setup(
         "Operating System :: MacOS",
         "Operating System :: Microsoft :: Windows :: Windows 10"
     ],
-    packages=find_packages('.', exclude='unity_vision/*'),
+    packages=[
+        "datasetvisualizer",
+        "datasetvisualizer/core",
+        "datasetvisualizer/core/formats",
+        "datasetvisualizer/core/formats/perception",
+        "datasetvisualizer/core/formats/solo",
+        "datasetvisualizer/core/visualization",
+        "datasetvisualizer/helpers",
+    ],
     include_package_data=True,
     python_requires=">=3.7, !=3.9.*",
     install_requires=[
@@ -33,7 +41,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "datasetvisualizer = core.cli:entry",
+            "datasetvisualizer = datasetvisualizer.core.cli:entry",
         ]
     },
 )

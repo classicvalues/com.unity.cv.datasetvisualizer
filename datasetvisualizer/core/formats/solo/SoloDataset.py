@@ -1,13 +1,12 @@
 ﻿import glob
 import json
-import streamlit as st
 import os
 from enum import Enum
 from os.path import isfile, join
 from typing import Dict, Tuple, Optional
+
 from PIL import Image
 from google.protobuf.json_format import MessageToDict
-import core.visualization.visualizers as v
 from unity_vision.consumers.solo.parser import Solo
 from unity_vision.protos.solo_pb2 import (
     BoundingBox2DAnnotation,
@@ -16,6 +15,8 @@ from unity_vision.protos.solo_pb2 import (
     SemanticSegmentationAnnotation,
     KeypointAnnotation
 )
+
+import datasetvisualizer.core.visualization.visualizers as v
 
 SEMANTIC_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.SemanticSegmentationAnnotation'
 INSTANCE_SEGMENTATION_TYPE = 'type.unity.com/unity.solo.InstanceSegmentationAnnotation'

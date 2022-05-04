@@ -1,12 +1,17 @@
 import argparse
 import os
+import sys
+from pathlib import Path
+
 import streamlit.bootstrap as bootstrap
 from streamlit import config as _config
-from pathlib import Path
-import sys
+
+from datasetvisualizer.helpers import ui
 
 
 def entry():
+    if len(sys.argv) == 0:
+        return True
     main(sys.argv[1:])
 
 
@@ -29,19 +34,27 @@ def preview(dataset_path):
 
 
 def main(arg):
-    cli = argparse.ArgumentParser(description="Visualize annotations of synthetic datasets generated using Unity's Perception package.")
-    cli.add_argument("-d", "--data", type=str, help='Path to root of dataset', default=None)
-    cli.add_argument("-s", "--skip-dataset", help='Run visualizer without selecting a dataset through the CLI', action='store_true')
+    cli = argparse.ArgumentParser(
+        description="Visualize annotations of synthetic datasets generated using Unity's Perception package.")
+    cli.add_argument("-o", "--open-folder-selector", help='open native folder selection window to select path to the root of a dataset',
+                     action='store_true')
+    cli.add_argument("-s", "--skip-dataset", help='run visualizer without selecting a dataset through the CLI',
+                     action='store_true')
+    cli.add_argument("-d", "--data", type=str, help='text path to the root of a dataset', default=None)
     args = cli.parse_args(arg)
 
     data_folder = args.data or None
 
-    if args.skip_dataset:
-        preview(None)
-        return
+    if args.open_folder_selector:
+        path = ui.AppState.show_select_folder_dialog()
+        if not os.path.isdir(path):
+            print("\tError: The selected dataset folder does not seem to exist.")
+            return
+        else:
+            data_folder = path
 
-    if data_folder is None:
-        cli.print_help()
+    if args.skip_dataset or data_folder is None:
+        preview(None)
         return
 
     final_data_path = Path(data_folder).resolve()

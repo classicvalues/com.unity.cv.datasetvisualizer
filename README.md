@@ -51,7 +51,7 @@ pip install unity-cv-datasetvisualizer
 ## Running the visualizer
 
 To view helpful information in your terminal on how to use the dataset visualizer, simply run the following command: 
-`datasetvisualizer`
+`datasetvisualizer -h`
 
 ```bash
 usage: datasetvisualizer [-h] [-d DATA] [-s]
@@ -59,25 +59,15 @@ usage: datasetvisualizer [-h] [-d DATA] [-s]
 Visualize annotations of synthetic datasets generated using Unity's Perception package.
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -d DATA, --data DATA  Path to root of dataset
-  -s, --skip-dataset    Run visualizer without selecting a dataset through the CLI
+  -h, --help                    show this help message and exit
+  -d DATA, --data DATA          text path to the root of a dataset
+  -o, --open-folder-selector    open native folder selection window to select path to the root of a dataset
+  -s, --skip-dataset            run visualizer without selecting a dataset through the CLI
 ```
 
-To open the dataset visualizer (without specifying a path to a dataset), utilize the following command:
-
+### Example
 ```bash
-datasetvisualizer -s
-        OR
-datasetvisualizer --skip-dataset
-```
-
-To open a dataset at a particular path right from your terminal, use the command:
-
-```bash
-datasetvisualizer -d "<path_to_dataset>"
-        OR
-datasetvisualizer --data "<path_to_dataset>"
+datasetvisualizer -d "/Users/me/myData/perception_dataset"
 ```
 
 This command may take a few seconds to execute. Once it is done, your browser will automatically open to `http://localhost:8501/` (or if port is taken, 8502, 8503, etc.) and display the application. If that does not happen, open a new browser tab and manually navigate to that address.
@@ -86,6 +76,5 @@ Once in the application, you will be prompted to select a dataset folder. Click 
 
 ## Known issues
 
-* The tool cannot open a dataset that has no labeler data (bounding boxes, semantic segmentation, etc.)
 * On Windows: a warning appears when launching the app (This can be ignored)
 * 3D bounding boxes are not rendered properly when the camera is inside the box.

@@ -7,7 +7,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from helpers.ui import AppState
-from .LegacyDataset import LegacyDataset
+from datasetvisualizer.core.formats.perception.LegacyDataset import LegacyDataset
 
 
 def preview_dataset(data_root):

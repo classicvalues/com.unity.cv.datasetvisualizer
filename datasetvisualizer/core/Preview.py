@@ -4,10 +4,10 @@ import sys
 import streamlit as st
 from PIL import Image
 
-from formats.common import is_ucvd_dataset, get_dataset_format, DATASET_TYPE_SOLO, DATASET_TYPE_LEGACY
-from formats.perception.LegacyPreview import preview_dataset as legacy_preview_dataset
-from formats.solo.SoloPreview import preview_dataset as solo_preview_dataset
-from helpers.ui import AppState, Components
+from datasetvisualizer.core.formats.common import is_ucvd_dataset, get_dataset_format, DATASET_TYPE_SOLO, DATASET_TYPE_LEGACY
+from datasetvisualizer.core.formats.perception.LegacyPreview import preview_dataset as legacy_preview_dataset
+from datasetvisualizer.core.formats.solo.SoloPreview import preview_dataset as solo_preview_dataset
+from datasetvisualizer.helpers.ui import AppState, Components
 
 
 def preview_app(args):

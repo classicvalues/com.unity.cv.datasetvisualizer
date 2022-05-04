@@ -5,9 +5,9 @@ from typing import List, Tuple, Dict
 import streamlit as st
 
 from helpers.ui import AppState
-from .SoloDataset import BOUNDING_BOX_TYPE, BOUNDING_BOX_3D_TYPE, KEYPOINT_TYPE, SEMANTIC_SEGMENTATION_TYPE, \
+from datasetvisualizer.core.formats.solo.SoloDataset import BOUNDING_BOX_TYPE, BOUNDING_BOX_3D_TYPE, KEYPOINT_TYPE, SEMANTIC_SEGMENTATION_TYPE, \
     INSTANCE_SEGMENTATION_TYPE
-from .SoloDataset import SoloDataset
+from datasetvisualizer.core.formats.solo.SoloDataset import SoloDataset
 
 
 def create_sidebar_entry(label, annotator_dic, available_labelers, label_type, labelers):

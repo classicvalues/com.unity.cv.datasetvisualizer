@@ -1,9 +1,10 @@
 ﻿import os
 from typing import Dict, Optional
+
 from PIL import Image
 from datasetinsights.datasets.unity_perception import AnnotationDefinitions, MetricDefinitions
 from datasetinsights.datasets.unity_perception.captures import Captures
-import core.visualization.visualizers as v
+import datasetvisualizer.core.visualization.visualizers as v
 
 
 class LegacyDataset:

@@ -1,12 +1,15 @@
-<div align="center">
-![](unity_cv_datasetvisualizer/docs/unity_logo.png)
-</div>
+<p align="center">
+  <img src="unity_cv_datasetvisualizer/docs/unity_logo.png" />
+</p>
 
-# Unity Computer Vision Dataset Visualizer
-A Python-based visualization tool that enables you to visually explore datasets, annotations, and metrics created using Unity's [Perception Package](https://github.com/Unity-Technologies/com.unity.perception). 
+<h1 align="center">
+Unity Computer Vision Dataset Visualizer
+</h1>
+
+Unity Computer Vision team's python-based Dataset Visualizer provides an easy way to quickly visualize annotations from synthetic data generated using Unity's [Perception Package](https://github.com/Unity-Technologies/com.unity.perception). Even for large datasets, selectively sample frames and visualize 2D Bounding Boxes, 3D Bounding Boxes, Keypoints, Semantic Segmentation, and Instance Segmentation data for each frame. Dive into the capture and metric JSON data to see in-depth information on each frame!
 
 <div align="center">
-![](unity_cv_datasetvisualizer/docs/showcase-5-labelers.gif)
+  <img src="unity_cv_datasetvisualizer/docs/showcase-5-labelers.gif" />
 </div>
 
 ## Requirements
@@ -77,7 +80,7 @@ datasetvisualizer -d "<path_to_dataset>"
 datasetvisualizer --data "<path_to_dataset>"
 ```
 
-This command may take a few seconds to execute. Once it is done, your browser will automatically open to `http://localhost:8501/` and display the application. If that does not happen, open a new browser tab and manually navigate to that address.
+This command may take a few seconds to execute. Once it is done, your browser will automatically open to `http://localhost:8501/` (or if port is taken, 8502, 8503, etc.) and display the application. If that does not happen, open a new browser tab and manually navigate to that address.
 
 Once in the application, you will be prompted to select a dataset folder. Click ***Change Dataset*** at the left side of the screen and then select the root folder of your Unity Computer Vision dataset.
 
@@ -86,4 +89,3 @@ Once in the application, you will be prompted to select a dataset folder. Click 
 * The tool cannot open a dataset that has no labeler data (bounding boxes, semantic segmentation, etc.)
 * On Windows: a warning appears when launching the app (This can be ignored)
 * 3D bounding boxes are not rendered properly when the camera is inside the box.
-* Opening a folder that isn't a dataset folder may hang the program (The workaround is: kill the process and start it again)

@@ -3,8 +3,7 @@ import os.path
 from pathlib import Path
 from typing import List, Optional
 
-from datasetvisualizer.core.formats.perception.LegacyDataset import \
-    LegacyDataset as PerceptionDataset
+from datasetvisualizer.core.formats.perception.LegacyDataset import LegacyDataset as PerceptionDataset
 from datasetvisualizer.core.formats.solo.SoloDataset import SoloDataset
 
 DATASET_TYPE_SOLO = "SOLO"

@@ -1,10 +1,13 @@
+<div align="center">
 ![](unity_cv_datasetvisualizer/docs/unity_logo.png)
+</div>
 
 # Unity Computer Vision Dataset Visualizer
 A Python-based visualization tool that enables you to visually explore datasets, annotations, and metrics created using Unity's [Perception Package](https://github.com/Unity-Technologies/com.unity.perception). 
 
+<div align="center">
 ![](unity_cv_datasetvisualizer/docs/showcase-5-labelers.gif)
-
+</div>
 
 ## Requirements
 

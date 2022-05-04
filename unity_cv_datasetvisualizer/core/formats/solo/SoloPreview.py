@@ -114,6 +114,7 @@ def preview_dataset(data_root):
     ds = SoloDataset(data_root)
 
     # This should probably never occur anyway as we check for validity before
+    # unless our validity function incorrectly permits an invalid SOLO dataset
     if not ds.dataset_valid:
         st.error(f"The provided folder does not seem to contain a valid SOLO dataset: {data_root}")
         return
@@ -179,7 +180,7 @@ def _create_grid_containers(num_rows: int, num_cols: int, start_at: int, dataset
     containers = [None] * (num_cols * num_rows)
 
     for i in range(start_at, min(start_at + (num_cols * num_rows), dataset_size)):
-        container = containers[i - start_at] = cols[(i - (start_at % num_cols)) % num_cols].container()
+        containers[i - start_at] = cols[(i - (start_at % num_cols)) % num_cols].container()
         # with container:
         #    cc.diver("", f"posp{i}")
 
@@ -214,6 +215,7 @@ def grid_view(num_rows: int, ds: SoloDataset, labelers: Dict[str, bool], annotat
                                                 max_size=get_resolution_from_num_cols(num_cols))
         sequence = int(i / ds.solo.steps_per_sequence)
         step = i % ds.solo.steps_per_sequence
+
         with containers[i - start_at]:
             st.image(image, caption=f"sequence{sequence}.step{step}", use_column_width=True)
             if st.button("Open", key=f"i_{i}"):

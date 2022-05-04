@@ -1,10 +1,10 @@
 ﻿import glob
 import json
+import streamlit as st
 import os
-import re
-from os import listdir
+from enum import Enum
 from os.path import isfile, join
-from typing import Dict
+from typing import Dict, Tuple, Optional
 from PIL import Image
 from google.protobuf.json_format import MessageToDict
 import core.visualization.visualizers as v
@@ -26,65 +26,36 @@ KEYPOINT_TYPE = 'type.unity.com/unity.solo.KeypointAnnotation'
 
 class SoloDataset:
 
+    class SpecialFile(Enum):
+        METADATA = "metadata.json"
+        ANNOTATION_DEFINITIONS = "annotation_definitions.json"
+        METRIC_DEFINITIONS = "metric_definitions.json"
+        SENSOR_DEFINITIONS = "sensor_definitions.json"
+
+    @staticmethod
+    def get_special_file(base_dataset_dir: str, file: SpecialFile) -> Tuple[Optional[str], bool]:
+        local_version = join(base_dataset_dir, file.value)
+        ucvd_version = join(base_dataset_dir, "metadata", file.value)
+
+        if isfile(local_version):
+            return local_version, True
+        elif isfile(ucvd_version):
+            return ucvd_version, True
+        else:
+            return None, False
+
     @staticmethod
     def is_solo_dataset(base_dataset_dir: str):
 
-        found_solo_meta = False
-        found_solo_annotate = False
-        found_solo_metric = False
-        found_solo_sensor = False
-
         try:
-            meta_file = "metadata.json"
-            annotate_file = "annotation_definitions.json"
-            metric_file = "metric_definitions.json"
-            sensor_file = "sensor_definitions.json"
-
-            files = [f for f in listdir(base_dataset_dir) if isfile(join(base_dataset_dir, f))]
-            if meta_file in files:
-                found_solo_meta = True
-            if annotate_file in files:
-                found_solo_annotate = True
-            if metric_file in files:
-                found_solo_metric = True
-            if sensor_file in files:
-                found_solo_sensor = True
-
-            return found_solo_meta and found_solo_annotate and found_solo_metric and found_solo_sensor
+            return SoloDataset.get_special_file(base_dataset_dir, SoloDataset.SpecialFile.METADATA)[1] and \
+                   SoloDataset.get_special_file(base_dataset_dir, SoloDataset.SpecialFile.ANNOTATION_DEFINITIONS)[1] and \
+                   SoloDataset.get_special_file(base_dataset_dir, SoloDataset.SpecialFile.METRIC_DEFINITIONS)[1] and \
+                   SoloDataset.get_special_file(base_dataset_dir, SoloDataset.SpecialFile.SENSOR_DEFINITIONS)[1]
         except PermissionError:
             return False
         except TypeError:
             return False
-
-    @staticmethod
-    def check_if_ucvd_dataset(path: str):
-
-        def _try_parse_ucvd_instance(instance_path: str, instance_map: Dict[int, SoloDataset]):
-
-            print(os.scandir(instance_path))
-
-            for instance in [g.path for g in os.scandir(instance_path) if g.is_dir()]:
-                if re.match(".*instance_[0-9]*", instance):
-                    instance_num = int(instance[instance.rfind("instance_") + len("instance_"):])
-                    for attempt in [h.path for h in os.scandir(instance) if h.is_dir()]:
-                        if re.match(".*attempt_[0-9]*", attempt):
-                            ds = SoloDataset(attempt)
-                            if ds.dataset_valid:
-                                instance_map[instance_num] = ds
-
-        instances = {}
-        try:
-            for app_param in [f.path for f in os.scandir(path) if f.is_dir()]:
-                _try_parse_ucvd_instance(app_param, instances)
-        except Exception:
-            # The user may be selecting an actual app-param folder instead of a folder containing app-params.
-            # This can happen if the user is on MacOS and there is only one app-param folder in the downloaded dataset.
-            try:
-                _try_parse_ucvd_instance(path, instances)
-            except Exception:
-                return None
-
-        return instances if len(instances) > 0 else None
 
     def __init__(self, data_root: str):
         if SoloDataset.is_solo_dataset(data_root):
@@ -105,10 +76,10 @@ class SoloDataset:
             self.dataset_valid = False
 
     def get_annotation_definitions(self):
-        f = open(os.path.join(self.data_root, "metadata" + "." + "json"), "r")
+        f = open(SoloDataset.get_special_file(self.data_root, SoloDataset.SpecialFile.METADATA)[0], "r")
         self.metadata = json.load(f)
 
-        f = open(os.path.join(self.data_root, "annotation_definitions.json"), "r")
+        f = open(SoloDataset.get_special_file(self.data_root, SoloDataset.SpecialFile.ANNOTATION_DEFINITIONS)[0], "r")
         self.annotaion_definitions = json.load(f)
         return self.metadata
 
@@ -123,7 +94,7 @@ class SoloDataset:
             if i['@type'] == KEYPOINT_TYPE:
                 template = i['template']
                 if template['templateId'] == templateId:
-                    return template;
+                    return template
 
         return None
 
@@ -176,7 +147,7 @@ class SoloDataset:
         filename_pattern = f"{self.solo.sequence_path}"
         files = glob.glob(filename_pattern)
         if len(files) != 1:
-            raise Exception(f"Metadata file not found for sequence {self._solo.sequence_path}")
+            raise Exception(f"Metadata file not found for sequence {self.solo.sequence_path}")
         return files[0]
 
     def get_solo_image_with_labelers(

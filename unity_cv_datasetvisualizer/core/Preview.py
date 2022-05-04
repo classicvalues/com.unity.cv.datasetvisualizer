@@ -17,7 +17,9 @@ def preview_app(args):
     # Top-level wrapper for UCVD
     instance_list = is_ucvd_dataset(base_dataset_dir)
     chosen_instance = 0 if instance_list is None else min(AppState.get_selected_instance(), len(instance_list))
-    selected_dataset_dir = base_dataset_dir if instance_list is None else instance_list[chosen_instance]
+    selected_dataset_dir = base_dataset_dir
+    if instance_list is not None and chosen_instance < len(instance_list):
+        selected_dataset_dir = instance_list[chosen_instance]
 
     dataset_type = get_dataset_format(selected_dataset_dir)
 

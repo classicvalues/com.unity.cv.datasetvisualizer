@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="unity_cv_datasetvisualizer/docs/unity_logo.png" />
+  <img src="datasetvisualizer/docs/unity_logo.png" />
 </p>
 
 <h1 align="center">
@@ -9,7 +9,7 @@ Unity Computer Vision Dataset Visualizer
 Unity Computer Vision team's python-based Dataset Visualizer provides an easy way to quickly visualize annotations from synthetic data generated using Unity's [Perception Package](https://github.com/Unity-Technologies/com.unity.perception). Even for large datasets, selectively sample frames and visualize 2D Bounding Boxes, 3D Bounding Boxes, Keypoints, Semantic Segmentation, and Instance Segmentation data for each frame. Dive into the capture and metric JSON data to see in-depth information on each frame!
 
 <div align="center">
-  <img src="unity_cv_datasetvisualizer/docs/showcase-5-labelers.gif" />
+  <img src="datasetvisualizer/docs/showcase-5-labelers.gif" />
 </div>
 
 ## Requirements

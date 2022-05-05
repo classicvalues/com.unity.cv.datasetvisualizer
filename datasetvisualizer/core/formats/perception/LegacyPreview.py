@@ -238,10 +238,11 @@ def zoom(index: int, offset: int, ds: LegacyDataset, labelers: Dict[str, bool]):
     left, _, right = st.columns([1 / 3, 1 / 3, 1 / 3])
 
     with left:
+        clamped_index = max(0, min(dataset_size+offset, index))
         new_index = st.number_input(
             label="Frame Number",
             min_value=0,
-            value=index,
+            value=clamped_index,
             max_value=(dataset_size + offset),
         )
         if (

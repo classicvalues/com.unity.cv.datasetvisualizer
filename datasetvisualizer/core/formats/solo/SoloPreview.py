@@ -316,7 +316,8 @@ def zoom(
             st.experimental_rerun()
 
     with top_header_l:
-        new_index = st.number_input("Sequence Number", 0, dataset_size - 1, value=index)
+        clamped_index = max(0, min(dataset_size-1, index))
+        new_index = st.number_input("Sequence Number", 0, dataset_size - 1, value=clamped_index)
         if (
             not new_index == index
             and not st.session_state.just_opened_zoom

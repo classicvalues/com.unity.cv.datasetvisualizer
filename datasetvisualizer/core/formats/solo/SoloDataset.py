@@ -20,7 +20,7 @@ import datasetvisualizer.core.visualization.visualizers as v
 
 SEMANTIC_SEGMENTATION_TYPE = "type.unity.com/unity.solo.SemanticSegmentationAnnotation"
 INSTANCE_SEGMENTATION_TYPE = "type.unity.com/unity.solo.InstanceSegmentationAnnotation"
-BOUNDING_BOX_TYPE = "type.unity.com/unity.solo.BoundingBoxAnnotation"
+BOUNDING_BOX_TYPE = "type.unity.com/unity.solo.BoundingBox2DAnnotation"
 BOUNDING_BOX_3D_TYPE = "type.unity.com/unity.solo.BoundingBox3DAnnotation"
 KEYPOINT_TYPE = "type.unity.com/unity.solo.KeypointAnnotation"
 

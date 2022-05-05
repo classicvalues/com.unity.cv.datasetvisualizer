@@ -115,8 +115,9 @@ class LegacyDataset:
         :return: The image with the labelers
         :rtype: PIL.Image
         """
+        ann_def_dict = list(filter(lambda x: type(x['id']) == str, self.ann_def.table.to_dict("records")))
         captures = self.cap.filter(
-            def_id=self.ann_def.table.to_dict("records")[0]["id"]
+            def_id=ann_def_dict[0]["id"]
         )
         captures = captures.sort_values(
             by="filename", key=LegacyDataset.custom_compare_filenames

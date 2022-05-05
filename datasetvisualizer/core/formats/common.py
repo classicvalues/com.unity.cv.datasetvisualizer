@@ -30,15 +30,16 @@ def is_ucvd_dataset(dataset_dir: str) -> Optional[List[str]]:
         return None
 
     ps = os.path.sep
-    glob_pattern = f"{dataset_base_path}{ps}urn_app_*{ps}instance_*{ps}attempt_*{ps}"
-    glob_pattern_2 = f"{dataset_base_path}{ps}instance_*{ps}attempt_*{ps}"
+    full_ucvd_pattern = f"{dataset_base_path}{ps}urn_app_*{ps}instance_*{ps}attempt_*{ps}"
+    instance_ucvd_pattern = f"{dataset_base_path}{ps}instance_*{ps}attempt_*{ps}"
 
     instances = []
-    for instance_path in glob.glob(glob_pattern):
+    for instance_path in glob.glob(full_ucvd_pattern):
         instances.append(instance_path)
 
-    for instance_path in glob.glob(glob_pattern_2):
-        instances.append(instance_path)
+    if len(instances) <= 0:
+        for instance_path in glob.glob(instance_ucvd_pattern):
+            instances.append(instance_path)
 
     if len(instances) > 0:
         return instances

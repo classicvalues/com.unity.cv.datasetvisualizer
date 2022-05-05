@@ -21,6 +21,7 @@ setup(
     ],
     packages=[
         "datasetvisualizer",
+        "datasetvisualizer/docs",
         "datasetvisualizer/core",
         "datasetvisualizer/core/formats",
         "datasetvisualizer/core/formats/perception",

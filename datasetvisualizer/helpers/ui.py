@@ -208,7 +208,11 @@ class AppState:
 
     @staticmethod
     def display_number_frames(num_frames: int):
-        st.markdown(f"**Number of Frames**: {num_frames}")
+        st.markdown(f"**Total Frames**: {num_frames}")
+
+    @staticmethod
+    def display_sidebar_item(label: str, value: str):
+        st.markdown(f"**{label}**: {value}")
 
     @staticmethod
     def show_select_folder_dialog() -> Optional[str]:

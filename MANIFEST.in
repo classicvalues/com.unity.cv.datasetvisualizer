@@ -1,0 +1,2 @@
+include datasetvisualizer/core/Global.css
+recursive-include datasetvisualizer/docs/

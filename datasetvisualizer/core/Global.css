@@ -5,6 +5,8 @@
     word-break: break-word;
 }
 
+#MainMenu { visibility: hidden; }
+
 .element-container .row-widget.stButton {
     display: flex;
     justify-content: center;
@@ -52,6 +54,7 @@ button[title="View fullscreen"] {
 .uui-scrollable-text span {
     word-break: normal;
     padding: 0 0.5em;
+    white-space: nowrap;
 }
 
 .uui-labeled label {

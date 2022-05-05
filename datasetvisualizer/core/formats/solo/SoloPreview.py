@@ -12,7 +12,7 @@ from datasetvisualizer.core.formats.solo.SoloDataset import (
     SEMANTIC_SEGMENTATION_TYPE,
     SoloDataset,
 )
-from helpers.ui import AppState
+from datasetvisualizer.helpers.ui import AppState
 
 
 def create_sidebar_entry(
@@ -161,6 +161,8 @@ def preview_dataset(data_root):
     with st.sidebar:
         AppState.display_horizontal_rule()
         AppState.display_number_frames(dataset_len)
+        if 'scenarioRandomSeed' in ds.metadata:
+            AppState.display_sidebar_item("Random Seed", f"{ds.metadata['scenarioRandomSeed']}")
         AppState.display_horizontal_rule()
 
     available_labelers = ds.get_available_labelers()

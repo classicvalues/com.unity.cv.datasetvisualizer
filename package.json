@@ -1,0 +1,12 @@
+{
+  "name": "com.unity.cv.datasetvisualizer",
+  "repository": "https://github.com/Unity-Technologies/com.unity.cv.datasetvisualizer.git",
+  "private": true,
+  "scripts": {
+    "test": "pytest tests",
+    "uninstall": "pip uninstall -y unity_cv_datasetvisualizer unity_vision",
+    "build": "python setup.py bdist_wheel",
+    "install": "pip install --extra-index-url=https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple dist/unity_cv_datasetvisualizer-0.2.0-py3-none-any.whl",
+    "clean_build_test": "yarn uninstall && yarn build && yarn install && datasetvisualizer -h"
+  }
+}

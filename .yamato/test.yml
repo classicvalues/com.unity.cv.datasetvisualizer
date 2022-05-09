@@ -15,7 +15,7 @@ run-tests:
     # this VM is 3.8 *shrug*
     - |
       cd unity_cv_datasetvisualizer
-      python3.8 -m pip install -r requirements.txt --extra-index-url=https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple
+      python3.8 -m pip install -r requirements.txt --use-feature=2020-resolver --extra-index-url=https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple
     - /home/bokken/.local/bin/coverage run -m pytest tests/ --html=test-results/pytest/report.html --self-contained-html
     - /home/bokken/.local/bin/coverage html --dir=test-results/coverage --title=datasetvisualizer
   triggers:

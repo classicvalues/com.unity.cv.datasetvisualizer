@@ -16,3 +16,4 @@ pyquaternion>=0.9.9
 datasetinsights>=1.1.2
 PySide2>=5.15.2
 dash
+markupsafe==2.0.1
